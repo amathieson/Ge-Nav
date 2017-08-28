@@ -4,16 +4,16 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
-        version   = "1.1.0">
+        version   = "1.1.1ALPHA">
 
-    <name>GeNav</name>
+    <name>GéNav</name>
 
     <description>
-        GeNav
+        GéNav
     </description>
 
-    <author href="http://www.TPGAPP.ga" email="tpgapp@adammathieson.33m.co">
-        GeNav Team
+    <author href="http://www.TPGAPP.ga" email="GeNav@adammathieson.33m.co">
+        GéNav Team
     </author>
 
     <!-- Define the main entry-point to the application -->
