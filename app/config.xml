@@ -162,5 +162,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+	<preference name="permissions" value="none" />
 
 </widget>
