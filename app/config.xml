@@ -3,17 +3,17 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "eu.mathieson.adam.tpgapp"
+        id        = "eu.mathieson.adam.genav"
         version   = "1.0.0">
 
-    <name>TPG App</name>
+    <name>GeNav</name>
 
     <description>
-        TPG App
+        GeNav
     </description>
 
     <author href="http://www.TPGAPP.ga" email="tpgapp@adammathieson.33m.co">
-        TPG App Team
+        GeNav Team
     </author>
 
     <!-- Define the main entry-point to the application -->
