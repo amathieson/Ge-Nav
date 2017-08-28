@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="material-design-icons/iconfont/material-icons.css">
     <link rel="stylesheet" href="css/framework7-icons.css">
 
-    <title>TPG APP - Home</title>
+    <title>GeNav - Home</title>
 </head>
 <body onload="iosMaterialConv();" class="theme-red">
 <!-- Status bar overlay for full screen mode (PhoneGap) -->
@@ -124,7 +124,7 @@
                 </a>
             </li>-->
             <li>
-                <a onclick="myApp.alert('This TPG app is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. If you are curious all our developers are below the age of 16. v0.01 BETA ','About')" href="#" class="item-link close-panel">
+                <a onclick="myApp.alert('GeNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. If you are curious all our developers are below the age of 16. v0.01 BETA ','About')" href="#" class="item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">info</i>
@@ -159,7 +159,7 @@
                       Right link contains only icon - additional "icon-only" class
                       Additional "open-panel" class tells app to open panel when we click on this link
                     -->
-                    TPG App
+                    GeNav
                 </div>
                 <div class="right">
                     <!--
@@ -190,7 +190,7 @@
 <script language="javascript" src="js/lz-string.min.js"></script>
 <script type="text/javascript">
     var mainView = myApp.addView('.view-main');
-    document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+    document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
 
     function setCookie(cname, cvalue, exdays) {
 //        var d = new Date();
@@ -322,7 +322,7 @@
         title2TPGApp();
     });
     function title2TPGApp() {
-        document.getElementById("title").innerHTML = "TPG App";
+        document.getElementById("title").innerHTML = "GeNav";
         document.getElementById("navbar").style.color = "#fff";
         document.getElementById("navbar").style.backgroundColor = "#f44336";
 
