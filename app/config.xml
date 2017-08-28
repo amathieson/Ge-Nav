@@ -18,11 +18,11 @@
 
     <!-- Define the main entry-point to the application -->
     <content src="index.html" />
-	<gap:config-file platform="android" parent="/manifest" mode="delete">
+	<config-file platform="android" parent="/manifest" mode="delete">
 		<uses-permission android:name="android.permission.RECORD_AUDIO" />
 		<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	</gap:config-file>
+	</config-file>
     <!-- Customize your app and platform with the preference element. -->
     <preference name="DisallowOverscroll"         value="true" />
     <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
