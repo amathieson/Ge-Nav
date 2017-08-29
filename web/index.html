@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#f44336">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#f44336">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f44336">
+    <link id="f7-main" rel="stylesheet" href="css/framework7.material.min.css">
+    <link id="f7-colors" rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="css/my-app.css">
+    <link rel="stylesheet" href="material-design-icons/iconfont/material-icons.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+
+    <title>GeNav - Home</title>
+</head>
+<body onload="iosMaterialConv();" class="theme-red">
+<!-- Status bar overlay for full screen mode (PhoneGap) -->
+<div class="statusbar-overlay"></div>
+<!-- Panels overlay-->
+<div class="panel-overlay"></div>
+<!-- Left panel with reveal cover-->
+<div class="panel panel-left panel-cover">
+    <div class="list-block">
+        <ul>
+            <li>
+                <a href="index.html" onclick="title2TPGApp()" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">home</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Home</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.tpgapp.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">warning</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Disruptions</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.tpgapp.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">directions_bus</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Stops</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a id="favs" href="http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">favorite</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Favorite Stops</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="tickets.html" onclick="title2TPGApp()" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">credit_card</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">SMS Tickets</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="map.html" onclick="title2TPGApp()" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">map</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Maps</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <!--<li>
+                <a href="dir.html" class="item-link close-panel hosted">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">directions</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Directions</div>
+                        </div>
+                    </div>
+                </a>
+            </li>-->
+            <!--<li>
+                <a href="lang.html" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">settings</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Settings</div>
+                        </div>
+                    </div>
+                </a>
+            </li>-->
+            <li>
+                <a onclick="myApp.alert('GeNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. If you are curious all our developers are below the age of 16. v0.01 BETA ','About')" href="#" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">info</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">About</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Views -->
+<div class="views">
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar" id="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <!--
+                      Right link contains only icon - additional "icon-only" class
+                      Additional "open-panel" class tells app to open panel when we click on this link
+                    -->
+                    <div hidden id="currStopCode"></div>
+                    <div hidden id="currDepCode"></div>
+                    <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                </div>
+                <div id="title" class="center">
+                    <!--
+                      Right link contains only icon - additional "icon-only" class
+                      Additional "open-panel" class tells app to open panel when we click on this link
+                    -->
+                    GeNav
+                </div>
+                <div class="right">
+                    <!--
+                      Right link contains only icon - additional "icon-only" class
+                      Additional "open-panel" class tells app to open panel when we click on this link
+                    -->
+                    <a onclick="mainView.router.refreshPage();" href="#" class="link icon-only"><i class="material-icons">refresh</i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+            <!-- Page, "data-page" contains page name -->
+            <div data-page="index" class="page">
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <p>No routes saved yet &#9785;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<script type="text/javascript" src="js/my-app.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/AppUpdater.js"></script>
+<script language="javascript" src="js/lz-string.min.js"></script>
+<script type="text/javascript">
+    var mainView = myApp.addView('.view-main');
+    document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
+
+    function setCookie(cname, cvalue, exdays) {
+//        var d = new Date();
+//        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+//        var expires = "expires="+d.toUTCString();
+//        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        window.localStorage.setItem(cname,cvalue);
+    }
+
+    function getCookie(cname) {
+        if (window.localStorage.getItem(cname) == null) {
+            var str = "CVIN,BAIR,AERO,";
+        } else {
+            var str = window.localStorage.getItem(cname);
+        }
+//        var name = cname + "=";
+//        var ca = document.cookie.split(';');
+//        for(var i = 0; i < ca.length; i++) {
+//            var c = ca[i];
+//            while (c.charAt(0) == ' ') {
+//                c = c.substring(1);
+//            }
+//            if (c.indexOf(name) == 0) {
+//                return c.substring(name.length, c.length);
+//            }
+//        }
+//        return "";
+        return str;
+    }
+    var contains = function(needle) {
+        // Per spec, the way to identify NaN is that it is not equal to itself
+        var findNaN = needle !== needle;
+        var indexOf;
+
+        if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+            indexOf = Array.prototype.indexOf;
+        } else {
+            indexOf = function(needle) {
+                var i = -1, index = -1;
+
+                for(i = 0; i < this.length; i++) {
+                    var item = this[i];
+
+                    if((findNaN && item !== item) || item === needle) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                return index;
+            };
+        }
+
+        return indexOf.call(this, needle) > -1;
+    };
+    myApp.onPageInit('stop', function (page) {
+        isFav();
+        console.log(page);
+    });
+    function fav() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        if(contains.call(cokies,fav)){
+            remove4rmFavs();
+            document.getElementById("FABIcon").innerHTML = "favorite_outline";
+        } else {
+            add2Favs();
+            document.getElementById("FABIcon").innerHTML = "favorite";
+        }
+    }
+    function isFav() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        if(contains.call(cokies,fav)){
+            document.getElementById("FABIcon").innerHTML = "favorite";
+        } else {
+            document.getElementById("FABIcon").innerHTML = "favorite_outline";
+        }
+    }
+    function add2Favs() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        cokies.push(fav);
+        var str = cokies.join(",");
+        if (str.substring(0, 1) == ',') {
+            str = str.substring(1);
+        }
+        setCookie("TPGAPP_Favs",str,365);
+        document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        return getCookie("TPGAPP_Favs");
+    }
+    function remove4rmFavs() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        var index = cokies.indexOf(fav);
+        if (index > -1) {
+            cokies.splice(index, 1);
+        }
+        var str = cokies.join(",");
+        if (str.substring(0, 1) == ',') {
+            str = str.substring(1);
+        }
+        setCookie("TPGAPP_Favs",str,365);
+        document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        return getCookie("TPGAPP_Favs");
+    }
+    refreshdiststopdep();
+    function refreshdiststopdep() {
+        var getValue = $('.page-on-center').attr("data-page");
+        //console.log(getValue);
+        if (getValue == 'disruptions') {
+            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/disruptions.php");
+            console.log("currently reloading disruptions page");
+        }
+        if (getValue == 'dep') {
+            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/dep.php?dc=".concat(document.getElementById("currDepCode").innerHTML));
+            console.log("currently reloading dep page");
+        }
+        if (getValue == 'stop') {
+            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
+            console.log("currently reloading stop page");
+        }
+        setTimeout(function () {
+            refreshdiststopdep();
+        },30000);
+    }
+    myApp.onPageBack("stop",function (data) {
+        console.log(data + " changed the title on back.");
+        title2TPGApp();
+    });
+    function title2TPGApp() {
+        document.getElementById("title").innerHTML = "GeNav";
+        document.getElementById("navbar").style.color = "#fff";
+        document.getElementById("navbar").style.backgroundColor = "#f44336";
+
+    }
+    function updateLink() {
+        var href = "../hosted_app/dir.php?origin=";
+        href = href + encodeURIComponent(document.getElementById('origin').value) + '&destination=' + encodeURIComponent(document.getElementById('destination').value);
+        document.getElementById("btn").href = href;
+    }
+    function dirSubmit(d) {
+        var frm = $(d);
+
+        frm.submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: frm.attr('method'),
+                url: frm.attr('action'),
+                data: frm.serialize(),
+                success: function (data) {
+                    console.log('Submission was successful.');
+                    console.log(data);
+                    $("return").innerHTML = data;
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+        });
+        //console.log($.get('../inc/php/mapsCalculator.php?' + $(d).serialize()));
+    }
+    var origin = document.getElementById("origin");
+    function prefillOrigin() {
+        origin = document.getElementById("origin");
+        getLocation();
+    }
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            origin.value = "Geolocation is not supported by this browser.";
+        }
+    }
+    function showPosition(position) {
+        origin.value = position.coords.latitude + "," + position.coords.longitude;
+    }
+if (cordova.platformId == 'android') {
+    StatusBar.backgroundColorByHexString("#f44336");
+}
+    function iosMaterialConv() {
+    /*    var platform = device.platform;
+        //var platform = "ios";
+        if (platform == "ios") {
+            document.getElementById("f7-main").href = "css/framework7.ios.min.css";
+            document.getElementById("f7-colors").href = "css/framework7.ios.colors.min.css";
+        } else {
+            document.getElementById("f7-main").href = "css/framework7.material.min.css";
+            document.getElementById("f7-colors").href = "css/framework7.material.colors.min.css";
+        }*/
+    }
+    function checkConnection() {
+        var networkState = navigator.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.CELL]     = 'Cell generic connection';
+        states[Connection.NONE]     = 'No network connection';
+
+        return states[networkState];
+    }
+        $('.hosted').click(function () {
+            if (checkConnection() == 'No network connection') {
+                myApp.alert("Sorry but you cannot access this page while offline")
+            }
+        });
+document.addEventListener(
+    'deviceready',
+    function(){
+        AppUpdater('http://www.tpgapp.ga/app_update/');
+    },
+    false
+);
+</script>
+</body>
+</html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#f44336">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#f44336">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f44336">
+    <link id="f7-main" rel="stylesheet" href="css/framework7.material.min.css">
+    <link id="f7-colors" rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="css/my-app.css">
+    <link rel="stylesheet" href="material-design-icons/iconfont/material-icons.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+
+    <title>GeNav - Home</title>
+</head>
+<body onload="iosMaterialConv();" class="theme-red">
+<!-- Status bar overlay for full screen mode (PhoneGap) -->
+<div class="statusbar-overlay"></div>
+<!-- Panels overlay-->
+<div class="panel-overlay"></div>
+<!-- Left panel with reveal cover-->
+<div class="panel panel-left panel-cover">
+    <div class="list-block">
+        <ul>
+            <li>
+                <a href="index.html" onclick="title2TPGApp()" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">home</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Home</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.tpgapp.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">warning</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Disruptions</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.tpgapp.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">directions_bus</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Stops</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a id="favs" href="http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">star</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Favorite Stops</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="tickets.html" onclick="title2TPGApp()" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">credit_card</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">SMS Tickets</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="map.html" onclick="title2TPGApp()" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">map</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Maps</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <!--<li>
+                <a href="dir.html" class="item-link close-panel hosted">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">directions</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Directions</div>
+                        </div>
+                    </div>
+                </a>
+            </li>-->
+            <!--<li>
+                <a href="lang.html" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">settings</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">Settings</div>
+                        </div>
+                    </div>
+                </a>
+            </li>-->
+            <li>
+                <a onclick="myApp.alert('GeNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. If you are curious all our developers are below the age of 16. v0.01 BETA ','About')" href="#" class="item-link close-panel">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="material-icons">info</i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">About</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Views -->
+<div class="views">
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar" id="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <!--
+                      Right link contains only icon - additional "icon-only" class
+                      Additional "open-panel" class tells app to open panel when we click on this link
+                    -->
+                    <div hidden id="currStopCode"></div>
+                    <div hidden id="currDepCode"></div>
+                    <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                </div>
+                <div id="title" class="center">
+                    <!--
+                      Right link contains only icon - additional "icon-only" class
+                      Additional "open-panel" class tells app to open panel when we click on this link
+                    -->
+                    GeNav
+                </div>
+                <div class="right">
+                    <!--
+                      Right link contains only icon - additional "icon-only" class
+                      Additional "open-panel" class tells app to open panel when we click on this link
+                    -->
+                    <a onclick="mainView.router.refreshPage();" href="#" class="link icon-only"><i class="material-icons">refresh</i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+            <!-- Page, "data-page" contains page name -->
+            <div data-page="index" class="page">
+                <!-- Scrollable page content -->
+                <div class="page-content">
+                    <p>No routes saved yet &#9785;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<script type="text/javascript" src="js/my-app.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/AppUpdater.js"></script>
+<script language="javascript" src="js/lz-string.min.js"></script>
+<script type="text/javascript">
+    var mainView = myApp.addView('.view-main');
+    document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
+
+    function setCookie(cname, cvalue, exdays) {
+//        var d = new Date();
+//        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+//        var expires = "expires="+d.toUTCString();
+//        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        window.localStorage.setItem(cname,cvalue);
+    }
+
+    function getCookie(cname) {
+        if (window.localStorage.getItem(cname) == null) {
+            var str = "CVIN,BAIR,AERO,";
+        } else {
+            var str = window.localStorage.getItem(cname);
+        }
+//        var name = cname + "=";
+//        var ca = document.cookie.split(';');
+//        for(var i = 0; i < ca.length; i++) {
+//            var c = ca[i];
+//            while (c.charAt(0) == ' ') {
+//                c = c.substring(1);
+//            }
+//            if (c.indexOf(name) == 0) {
+//                return c.substring(name.length, c.length);
+//            }
+//        }
+//        return "";
+        return str;
+    }
+    var contains = function(needle) {
+        // Per spec, the way to identify NaN is that it is not equal to itself
+        var findNaN = needle !== needle;
+        var indexOf;
+
+        if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+            indexOf = Array.prototype.indexOf;
+        } else {
+            indexOf = function(needle) {
+                var i = -1, index = -1;
+
+                for(i = 0; i < this.length; i++) {
+                    var item = this[i];
+
+                    if((findNaN && item !== item) || item === needle) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                return index;
+            };
+        }
+
+        return indexOf.call(this, needle) > -1;
+    };
+    myApp.onPageInit('stop', function (page) {
+        isFav();
+        console.log(page);
+    });
+    function fav() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        if(contains.call(cokies,fav)){
+            remove4rmFavs();
+            document.getElementById("FABIcon").innerHTML = "star_border";
+        } else {
+            add2Favs();
+            document.getElementById("FABIcon").innerHTML = "star";
+        }
+    }
+    function isFav() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        if(contains.call(cokies,fav)){
+            document.getElementById("FABIcon").innerHTML = "star";
+        } else {
+            document.getElementById("FABIcon").innerHTML = "star_border";
+        }
+    }
+    function add2Favs() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        cokies.push(fav);
+        var str = cokies.join(",");
+        if (str.substring(0, 1) == ',') {
+            str = str.substring(1);
+        }
+        setCookie("TPGAPP_Favs",str,365);
+        document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        return getCookie("TPGAPP_Favs");
+    }
+    function remove4rmFavs() {
+        var fav = document.getElementById("currStopCode").innerHTML;
+        var cokies = getCookie("TPGAPP_Favs").split(",");
+        var index = cokies.indexOf(fav);
+        if (index > -1) {
+            cokies.splice(index, 1);
+        }
+        var str = cokies.join(",");
+        if (str.substring(0, 1) == ',') {
+            str = str.substring(1);
+        }
+        setCookie("TPGAPP_Favs",str,365);
+        document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        return getCookie("TPGAPP_Favs");
+    }
+    refreshdiststopdep();
+    function refreshdiststopdep() {
+        var getValue = $('.page-on-center').attr("data-page");
+        //console.log(getValue);
+        if (getValue == 'disruptions') {
+            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/disruptions.php");
+            console.log("currently reloading disruptions page");
+        }
+        if (getValue == 'dep') {
+            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/dep.php?dc=".concat(document.getElementById("currDepCode").innerHTML));
+            console.log("currently reloading dep page");
+        }
+        if (getValue == 'stop') {
+            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
+            console.log("currently reloading stop page");
+        }
+        setTimeout(function () {
+            refreshdiststopdep();
+        },30000);
+    }
+    myApp.onPageBack("stop",function (data) {
+        console.log(data + " changed the title on back.");
+        title2TPGApp();
+    });
+    function title2TPGApp() {
+        document.getElementById("title").innerHTML = "GeNav";
+        document.getElementById("navbar").style.color = "#fff";
+        document.getElementById("navbar").style.backgroundColor = "#f44336";
+
+    }
+    function updateLink() {
+        var href = "../hosted_app/dir.php?origin=";
+        href = href + encodeURIComponent(document.getElementById('origin').value) + '&destination=' + encodeURIComponent(document.getElementById('destination').value);
+        document.getElementById("btn").href = href;
+    }
+    function dirSubmit(d) {
+        var frm = $(d);
+
+        frm.submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: frm.attr('method'),
+                url: frm.attr('action'),
+                data: frm.serialize(),
+                success: function (data) {
+                    console.log('Submission was successful.');
+                    console.log(data);
+                    $("return").innerHTML = data;
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+        });
+        //console.log($.get('../inc/php/mapsCalculator.php?' + $(d).serialize()));
+    }
+    var origin = document.getElementById("origin");
+    function prefillOrigin() {
+        origin = document.getElementById("origin");
+        getLocation();
+    }
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            origin.value = "Geolocation is not supported by this browser.";
+        }
+    }
+    function showPosition(position) {
+        origin.value = position.coords.latitude + "," + position.coords.longitude;
+    }
+if (cordova.platformId == 'android') {
+    StatusBar.backgroundColorByHexString("#f44336");
+}
+    function iosMaterialConv() {
+    /*    var platform = device.platform;
+        //var platform = "ios";
+        if (platform == "ios") {
+            document.getElementById("f7-main").href = "css/framework7.ios.min.css";
+            document.getElementById("f7-colors").href = "css/framework7.ios.colors.min.css";
+        } else {
+            document.getElementById("f7-main").href = "css/framework7.material.min.css";
+            document.getElementById("f7-colors").href = "css/framework7.material.colors.min.css";
+        }*/
+    }
+    function checkConnection() {
+        var networkState = navigator.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.CELL]     = 'Cell generic connection';
+        states[Connection.NONE]     = 'No network connection';
+
+        return states[networkState];
+    }
+        $('.hosted').click(function () {
+            if (checkConnection() == 'No network connection') {
+                myApp.alert("Sorry but you cannot access this page while offline")
+            }
+        });
+document.addEventListener(
+    'deviceready',
+    function(){
+        AppUpdater('http://www.tpgapp.ga/app_update/');
+    },
+    false
+);
+</script>
+</body>
+</html>
