@@ -485,7 +485,7 @@ document.addEventListener(
                 <a id="favs" href="http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
-                            <i class="material-icons">favorite</i>
+                            <i class="material-icons">star</i>
                         </div>
                         <div class="item-inner">
                             <div class="item-title">Favorite Stops</div>
@@ -673,19 +673,19 @@ document.addEventListener(
         var cokies = getCookie("TPGAPP_Favs").split(",");
         if(contains.call(cokies,fav)){
             remove4rmFavs();
-            document.getElementById("FABIcon").innerHTML = "favorite_outline";
+            document.getElementById("FABIcon").innerHTML = "star_border";
         } else {
             add2Favs();
-            document.getElementById("FABIcon").innerHTML = "favorite";
+            document.getElementById("FABIcon").innerHTML = "star";
         }
     }
     function isFav() {
         var fav = document.getElementById("currStopCode").innerHTML;
         var cokies = getCookie("TPGAPP_Favs").split(",");
         if(contains.call(cokies,fav)){
-            document.getElementById("FABIcon").innerHTML = "favorite";
+            document.getElementById("FABIcon").innerHTML = "star";
         } else {
-            document.getElementById("FABIcon").innerHTML = "favorite_outline";
+            document.getElementById("FABIcon").innerHTML = "star_border";
         }
     }
     function add2Favs() {
