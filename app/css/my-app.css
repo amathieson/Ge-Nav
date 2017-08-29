@@ -7,3 +7,14 @@
     background-size: cover;
     background-position: center;
 }
+.crop {
+    width: 33px;
+    height: 25px;
+    overflow: hidden;
+}
+
+.crop img {
+    width: 55px;
+    height: 45px;
+    margin: -6px 0 0 -12px;
+}
