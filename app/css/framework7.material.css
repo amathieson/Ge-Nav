@@ -2809,7 +2809,7 @@ html:not(.watch-active-state) .list-block .list-button:active,
   line-height: 20px;
   position: relative;
   overflow: hidden;
-  max-height: 40px;
+  /*max-height: 40px;*/
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

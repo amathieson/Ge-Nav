@@ -248,6 +248,11 @@
     };
     myApp.onPageInit('stop', function (page) {
         isFav();
+        myApp.hidePreloader();
+        console.log(page);
+    });
+    myApp.onPageInit('dep', function (page) {
+        myApp.hidePreloader();
         console.log(page);
     });
     function fav() {

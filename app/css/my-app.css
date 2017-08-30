@@ -11,10 +11,31 @@
     width: 33px;
     height: 25px;
     overflow: hidden;
+    display: inline-block !important;
+    vertical-align: middle;
 }
 
 .crop img {
     width: 55px;
     height: 45px;
     margin: -6px 0 0 -12px;
+}
+@keyframes play34 {
+    0% {
+        background-position: 0px 0px;
+    }
+    100% {
+        background-position: -816px 0px;
+    }
+}
+.shapeshifter {
+    animation-duration: 1108ms;
+    animation-timing-function: steps(34);
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+}
+.shapeshifter.play {
+    animation-name: play34;
+    animation-iteration-count: infinite;
 }

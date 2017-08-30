@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#f44336">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#f44336">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f44336">
+    <link id="f7-main" rel="stylesheet" href="css/framework7.material.min.css">
+    <link id="f7-colors" rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <link rel="stylesheet" href="css/my-app.css">
+    <link rel="stylesheet" href="material-design-icons/iconfont/material-icons.css">
+    <link rel="stylesheet" href="css/framework7-icons.css">
+    <title>TPG App Cast - SGGA - CERN</title>
+</head>
+<body>
+<div data-page="stop" class="page">
+
+    <!-- Scrollable page content -->
+    <div class="page-content">
+        <div class="list-block media-list">
+            <ul id="deps" style="position: relative; top: -32px;">
+            </ul>
+        </div>
+        <img src="img/Powered_by_TPG_App_by_Adam_Mathieson.png" style="z-index: 300000000; position: absolute; top: 82%; left: 87%;" height="30">
+        <div style="font-size:3pt;z-index: 300000000; position: absolute; top: 93%; left: 82%; text-align: center;">
+            Powered by TPG App by Adam Mathieson<br>
+            www.tpgapp.ga/app
+        </div>
+    </div>
+
+</div>
+<!--<script src="js/jquery-3.2.1.min.js"></script>-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/framework7.min.js"></script>
+<script>
+    reloadDeps();
+    function reloadDeps() {
+        httpGetAsync("cast_stop.php",function (data) {
+            document.getElementById("deps").innerHTML = data;
+            carousel();
+        });
+        setTimeout(function () {
+            reloadDeps();
+        },5000);
+    }
+    function httpGetAsync(theUrl, callback)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        };
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous
+        xmlHttp.send(null);
+    }
+    var myIndex = 0;
+    document.onload(function () {
+        carousel();
+    });
+
+
+    function carousel() {
+        var n = 3;//number of items per slide
+        var i;
+        var x = document.getElementsByClassName("item-link");//Feed any html thing as an array in here
+        for (i = 0; i < x.length; i++) {
+            x[i].setAttribute("hidden","hidden");
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if ((myIndex)*n > x.length) {myIndex = 1}
+        for(i= 0; i< n && i*(myIndex-1)<x.length-1 ; i++)
+        {
+            var ind = (myIndex-1)*n + i;
+            console.log(x[ind]);
+            console.log(ind);
+            console.log(myIndex);
+            x[ind].removeAttribute("hidden");  //I'm rubbish with styling so you'll have to set that up
+            x[ind].style.display = "block";
+        }
+        //setTimeout(carousel, 5000); // Change image every 2 seconds
+    }
+</script>
+</body>
+</html>
