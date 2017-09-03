@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://www.tpgapp.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">warning</i>
@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://www.tpgapp.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
+                <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">directions_bus</i>
@@ -64,7 +64,7 @@
                 </a>
             </li>
             <li>
-                <a id="favs" href="http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                <a id="favs" href="http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">star</i>
@@ -124,7 +124,7 @@
                 </a>
             </li>-->
             <li>
-                <a onclick="myApp.alert('GéNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. If you are curious all our developers are below the age of 16. v0.01 BETA ','About')" href="#" class="item-link close-panel">
+                <a onclick="myApp.alert('GeNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. If you are curious all our developers are below the age of 16. v0.01 BETA ','About')" href="#" class="item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">info</i>
@@ -190,7 +190,7 @@
 <script language="javascript" src="js/lz-string.min.js"></script>
 <script type="text/javascript">
     var mainView = myApp.addView('.view-main');
-    document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
+    document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
 
     function setCookie(cname, cvalue, exdays) {
 //        var d = new Date();
@@ -248,48 +248,43 @@
     };
     myApp.onPageInit('stop', function (page) {
         isFav();
-        myApp.hidePreloader();
-        console.log(page);
-    });
-    myApp.onPageInit('dep', function (page) {
-        myApp.hidePreloader();
         console.log(page);
     });
     function fav() {
         var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("GeNav_Favs").split(",");
+        var cokies = getCookie("TPGAPP_Favs").split(",");
         if(contains.call(cokies,fav)){
             remove4rmFavs();
-            document.getElementById("FABIcon").innerHTML = "star_border";
+            document.getElementById("FABIcon").innerHTML = "favorite_outline";
         } else {
             add2Favs();
-            document.getElementById("FABIcon").innerHTML = "star";
+            document.getElementById("FABIcon").innerHTML = "favorite";
         }
     }
     function isFav() {
         var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("GeNav_Favs").split(",");
+        var cokies = getCookie("TPGAPP_Favs").split(",");
         if(contains.call(cokies,fav)){
-            document.getElementById("FABIcon").innerHTML = "star";
+            document.getElementById("FABIcon").innerHTML = "favorite";
         } else {
-            document.getElementById("FABIcon").innerHTML = "star_border";
+            document.getElementById("FABIcon").innerHTML = "favorite_outline";
         }
     }
     function add2Favs() {
         var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("GeNav_Favs").split(",");
+        var cokies = getCookie("TPGAPP_Favs").split(",");
         cokies.push(fav);
         var str = cokies.join(",");
         if (str.substring(0, 1) == ',') {
             str = str.substring(1);
         }
-        setCookie("GeNav_Favs",str,365);
-        document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
-        return getCookie("GeNav_Favs");
+        setCookie("TPGAPP_Favs",str,365);
+        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        return getCookie("TPGAPP_Favs");
     }
     function remove4rmFavs() {
         var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("GeNav_Favs").split(",");
+        var cokies = getCookie("TPGAPP_Favs").split(",");
         var index = cokies.indexOf(fav);
         if (index > -1) {
             cokies.splice(index, 1);
@@ -298,24 +293,24 @@
         if (str.substring(0, 1) == ',') {
             str = str.substring(1);
         }
-        setCookie("GeNav_Favs",str,365);
-        document.getElementById("favs").setAttribute("href","http://www.tpgapp.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
-        return getCookie("GeNav_Favs");
+        setCookie("TPGAPP_Favs",str,365);
+        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        return getCookie("TPGAPP_Favs");
     }
     refreshdiststopdep();
     function refreshdiststopdep() {
         var getValue = $('.page-on-center').attr("data-page");
         //console.log(getValue);
         if (getValue == 'disruptions') {
-            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/disruptions.php");
+            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/disruptions.php");
             console.log("currently reloading disruptions page");
         }
         if (getValue == 'dep') {
-            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/dep.php?dc=".concat(document.getElementById("currDepCode").innerHTML));
+            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/dep.php?dc=".concat(document.getElementById("currDepCode").innerHTML));
             console.log("currently reloading dep page");
         }
         if (getValue == 'stop') {
-            mainView.router.reloadPage("http://www.tpgapp.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
+            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
             console.log("currently reloading stop page");
         }
         setTimeout(function () {
@@ -327,7 +322,7 @@
         title2TPGApp();
     });
     function title2TPGApp() {
-        document.getElementById("title").innerHTML = "GéNav";
+        document.getElementById("title").innerHTML = "GeNav";
         document.getElementById("navbar").style.color = "#fff";
         document.getElementById("navbar").style.backgroundColor = "#f44336";
 
@@ -413,7 +408,7 @@ if (cordova.platformId == 'android') {
 document.addEventListener(
     'deviceready',
     function(){
-        AppUpdater('http://www.tpgapp.ga/app_update/');
+        AppUpdater('http://cityrunner-server.genav.ga/app_update/');
     },
     false
 );
