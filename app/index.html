@@ -248,6 +248,11 @@
     };
     myApp.onPageInit('stop', function (page) {
         isFav();
+        myApp.closeModal();
+        console.log(page);
+    });
+    myApp.onPageInit('dep', function (page) {
+        myApp.closeModal();
         console.log(page);
     });
     function fav() {
@@ -322,7 +327,7 @@
         title2TPGApp();
     });
     function title2TPGApp() {
-        document.getElementById("title").innerHTML = "GeNav";
+        document.getElementById("title").innerHTML = "GéNav";
         document.getElementById("navbar").style.color = "#fff";
         document.getElementById("navbar").style.backgroundColor = "#f44336";
 
