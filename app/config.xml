@@ -23,8 +23,7 @@
     <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-minSdkVersion"      value="14" />
 	<preference name="permissions" value="none" />
-	<allow-navigation href="http://*.genav.ga:8080/*" />
-	<allow-navigation href="http://*.genav.ga/*" />
+	<allow-navigation href="*" />
 
     <!-- Define a specific version of PhoneGap to build into your app. -->
     <!-- <preference name="phonegap-version"       value="cli-6.0.0" /> -->
@@ -39,6 +38,7 @@
     <plugin name="cordova-plugin-network-information" source="npm" spec="~1.2.0" />
     <!--<plugin name="cordova-plugin-splashscreen"        source="npm" spec="~3.2.1" />-->
     <plugin name="cordova-plugin-statusbar"           source="npm" spec="~2.1.2" />
+    <plugin name="cordova-plugin-whitelist"           source="npm" spec="~1.3.2" />
 
     <!-- Define app icon and splashscreen for each platform. -->
     <platform name="android">
