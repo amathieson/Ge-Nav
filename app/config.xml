@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
-        version   = "1.1.7ALPHA">
+        version   = "1.1.8ALPHA">
 
     <name>GéNav</name>
 
@@ -23,6 +23,8 @@
     <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-minSdkVersion"      value="14" />
 	<preference name="permissions" value="none" />
+	<preference name="phonegap-version" value="cli-6.1.0" />
+
 
     <!-- Define a specific version of PhoneGap to build into your app. -->
     <!-- <preference name="phonegap-version"       value="cli-6.0.0" /> -->
