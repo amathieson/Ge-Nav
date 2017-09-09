@@ -12,7 +12,7 @@
         GéNav
     </description>
 
-    <author href="http://www.TPGAPP.ga" email="GeNav@adammathieson.33m.co">
+    <author href="http://www.GeNav.ga" email="GeNav@adammathieson.33m.co">
         GéNav Team
     </author>
 
@@ -23,8 +23,7 @@
     <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-minSdkVersion"      value="14" />
 	<preference name="permissions" value="none" />
-	<preference name="phonegap-version" value="cli-6.1.0" />
-
+	<allow-navigation href="http://*.genav.ga:*/*" />
 
     <!-- Define a specific version of PhoneGap to build into your app. -->
     <!-- <preference name="phonegap-version"       value="cli-6.0.0" /> -->
