@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
-        version   = "1.2.0BETA">
+        version   = "1.2.1BETA">
 
     <name>GéNav</name>
 

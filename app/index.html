@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://cityrunner-server.genav.ga:8080/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">warning</i>
@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://cityrunner-server.genav.ga:8080/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
+                <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">directions_bus</i>
@@ -64,7 +64,7 @@
                 </a>
             </li>
             <li>
-                <a id="favs" href="http://cityrunner-server.genav.ga:8080/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                <a id="favs" href="http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">star</i>
@@ -190,7 +190,7 @@
 <script language="javascript" src="js/lz-string.min.js"></script>
 <script type="text/javascript">
     var mainView = myApp.addView('.view-main');
-    document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga:8080/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
+    document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
 
     function setCookie(cname, cvalue, exdays) {
 //        var d = new Date();
@@ -284,7 +284,7 @@
             str = str.substring(1);
         }
         setCookie("TPGAPP_Favs",str,365);
-        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga:8080/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
         return getCookie("TPGAPP_Favs");
     }
     function remove4rmFavs() {
@@ -299,7 +299,7 @@
             str = str.substring(1);
         }
         setCookie("TPGAPP_Favs",str,365);
-        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga:8080/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
         return getCookie("TPGAPP_Favs");
     }
     refreshdiststopdep();
@@ -307,15 +307,15 @@
         var getValue = $('.page-on-center').attr("data-page");
         //console.log(getValue);
         if (getValue == 'disruptions') {
-            mainView.router.reloadPage("http://cityrunner-server.genav.ga:8080/hosted_app/disruptions.php");
+            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/disruptions.php");
             console.log("currently reloading disruptions page");
         }
         if (getValue == 'dep') {
-            mainView.router.reloadPage("http://cityrunner-server.genav.ga:8080/hosted_app/dep.php?dc=".concat(document.getElementById("currDepCode").innerHTML));
+            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/dep.php?dc=".concat(document.getElementById("currDepCode").innerHTML));
             console.log("currently reloading dep page");
         }
         if (getValue == 'stop') {
-            mainView.router.reloadPage("http://cityrunner-server.genav.ga:8080/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
+            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
             console.log("currently reloading stop page");
         }
         setTimeout(function () {
@@ -413,7 +413,7 @@ if (cordova.platformId == 'android') {
 document.addEventListener(
     'deviceready',
     function(){
-        AppUpdater('http://cityrunner-server.genav.ga:8080/app_update/');
+        AppUpdater('http://cityrunner-server.genav.ga/app_update/');
     },
     false
 );
