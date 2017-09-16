@@ -40,7 +40,7 @@
     <plugin name="cordova-plugin-statusbar"           source="npm" spec="~2.1.2" />
     <plugin name="cordova-plugin-whitelist"           source="npm" spec="~1.3.2" />
 	<plugin name="com.hughisaacs2.cordova.plugins.androidtvplugin" spec="https://github.com/hughisaacs2/Cordova-Android-TV-Plugin.git" />
-	<plugin name="Storage" value="org.apache.cordova.Storage" />
+	<plugin name="org.apache.cordova.Storage" />
 	
 
     <!-- Define app icon and splashscreen for each platform. -->
