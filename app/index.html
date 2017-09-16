@@ -177,6 +177,7 @@
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <p>No routes saved yet &#9785;</p>
+                    <a href="tmp.html">tmp</a>
                 </div>
             </div>
         </div>
@@ -184,14 +185,45 @@
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/framework7.min.js"></script>
-<script type="text/javascript" src="js/my-app.js"></script>
+<!--<script type="text/javascript" src="js/my-app.js"></script>-->
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/AppUpdater.js"></script>
 <script language="javascript" src="js/lz-string.min.js"></script>
 <script type="text/javascript">
-    var mainView = myApp.addView('.view-main');
-    document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
+    // Initialize your app
+    var myApp = new Framework7(
+          {
+//            material: true,
+            pushState: true
+          }
+    );
+    // Export selectors engine
+    var $$ = Dom7;
 
+    var mainView = myApp.addView('.view-main');
+    var fruits = ('Apple Apricot Avocado Banana Melon Orange Peach Pear Pineapple').split(' ');
+    myApp.onPageReinit  ("tmp", function (page) {
+        var fruits = ('Apple Apricot Avocado Banana Melon Orange Peach Pear Pineapple').split(' ');
+        // Simple Dropdown
+        myApp.autocomplete({
+            input: '#autocomplete-dropdown',
+            openIn: 'dropdown',
+            source: function (autocomplete, query, render) {
+                var results = [];
+                if (query.length === 0) {
+                    render(results);
+                    return;
+                }
+                // Find matched items
+                for (var i = 0; i < fruits.length; i++) {
+                    if (fruits[i].toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(fruits[i]);
+                }
+                // Render items by passing array with result items
+                render(results);
+            }
+        });
+    });
+    document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
     function setCookie(cname, cvalue, exdays) {
 //        var d = new Date();
 //        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -330,6 +362,7 @@
         document.getElementById("title").innerHTML = "GéNav";
         document.getElementById("navbar").style.color = "#fff";
         document.getElementById("navbar").style.backgroundColor = "#f44336";
+        StatusBar.backgroundColorByHexString("#ba000d");
 
     }
     function updateLink() {
@@ -376,9 +409,6 @@
     function showPosition(position) {
         origin.value = position.coords.latitude + "," + position.coords.longitude;
     }
-if (cordova.platformId == 'android') {
-    StatusBar.backgroundColorByHexString("#f44336");
-}
     function iosMaterialConv() {
     /*    var platform = device.platform;
         //var platform = "ios";
