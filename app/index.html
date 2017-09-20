@@ -34,43 +34,43 @@
                             <i class="material-icons">home</i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">Home</div>
+                            <div class="item-title" translateID="nav-Home">Home</div>
                         </div>
                     </div>
                 </a>
             </li>
             <li>
-                <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">warning</i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">Disruptions</div>
+                            <div class="item-title" translateID="nav-Disruptions">Disruptions</div>
                         </div>
                     </div>
                 </a>
             </li>
             <li>
-                <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
+                <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">directions_bus</i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">Stops</div>
+                            <div class="item-title" translateID="nav-Stops">Stops</div>
                         </div>
                     </div>
                 </a>
             </li>
             <li>
-                <a id="favs" href="http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader();setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
+                <a id="favs" href="http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">star</i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">Favorite Stops</div>
+                            <div class="item-title" translateID="nav-Favs">Favorite Stops</div>
                         </div>
                     </div>
                 </a>
@@ -82,7 +82,7 @@
                             <i class="material-icons">credit_card</i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">SMS Tickets</div>
+                            <div class="item-title" translateID="nav-SMS">SMS Tickets</div>
                         </div>
                     </div>
                 </a>
@@ -94,7 +94,7 @@
                             <i class="material-icons">map</i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">Maps</div>
+                            <div class="item-title" translateID="nav-Maps">Maps</div>
                         </div>
                     </div>
                 </a>
@@ -124,13 +124,13 @@
                 </a>
             </li>-->
             <li>
-                <a onclick="myApp.alert('GeNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. If you are curious all our developers are below the age of 16. v0.01 BETA ','About')" href="#" class="item-link close-panel">
+                <a onclick="myApp.alert(translateStr('About-Text',currentLang),translateStr('nav-About',currentLang))" href="#" class="item-link close-panel">
                     <div class="item-content">
                         <div class="item-media">
                             <i class="material-icons">info</i>
                         </div>
                         <div class="item-inner">
-                            <div class="item-title">About</div>
+                            <div class="item-title" translateID="nav-About">About</div>
                         </div>
                     </div>
                 </a>
@@ -177,6 +177,7 @@
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <p>No routes saved yet &#9785;</p>
+                    <!--<a href="tmp.html">tmp</a>-->
                 </div>
             </div>
         </div>
@@ -188,6 +189,9 @@
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/AppUpdater.js"></script>
 <script language="javascript" src="js/lz-string.min.js"></script>
+<script language="javascript" src="js/translate.js"></script>
+<script language="javascript" src="js/strings.js"></script>
+
 <script type="text/javascript">
     // Initialize your app
     var myApp = new Framework7(
@@ -200,6 +204,12 @@
     var $$ = Dom7;
 
     var mainView = myApp.addView('.view-main');
+    var currentLang = "BG";
+    // Option 1. Using one 'page:init' handler for all pages (recommended way):
+    $$(document).on('page:init', function (e) {
+        // Do something here when page loaded and initialized
+        translatePage(currentLang);
+    });
     var fruits = ('Apple Apricot Avocado Banana Melon Orange Peach Pear Pineapple').split(' ');
     myApp.onPageReinit  ("tmp", function (page) {
         var fruits = ('Apple Apricot Avocado Banana Melon Orange Peach Pear Pineapple').split(' ');
@@ -286,6 +296,16 @@
         myApp.closeModal();
         console.log(page);
     });
+    myApp.onPageAfterAnimation('times', function (page) {
+        myApp.closeModal();
+        document.getElementById("search").setAttribute("placeholder", translateStr("search", currentLang));
+        console.log(page);
+    });
+    myApp.onPageAfterAnimation('favs', function (page) {
+        myApp.closeModal();
+        document.getElementById("search").setAttribute("placeholder", translateStr("search", currentLang));
+        console.log(page);
+    });
     function fav() {
         var fav = document.getElementById("currStopCode").innerHTML;
         var cokies = getCookie("TPGAPP_Favs").split(",");
@@ -361,7 +381,11 @@
         document.getElementById("title").innerHTML = "GéNav";
         document.getElementById("navbar").style.color = "#fff";
         document.getElementById("navbar").style.backgroundColor = "#f44336";
-        StatusBar.backgroundColorByHexString("#ba000d");
+        try {
+            StatusBar.backgroundColorByHexString("#ba000d");
+        } catch(e) {
+            console.error(e);
+        }
 
     }
     function updateLink() {
