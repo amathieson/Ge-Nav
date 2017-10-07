@@ -14,6 +14,8 @@
     <link id="f7-colors" rel="stylesheet" href="css/framework7.material.colors.min.css">
     <link rel="stylesheet" href="css/my-app.css">
     <link rel="stylesheet" href="material-design-icons/iconfont/material-icons.css">
+	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" -->
+      <!-- rel="stylesheet"> -->
     <link rel="stylesheet" href="css/framework7-icons.css">
 
     <title>GéNav - Home</title>
@@ -151,6 +153,7 @@
                       Additional "open-panel" class tells app to open panel when we click on this link
                     -->
                     <div hidden id="currStopCode"></div>
+                    <div hidden id="currStopName"></div>
                     <div hidden id="currDepCode"></div>
                     <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
                 </div>
@@ -239,7 +242,31 @@
 //        var expires = "expires="+d.toUTCString();
 //        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         window.localStorage.setItem(cname,cvalue);
+        writeFile("files/" + cname + ".txt", cvalue)
     }
+    function writeFile(fileEntry, dataObj) {
+        // Create a FileWriter object for our FileEntry (log.txt).
+        fileEntry.createWriter(function (fileWriter) {
+
+            fileWriter.onwriteend = function() {
+                console.log("Successful file write...");
+                readFile(fileEntry);
+            };
+
+            fileWriter.onerror = function (e) {
+                console.log("Failed file write: " + e.toString());
+            };
+
+            // If data object is not passed in,
+            // create a new Blob instead.
+            if (!dataObj) {
+                dataObj = new Blob(['some file data'], { type: 'text/plain' });
+            }
+
+            fileWriter.write(dataObj);
+        });
+    }
+
 
     function getCookie(cname) {
         if (window.localStorage.getItem(cname) == null) {
@@ -369,13 +396,24 @@
             mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
             console.log("currently reloading stop page");
         }
-        setTimeout(function () {
-            refreshdiststopdep();
-        },30000);
+        //setTimeout(function () {
+        //    refreshdiststopdep();
+        //},30000);
     }
     myApp.onPageBack("stop",function (data) {
         console.log(data + " changed the title on back.");
         title2TPGApp();
+    });
+    myApp.onPageBack("dep",function (data) {
+        console.log(data + " changed the title on back.");
+        document.getElementById("title").innerHTML = document.getElementById("currStopCode").innerHTML + " - " + document.getElementById("currStopName").innerHTML;
+        document.getElementById("navbar").style.color = "#fff";
+        document.getElementById("navbar").style.backgroundColor = "#f44336";
+        try {
+            StatusBar.backgroundColorByHexString("#ba000d");
+        } catch(e) {
+            console.error(e);
+        }
     });
     function title2TPGApp() {
         document.getElementById("title").innerHTML = "GéNav";
@@ -460,7 +498,7 @@
     }
         $('.hosted').click(function () {
             if (checkConnection() == 'No network connection') {
-                myApp.alert("Sorry but you cannot access this page while offline")
+                myApp.alert("Sorry but you cannot access this page while offline", "Sorry");
             }
         });
 document.addEventListener(
