@@ -109,13 +109,6 @@ var translation_Lookup= {
         "EN": "Licence plate:",
         "BG": "Регистрационни номера:"
     },
-    "stop-count-change": {
-        "EN": "Why does the stop count change?",
-        "BG": "Защо се сменя броя на спирки?"
-    },
-    "stop-count-change-text": {
-        "EN": "The stop count displayed on the Stops page is different on different days because TPG occasionally close some of their stops. It can also change during the day if they send the wrong data to our servers.",
-    },
     "search": {
         "EN": "Search",
         "BG": "Търсене"
