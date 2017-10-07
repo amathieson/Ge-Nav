@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         version   = "1.2.10BETA">
 =======
         version   = "1.2.6BETA">
@@ -14,6 +15,9 @@
 =======
         version   = "1.2.8BETA">
 >>>>>>> parent of b7dd764e... Revert "fix config"
+=======
+        version   = "1.2.7BETA">
+>>>>>>> parent of 98448e1e... fix config
 =======
         version   = "1.2.7BETA">
 >>>>>>> parent of 98448e1e... fix config
@@ -36,12 +40,17 @@
     <preference name="android-minSdkVersion"      value="14" />
 	<preference name="permissions" value="none" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<preference name="phonegap-version" value="cli-6.1.0" />
 <<<<<<< HEAD
 	<preference name="StatusBarBackgroundColor" value="#ba000d" />
 =======
 >>>>>>> parent of b7dd764e... Revert "fix config"
 
+=======
+	<preference name="StatusBarBackgroundColor" value="#ba000d" />
+	<allow-navigation href="*" />
+>>>>>>> parent of 98448e1e... fix config
 =======
 	<preference name="StatusBarBackgroundColor" value="#ba000d" />
 	<allow-navigation href="*" />
@@ -60,6 +69,7 @@
     <plugin name="cordova-plugin-network-information" source="npm" spec="~1.2.0" />
     <plugin name="cordova-plugin-splashscreen"        source="npm" spec="~3.2.1" />
     <plugin name="cordova-plugin-statusbar"           source="npm" spec="~2.1.2" />
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	<plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
@@ -155,6 +165,8 @@
         <!-- <splash src="www/res/screen/windows/SplashScreenPhone.scale-240.png" platform="windows"   width="1152" height="1920" /> -->
     </platform>
 =======
+=======
+>>>>>>> parent of 98448e1e... fix config
     <plugin name="cordova-plugin-whitelist"           source="npm" spec="~1.3.2" />
 	<plugin name="com.hughisaacs2.cordova.plugins.androidtvplugin" spec="https://github.com/hughisaacs2/Cordova-Android-TV-Plugin.git" />
 	
@@ -202,6 +214,9 @@
 		<splash src="www/res/screen/android/splash-port-xxxhdpi.png" qualifier="" />
 		<splash src="www/res/screen/android/splash-land-xxxhdpi.png" qualifier="" />
 	</platform>
+<<<<<<< HEAD
+>>>>>>> parent of 98448e1e... fix config
+=======
 >>>>>>> parent of 98448e1e... fix config
 
     <!--
@@ -235,12 +250,16 @@
     </platform>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<access origin="http://127.0.0.1*"/>
 	<access origin="http://phonegap.com" subdomains="true" />
 	<access origin="http://genav.ga*" subdomains="true" />
 =======
 >>>>>>> parent of b7dd764e... Revert "fix config"
 </widget>
+=======
+</widget>
+>>>>>>> parent of 98448e1e... fix config
 =======
 </widget>
 >>>>>>> parent of 98448e1e... fix config
