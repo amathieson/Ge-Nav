@@ -422,7 +422,7 @@
     });
     myApp.onPageBack("dep",function (data) {
         console.log(data + " changed the title on back.");
-        document.getElementById("title").innerHTML = document.getElementById("currStopCode").innerHTML + " - " + document.getElementById("currStopName").innerHTML;
+        document.getElementById("title").innerHTML = document.getElementById("currStopName").innerHTML + " - " + document.getElementById("currStopCode").innerHTML;
         document.getElementById("navbar").style.color = "#fff";
         document.getElementById("navbar").style.backgroundColor = "#f44336";
         try {
