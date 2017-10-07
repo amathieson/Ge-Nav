@@ -2500,7 +2500,7 @@ function webViewerKeyDown(evt) {
       case 107:
       case 187:
       case 171:
-        if (true || !isViewerInPresentationMode) {
+        if (!isViewerInPresentationMode) {
           PDFViewerApplication.zoomIn();
         }
         handled = true;
@@ -2508,7 +2508,7 @@ function webViewerKeyDown(evt) {
       case 173:
       case 109:
       case 189:
-        if (true || !isViewerInPresentationMode) {
+        if (!isViewerInPresentationMode) {
           PDFViewerApplication.zoomOut();
         }
         handled = true;
