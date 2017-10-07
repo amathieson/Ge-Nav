@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         version   = "1.2.10BETA">
@@ -13,6 +14,9 @@
 =======
         version   = "1.2.8BETA">
 >>>>>>> parent of b7dd764e... Revert "fix config"
+=======
+        version   = "1.2.7BETA">
+>>>>>>> parent of 98448e1e... fix config
 
     <name>GéNav</name>
 
@@ -20,7 +24,7 @@
         GéNav
     </description>
 
-    <author href="http://m.genav.ga" email="GeNav@adammathieson.33m.co">
+    <author href="http://www.GeNav.ga" email="GeNav@adammathieson.33m.co">
         GéNav Team
     </author>
 
@@ -31,12 +35,17 @@
     <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-minSdkVersion"      value="14" />
 	<preference name="permissions" value="none" />
+<<<<<<< HEAD
 	<preference name="phonegap-version" value="cli-6.1.0" />
 <<<<<<< HEAD
 	<preference name="StatusBarBackgroundColor" value="#ba000d" />
 =======
 >>>>>>> parent of b7dd764e... Revert "fix config"
 
+=======
+	<preference name="StatusBarBackgroundColor" value="#ba000d" />
+	<allow-navigation href="*" />
+>>>>>>> parent of 98448e1e... fix config
 
     <!-- Define a specific version of PhoneGap to build into your app. -->
     <!-- <preference name="phonegap-version"       value="cli-6.0.0" /> -->
@@ -49,8 +58,9 @@
     <plugin name="cordova-plugin-globalization"       source="npm" spec="~1.0.3" />
     <plugin name="cordova-plugin-inappbrowser"        source="npm" spec="~1.3.0" />
     <plugin name="cordova-plugin-network-information" source="npm" spec="~1.2.0" />
-    <!--<plugin name="cordova-plugin-splashscreen"        source="npm" spec="~3.2.1" />-->
+    <plugin name="cordova-plugin-splashscreen"        source="npm" spec="~3.2.1" />
     <plugin name="cordova-plugin-statusbar"           source="npm" spec="~2.1.2" />
+<<<<<<< HEAD
 <<<<<<< HEAD
 	<plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
 =======
@@ -144,13 +154,60 @@
         <icon   src="www/res/icon/windows/Wide310x150Logo.scale-240.png"     platform="windows"   width="744"  height="360" />
         <!-- <splash src="www/res/screen/windows/SplashScreenPhone.scale-240.png" platform="windows"   width="1152" height="1920" /> -->
     </platform>
+=======
+    <plugin name="cordova-plugin-whitelist"           source="npm" spec="~1.3.2" />
+	<plugin name="com.hughisaacs2.cordova.plugins.androidtvplugin" spec="https://github.com/hughisaacs2/Cordova-Android-TV-Plugin.git" />
+	
+	<platform name="ios">
+		<icon src="www/res/icon/ios/icon.png" width="57" height="57" />
+		<icon src="www/res/icon/ios/icon-72@2x.png" width="144" height="144" />
+		<icon src="www/res/icon/ios/icon-72.png" width="72" height="72" />
+		<icon src="www/res/icon/ios/icon@2x.png" width="114" height="114" />
+		<icon src="www/res/icon/ios/icon-50@2x.png" width="100" height="100" />
+		<icon src="www/res/icon/ios/icon-60.png" width="60" height="60" />
+		<icon src="www/res/icon/ios/icon-60@2x.png" width="120" height="120" />
+		<icon src="www/res/icon/ios/icon-60@3x.png" width="180" height="180" />
+		<icon src="www/res/icon/ios/icon-76.png" width="76" height="76" />
+		<icon src="www/res/icon/ios/icon-76@2x.png" width="152" height="152" />
+		<icon src="www/res/icon/ios/icon-small.png" width="29" height="29" />
+		<icon src="www/res/icon/ios/icon-small@2x.png" width="58" height="58" />
+		<icon src="www/res/icon/ios/Icon-29@3x.png" width="87" height="87" />
+		<icon src="www/res/icon/ios/icon-40.png" width="40" height="40" />
+		<icon src="www/res/icon/ios/icon-40@2x.png" width="80" height="80" />
+		<splash src="www/res/screen/ios/Default-736h.png" width="1242" height="2208" /> 
+		<splash src="www/res/screen/ios/Default@3x~iphone~anycom.png" width="2208" height="1242" /> 
+		<splash src="www/res/screen/ios/Default@2x~iphone~comany.png" width="750" height="1334" /> 
+		<splash src="www/res/screen/ios/Default@2x~iphone~comcom.png" width="1334" height="750" /> 
+		<splash src="www/res/screen/ios/Default-568h@2x~iphone.png" width="640" height="1136" /> 
+		<splash src="www/res/screen/ios/Default@2x~iphone.png" width="640" height="960" /> 
+		<splash src="www/res/screen/ios/Default~iphone.png" width="320" height="480" /> 
+	</platform>
+	<platform name="android">
+		<icon src="www/res/icon/android/mipmap-ldpi/ic_launcher.png" qualifier="ldpi" />
+		<icon src="www/res/icon/android/mipmap-mdpi/ic_launcher.png" qualifier="mdpi" />
+		<icon src="www/res/icon/android/mipmap-hdpi/ic_launcher.png" qualifier="hdpi" />
+		<icon src="www/res/icon/android/mipmap-xhdpi/ic_launcher.png" qualifier="xhdpi" />
+		<icon src="www/res/icon/android/mipmap-xxhdpi/ic_launcher.png" qualifier="xxhdpi" />
+		<icon src="www/res/icon/android/mipmap-xxxhdpi/ic_launcher.png" qualifier="xxxhdpi" />
+		<splash src="www/res/screen/android/splash-port-ldpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-land-ldpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-port-mdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-land-mdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-port-hdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-land-hdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-port-xhdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-land-xhdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-port-xxhdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-land-xxhdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-port-xxxhdpi.png" qualifier="" />
+		<splash src="www/res/screen/android/splash-land-xxxhdpi.png" qualifier="" />
+	</platform>
+>>>>>>> parent of 98448e1e... fix config
 
     <!--
         Define access to external domains.
-
         <access />            - a blank access tag denies access to all external resources.
         <access origin="*" /> - a wildcard access tag allows access to all external resource.
-
         Otherwise, you can specify specific domains:
     -->
     <access origin="*" />
@@ -177,9 +234,13 @@
         <allow-intent href="itms-apps:*" />
     </platform>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<access origin="http://127.0.0.1*"/>
 	<access origin="http://phonegap.com" subdomains="true" />
 	<access origin="http://genav.ga*" subdomains="true" />
 =======
 >>>>>>> parent of b7dd764e... Revert "fix config"
 </widget>
+=======
+</widget>
+>>>>>>> parent of 98448e1e... fix config
