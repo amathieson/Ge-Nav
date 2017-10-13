@@ -17,8 +17,10 @@
 	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" -->
       <!-- rel="stylesheet"> -->
     <link rel="stylesheet" href="css/framework7-icons.css">
-    <script src="mdl/material.min.js"></script>
-    <link rel="stylesheet" href="mdl/material.min.css">
+    <!--<script src="mdl/material.min.js"></script>-->
+    <!--<script src="mdl/getmdl-select.min.js"></script>-->
+    <!--<link rel="stylesheet" href="mdl/material.min.css">-->
+    <!--<link rel="stylesheet" href="mdl/getmdl-select.min.css">-->
     <title>GéNav - Home</title>
 </head>
 <body onload="iosMaterialConv();" class="theme-red">
@@ -77,19 +79,19 @@
                         </div>
                     </div>
                 </a>
-            </li>
-            <li>
-                <a id="routes" href="../hosted_app/routes.php?routes=" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">directions</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-routes">Saved Routes</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a id="routes" href="../hosted_app/routes.php?routes=" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">-->
+                    <!--<div class="item-content">-->
+                        <!--<div class="item-media">-->
+                            <!--<i class="material-icons">directions</i>-->
+                        <!--</div>-->
+                        <!--<div class="item-inner">-->
+                            <!--<div class="item-title" translateID="nav-routes">Saved Routes</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</a>-->
+            <!--</li>-->
             <li>
                 <a href="tickets.html" onclick="title2TPGApp()" class="item-link close-panel">
                     <div class="item-content">
@@ -182,6 +184,7 @@
                       Right link contains only icon - additional "icon-only" class
                       Additional "open-panel" class tells app to open panel when we click on this link
                     -->
+                    <!--<a onclick="search();" href="#" class="link icon-only"><i class="material-icons">search</i></a>-->
                     <a onclick="mainView.router.refreshPage();" href="#" class="link icon-only"><i class="material-icons">refresh</i></a>
                 </div>
             </div>
@@ -191,9 +194,76 @@
             <!-- Page, "data-page" contains page name -->
             <div data-page="index" class="page">
                 <!-- Scrollable page content -->
+                <!-- Search Bar -->
+                <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init home-bar">
+                    <div class="searchbar-input">
+                        <input type="search" placeholder="Search Stops" oninput="search()" onmouseleave="search2()">
+                        <a href="#" class="searchbar-clear"></a>
+                    </div>
+                    <a href="#" class="searchbar-cancel">Cancel</a>
+                </form>
+
+                <!-- Search Bar overlay-->
+                <div class="searchbar-overlay home-bar"></div>
                 <div class="page-content">
-                    <p>No routes saved yet &#9785;</p>
-                    <!--<a href="tmp.html">tmp</a>-->
+                    <div class="content-block searchbar-not-found">
+                        Nothing found
+                    </div>
+
+                    <div class="list-block list-block-search searchbar-found" onmouseover="search()" onmouseleave="search2()">
+                        <ul class="home-search">
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title disabled">Sorry but this feature is not available offline<div hidden>a b c d e f g h i j k l m n o p q r s t u v w x y z</div></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row" onclick="search2()">
+                        <div class="col-100 tablet-50">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">warnings</i> Disruptions</div><a href="#" onclick='$.get("../hosted_app/disruptions-home.php", function(data, status){document.getElementsByClassName("homeDis")[0].innerHTML = data;document.getElementsByClassName("homeDis")[1].innerHTML = data;});'><i class="material-icons">refresh</i></a></div>
+                                    <div class="card-content-inner homeDis" id="homeDis">
+                                        Disruptions are not available offline.
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php">Disruptions</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-100 tablet-50">
+                            <div class="card disabled">
+                                <div class="card-content">
+                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">directions</i> Routes</div></div>
+                                    <div class="card-content-inner">
+                                        <!--No routes saved yet!-->
+                                        Sorry but this card is not currently available.
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="routes.html" onclick="myApp.alert('Routes are not yet available!', 'Sorry')" class="disabled">Routes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" onclick="search2()">
+                        <div class="col-100 tablet-100">
+                            <div class="card disabled">
+                                <div class="card-content">
+                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">star</i> Favorite Stops</div></div>
+                                    <div class="card-content-inner">
+                                        <!--Favorite stops are not available offline-->
+                                        Sorry but this card is not currently available.
+                                    </div>
+                                    <div class="card-footer">
+                                        <a id="homeFav" href="http://cityrunner-server.genav.g/hosted_app/favs.php?stopCodes=" class="disabled">Favorite Stops</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -251,7 +321,93 @@
             }
         });
     });
+    myApp.onPageInit("index", function (page) {
+        search2();
+        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
+            document.getElementsByClassName("homeDis")[0].innerHTML = data;
+            document.getElementsByClassName("homeDis")[1].innerHTML = data;
+        });
+        $.get("http://cityrunner-server.genav.ga/hosted_app/times-home.php", function(data, status){
+            document.getElementsByClassName("home-search")[0].innerHTML = data;
+            document.getElementsByClassName("home-search")[1].innerHTML = data;
+        });
+    });
+    function search() {
+        var els = document.getElementsByClassName("list-block-search");
+
+        Array.prototype.forEach.call(els, function(el) {
+            // Do stuff here
+            el.style.visibility = "visible";
+            el.style.height = null;
+            el.style.marginTop = 32;
+            el.style.marginBottom = 32;
+        });
+    }
+    function search2() {
+        var els = document.getElementsByClassName("list-block-search");
+
+        Array.prototype.forEach.call(els, function(el) {
+            // Do stuff here
+            el.style.visibility = "hidden";
+            el.style.height = 0;
+            el.style.marginTop = 0;
+            el.style.marginBottom = 0;
+        });
+    }
+    myApp.onPageInit("routes", function () {
+        var options = {
+            url: "js/GetStops.json",
+
+            getValue: "stopName",
+
+            list: {
+                match: {
+                    enabled: true
+                }
+            }
+        };
+        var autocompleteDropdownAjax = myApp.autocomplete({
+            opener: '#stops1',
+            openIn: 'popup',
+            preloader: true, //enable preloader
+            valueProperty: 'stopCode', //object's "value" property name
+            textProperty: 'stopName', //object's "text" property name
+            limit: 20, //limit to 20 results
+            dropdownPlaceholderText: 'Aeroport',
+            expandInput: true, // expand input
+            source: function (autocomplete, query, render) {
+                var results = [];
+                if (query.length === 0) {
+                    render(results);
+                    return;
+                }
+                // Show Preloader
+                autocomplete.showPreloader();
+                // Do Ajax request to Autocomplete data
+                $$.ajax({
+                    url: 'js/GetStops.html',
+                    method: 'GET',
+                    dataType: 'json',
+                    //send "query" to server. Useful in case you generate response dynamically
+                    data: {
+                        stopName: query
+                    },
+                    success: function (data) {
+                        // Find matched items
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].name.toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(data[i]);
+                        }
+                        // Hide Preoloader
+                        autocomplete.hidePreloader();
+                        // Render items by passing array with result items
+                        render(results);
+                    }
+                });
+            }
+        });
+    });
     document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
+    document.getElementById("homeFav").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
     function setCookie(cname, cvalue, exdays) {
 //        var d = new Date();
 //        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -379,6 +535,7 @@
         }
         setCookie("TPGAPP_Favs",str,365);
         document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        document.getElementById("homeFav").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
         return getCookie("TPGAPP_Favs");
     }
     function remove4rmFavs() {
@@ -394,6 +551,7 @@
         }
         setCookie("TPGAPP_Favs",str,365);
         document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
+        document.getElementById("homeFav").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
         return getCookie("TPGAPP_Favs");
     }
     refreshdiststopdep();
@@ -412,9 +570,9 @@
             mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
             console.log("currently reloading stop page");
         }
-        //setTimeout(function () {
-        //    refreshdiststopdep();
-        //},30000);
+        setTimeout(function () {
+            refreshdiststopdep();
+        },30000);
     }
     myApp.onPageBack("stop",function (data) {
         console.log(data + " changed the title on back.");

@@ -39,3 +39,10 @@
     animation-name: play34;
     animation-iteration-count: infinite;
 }
+.blinker {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}

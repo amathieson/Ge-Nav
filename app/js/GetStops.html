@@ -1,0 +1,65 @@
+<script>
+    function ContainsKeyValue( obj, key, value ){
+        if( obj[key] === value ) return true;
+        for( all in obj )
+        {
+            if( obj[all] != null){
+                var str = obj[all][key];
+                    if (str.indexOf(value) != -1) {
+                        return true;
+                    }
+            }
+            if( typeof obj[all] == "object" && obj[all]!= null ){
+                var found = ContainsKeyValue( obj[all], key, value );
+                if( found == true ) return true;
+            }
+        }
+        return false;
+    }
+
+    function SearchKeyValue( obj, key, value ){
+        if( obj[key] === value ) return true;
+        if( obj[key] != null){
+            var str = obj[key];
+            if (str.indexOf(value) != -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function getQueryParams(qs) {
+        qs = qs.split('+').join(' ');
+
+        var params = {},
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+        }
+
+        return params;
+    }
+
+    var query = getQueryParams(document.location.search);
+    //alert(query.foo);
+    var viewmodel = [];
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            viewmodel = JSON.parse(this.responseText);
+            var liveData = [];
+            for( var items in viewmodel )
+            {
+                if( SearchKeyValue( viewmodel[items], "stopName", query.stopName ) === true )
+                {
+                    liveData.push( viewmodel[items] );
+                }
+            }
+            document.write(JSON.stringify(liveData));
+        }
+    };
+    xmlhttp.open("GET", "GetStops.json", true);
+    xmlhttp.send();
+</script>
