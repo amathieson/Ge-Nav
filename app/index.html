@@ -184,7 +184,7 @@
                       Right link contains only icon - additional "icon-only" class
                       Additional "open-panel" class tells app to open panel when we click on this link
                     -->
-                    <!--<a onclick="search();" href="#" class="link icon-only"><i class="material-icons">search</i></a>-->
+                    <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" class="link icon-only" onclick="myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 2000);"><i class="material-icons">search</i></a>
                     <a onclick="mainView.router.refreshPage();" href="#" class="link icon-only"><i class="material-icons">refresh</i></a>
                 </div>
             </div>
@@ -194,38 +194,14 @@
             <!-- Page, "data-page" contains page name -->
             <div data-page="index" class="page">
                 <!-- Scrollable page content -->
-                <!-- Search Bar -->
-                <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init home-bar">
-                    <div class="searchbar-input">
-                        <input type="search" placeholder="Search Stops" oninput="search()" onmouseleave="search2()">
-                        <a href="#" class="searchbar-clear"></a>
-                    </div>
-                    <a href="#" class="searchbar-cancel">Cancel</a>
-                </form>
-
-                <!-- Search Bar overlay-->
-                <div class="searchbar-overlay home-bar"></div>
                 <div class="page-content">
-                    <div class="content-block searchbar-not-found">
-                        Nothing found
-                    </div>
-
-                    <div class="list-block list-block-search searchbar-found" onmouseover="search()" onmouseleave="search2()">
-                        <ul class="home-search">
-                            <li class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title disabled">Sorry but this feature is not available offline<div hidden>a b c d e f g h i j k l m n o p q r s t u v w x y z</div></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row" onclick="search2()">
+                    <div class="row">
                         <div class="col-100 tablet-50">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">warnings</i> Disruptions</div><a href="#" onclick='$.get("../hosted_app/disruptions-home.php", function(data, status){document.getElementsByClassName("homeDis")[0].innerHTML = data;document.getElementsByClassName("homeDis")[1].innerHTML = data;});'><i class="material-icons">refresh</i></a></div>
                                     <div class="card-content-inner homeDis" id="homeDis">
-                                        Disruptions are not available offline.
+                                        Please press the refresh button above to get the latest disruptions
                                     </div>
                                     <div class="card-footer">
                                         <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php">Disruptions</a>
@@ -248,7 +224,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" onclick="search2()">
+                    <div class="row">
                         <div class="col-100 tablet-100">
                             <div class="card disabled">
                                 <div class="card-content">
@@ -322,38 +298,15 @@
         });
     });
     myApp.onPageInit("index", function (page) {
-        search2();
         $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
-            document.getElementsByClassName("homeDis")[0].innerHTML = data;
-            document.getElementsByClassName("homeDis")[1].innerHTML = data;
-        });
-        $.get("http://cityrunner-server.genav.ga/hosted_app/times-home.php", function(data, status){
-            document.getElementsByClassName("home-search")[0].innerHTML = data;
-            document.getElementsByClassName("home-search")[1].innerHTML = data;
+            var els = document.getElementsByClassName("homeDis");
+
+            Array.prototype.forEach.call(els, function(el) {
+                // Do stuff here
+                el.innerHTML = data;
+            });
         });
     });
-    function search() {
-        var els = document.getElementsByClassName("list-block-search");
-
-        Array.prototype.forEach.call(els, function(el) {
-            // Do stuff here
-            el.style.visibility = "visible";
-            el.style.height = null;
-            el.style.marginTop = 32;
-            el.style.marginBottom = 32;
-        });
-    }
-    function search2() {
-        var els = document.getElementsByClassName("list-block-search");
-
-        Array.prototype.forEach.call(els, function(el) {
-            // Do stuff here
-            el.style.visibility = "hidden";
-            el.style.height = 0;
-            el.style.marginTop = 0;
-            el.style.marginBottom = 0;
-        });
-    }
     myApp.onPageInit("routes", function () {
         var options = {
             url: "js/GetStops.json",
