@@ -22,6 +22,17 @@
     <!--<link rel="stylesheet" href="mdl/material.min.css">-->
     <!--<link rel="stylesheet" href="mdl/getmdl-select.min.css">-->
     <title>GéNav - Home</title>
+    <!--<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>-->
+    <!--<script>-->
+        <!--var OneSignal = window.OneSignal || [];-->
+        <!--OneSignal.push(["init", {-->
+            <!--appId: "7deec5a9-83c0-4844-b71a-7000c9eff8d3",-->
+            <!--autoRegister: true, /* Set to true to automatically prompt visitors */-->
+            <!--notifyButton: {-->
+                <!--enable: true /* Set to false to hide */-->
+            <!--}-->
+        <!--}]);-->
+    <!--</script>-->
 </head>
 <body onload="iosMaterialConv();" class="theme-red">
 <!-- Status bar overlay for full screen mode (PhoneGap) -->
@@ -184,7 +195,7 @@
                       Right link contains only icon - additional "icon-only" class
                       Additional "open-panel" class tells app to open panel when we click on this link
                     -->
-                    <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" class="link icon-only" onclick="myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 2000);"><i class="material-icons">search</i></a>
+                    <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" class="link icon-only" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 2000);"><i class="material-icons">search</i></a>
                     <a onclick="mainView.router.refreshPage();" href="#" class="link icon-only"><i class="material-icons">refresh</i></a>
                 </div>
             </div>

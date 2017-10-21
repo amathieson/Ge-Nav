@@ -38,6 +38,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 <link rel="resource" type="application/l10n" href="locale/locale.properties">
 <script src="l10n.js"></script>
 <script src="../build/pdf.js"></script>
+<script src="../../js/hammer.min.js"></script>
 
 
     <script src="viewer.js"></script>
@@ -354,6 +355,60 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     </div> <!-- outerContainer -->
     <div id="printContainer"></div>
+  <script>
+      // create a simple instance
+      // by default, it only adds horizontal recognizers
+      var image = document.getElementById('viewer');
+
+      var mc = new Hammer.Manager(image);
+
+      var pinch = new Hammer.Pinch();
+      var pan = new Hammer.Pan();
+
+      pinch.recognizeWith(pan);
+
+      mc.add([pinch, pan]);
+
+      var adjustScale = 1;
+      var adjustDeltaX = 0;
+      var adjustDeltaY = 0;
+
+      var currentScale = null;
+      var currentDeltaX = null;
+      var currentDeltaY = null;
+
+      // Prevent long press saving on mobiles.
+      webpage.addEventListener('touchstart', function (e) {
+          e.preventDefault()
+      });
+
+      // Handles pinch and pan events/transforming at the same time;
+      mc.on("pinch pan", function (ev) {
+
+          var transforms = [];
+
+          // Adjusting the current pinch/pan event properties using the previous ones set when they finished touching
+          currentScale = adjustScale * ev.scale;
+          currentDeltaX = adjustDeltaX + (ev.deltaX / currentScale);
+          currentDeltaY = adjustDeltaY + (ev.deltaY / currentScale);
+
+          // Concatinating and applying parameters.
+          transforms.push('scale(' + currentScale + ')');
+          transforms.push('translate(' + currentDeltaX + 'px,' + currentDeltaY + 'px)');
+          webpage.style.transform = transforms.join(' ');
+
+      });
+
+
+      mc.on("panend pinchend", function (ev) {
+
+          // Saving the final transforms for adjustment next time the user interacts.
+          adjustScale = currentScale;
+          adjustDeltaX = currentDeltaX;
+          adjustDeltaY = currentDeltaY;
+
+      });
+  </script>
   </body>
 </html>
 
