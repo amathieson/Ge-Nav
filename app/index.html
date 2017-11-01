@@ -4,12 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Chrome, Firefox OS and Opera -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favIcons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favIcons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favIcons/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favIcons/favicon-16x16.png">
+    <link rel="manifest" href="../favIcons/manifest.json">
+    <link rel="mask-icon" href="../favIcons/safari-pinned-tab.svg" color="#f44336">
+    <link rel="shortcut icon" href="../favIcons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#f44336">
+    <meta name="msapplication-TileImage" content="../favIcons/mstile-144x144.png">
+    <meta name="msapplication-config" content="../favIcons/browserconfig.xml">
     <meta name="theme-color" content="#f44336">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#f44336">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="#f44336">
     <link id="f7-main" rel="stylesheet" href="css/framework7.material.min.css">
     <link id="f7-colors" rel="stylesheet" href="css/framework7.material.colors.min.css">
     <link rel="stylesheet" href="css/my-app.css">
@@ -159,6 +164,19 @@
                         </div>
                         <div class="item-inner">
                             <div class="item-title" translateID="nav-About">About</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a onclick="" href="https://www.paypal.me/GeNavApp/2.5" class="item-link close-panel external">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <!-- Coffee to Go icon by Icons8 -->
+                            <img class="icon icons8-Coffee-to-Go" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACMUlEQVRoQ+1Z0TEFQRDsFwEiQASIABEgAkSACBABMiCCRwSIABEgAjKguuquSr16uzM9u7fqVd3+3szsdM9c79zeBAu+JgueP0YA/13B0gqcAzgCsBYE8gHgFsBl0L+oha4BnEQ3nvEjiONIrGgFyPh7ZMOMDwEQiLSiAGqy3yf8AGBfyh5wtxAZvwKwA2B5ziYHAO7FzVNV/AbwBOAMAN+R7PJUwGqXz4KX+BXARiJDAtmyQHgAkNm9DA03AE4tphLPrVY028oD4CvRNn1OZIlMRtYmgJeMI6uwkgvsAfAzE8DjEwHT+0j7eZKRApZk3vlK+0UAVMhRCpHNcQQgcRkzHivQ88bTcTtGoux11025pqPnHeiDXADg+NxicbzmfuZSAPC05TzUYrlnKwUAB7nHFtl3M5DrdFcAWENdTWzuvNyGiVOyZtJ9LGm6VQHkxt9aYJ677w5XPBVACymVxnMVgDW/u1gzjNwSyjgqgBZnwW73SekiQwXQQkqlDyQVgPUF5WLNMJJykowbSOkbAJLkXhEAvOpYde+gGUoSGnmJ6TOklEoKFAXA679DjVi3NS+zKNXuFWmhIaVUktBoBXh/OXVTpBmuWzdxs+EiFRjyLJDzkR0GlFJZQqMtRD9e+S1p3WFayxJaAmAIKZUltASAdWNt0j3HoOkfmiGUSFagkgrQt2YV3PdANWT0bwweaqxG6i+L1UpUHhLhugOaFywqo1ZizZ6PAJpRndho4SvwC8HeVjE+owFJAAAAAElFTkSuQmCC">
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title" translateID="nav-Donate">Buy us a Coffee</div>
                         </div>
                     </div>
                 </a>
@@ -531,7 +549,7 @@
             console.log("currently reloading dep page");
         }
         if (getValue == 'stop') {
-            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/stop.php?stop=".concat(document.getElementById("currStopCode").innerHTML));
+            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/stop.php?off=0&len=20&stop=".concat(document.getElementById("currStopCode").innerHTML));
             console.log("currently reloading stop page");
         }
         setTimeout(function () {
