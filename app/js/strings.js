@@ -35,7 +35,7 @@ var translation_Lookup= {
         "EN": "SMS Tickets"
     },
     "About-Text": {
-        "EN": "GeNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. All translations are provided by Adam Mathieson, Deyan Marinov, Catalina Fernandez, Aupala Saha and Ahona Khan.",
+        "EN": "GeNav is designed to replace the official TPG app as this one has a much more modern design and many more features. All the images are either provided by http://www.bus-pics.com/pics/, http://www.bus-bild.de, or taken by the developers. All translations are provided by Adam Mathieson, Deyan Marinov, Catalina Fernandez, Aupala Saha and Ahona Khan. Some Icons from <a href=\"https://icons8.com\">Icons8</a>",
         "BD": "GeNav অফিসিয়াল TPG অ্যাপ্লিকেশন প্রতিস্থাপন করার জন্য ডিজাইন করা হয়েছে কারণ এটির অনেকগুলি অাধনিক নকশা এবং অারো অনেক বৈশিষ্ট্য রয়েছে। সমস্ত চিএগুলি http://www.bus-pics.com/pics/, http://www.bus-bild.de দ্বারা সরবরাহ করা হয় বা ডেভালোপার দ্বারা গৃহীত। সমস্ত অনুবাদগুলি অ্যাডাম ম্যাথিসন, ডায়ান মারিনভ, কাতালিনা ফার্নান্দেজ, অপালা সাহা।"
     },
     "loading": {

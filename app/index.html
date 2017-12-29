@@ -219,7 +219,7 @@
             </div>
         </div>
         <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-        <div class="pages navbar-through toolbar-through">
+        <div id="body" class="pages navbar-through toolbar-through">
             <!-- Page, "data-page" contains page name -->
             <div data-page="index" class="page">
                 <!-- Scrollable page content -->
@@ -228,7 +228,7 @@
                         <div class="col-100 tablet-50">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">warnings</i> Disruptions</div><a href="#" onclick='$.get("../hosted_app/disruptions-home.php", function(data, status){document.getElementsByClassName("homeDis")[0].innerHTML = data;document.getElementsByClassName("homeDis")[1].innerHTML = data;});'><i class="material-icons">refresh</i></a></div>
+                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">warnings</i> Disruptions</div><a href="#" onclick='$.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){document.getElementsByClassName("homeDis")[0].innerHTML = data;document.getElementsByClassName("homeDis")[1].innerHTML = data;});'><i class="material-icons">refresh</i></a></div>
                                     <div class="card-content-inner homeDis" id="homeDis">
                                         Please press the refresh button above to get the latest disruptions
                                     </div>
@@ -287,7 +287,7 @@
     // Initialize your app
     var myApp = new Framework7(
           {
-//            material: true,
+            material: true,
             pushState: true
           }
     );
@@ -295,6 +295,19 @@
     var $$ = Dom7;
 
     var mainView = myApp.addView('.view-main');
+    $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
+            document.getElementsByClassName("homeDis")[0].innerHTML = data;
+            document.getElementsByClassName("homeDis")[1].innerHTML = data;
+        }
+    );
+    $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
+        var els = document.getElementsByClassName("homeDis");
+
+        Array.prototype.forEach.call(els, function(el) {
+            // Do stuff here
+            el.innerHTML = data;
+        });
+    });
     var currentLang = "EN";
     // Option 1. Using one 'page:init' handler for all pages (recommended way):
     $$(document).on('page:init', function (e) {
@@ -327,6 +340,11 @@
         });
     });
     myApp.onPageInit("index", function (page) {
+        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
+            document.getElementsByClassName("homeDis")[0].innerHTML = data;
+            document.getElementsByClassName("homeDis")[1].innerHTML = data;
+        }
+        );
         $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
             var els = document.getElementsByClassName("homeDis");
 
@@ -660,6 +678,19 @@
 document.addEventListener(
     'deviceready',
     function(){
+        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
+                document.getElementsByClassName("homeDis")[0].innerHTML = data;
+                document.getElementsByClassName("homeDis")[1].innerHTML = data;
+            }
+        );
+        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
+            var els = document.getElementsByClassName("homeDis");
+
+            Array.prototype.forEach.call(els, function(el) {
+                // Do stuff here
+                el.innerHTML = data;
+            });
+        });
         AppUpdater('http://cityrunner-server.genav.ga/app_update/');
     },
     false
