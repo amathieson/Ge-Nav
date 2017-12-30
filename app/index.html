@@ -695,6 +695,60 @@ document.addEventListener(
     },
     false
 );
+notifications();
+function notifications() {
+    if (typeof device !== 'undefined') {
+        var id = device.uuid;
+    } else {
+        var id = guid();
+    }
+    console.log(id);
+//    httpGetAsync(
+//        "http://cityrunner-server.genav.ga/notificaions?id=" + id, function (data) {
+//            var json = JSON.parse(data);
+//            myApp.addNotification({
+//                message: json.message
+//            });
+//        }
+//    );
+    httpGetAsync(
+        "../notifications?id=" + id, function (data) {
+            var json = JSON.parse(data);
+            myApp.addNotification({
+                message: json
+            });
+        }
+    );
+    setTimeout(function () {
+        notifications();
+    }, 30000);
+}
+function httpGetAsync(theUrl, callback)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        if (typeof localStorage.GeNav_UUID !== 'undefined') {
+            return localStorage.getItem("GeNav_UUID");
+        } else {
+            var id = s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+            localStorage.setItem("GeNav_UUID", id);
+            return id;
+        }
+
+    }
 </script>
 </body>
 </html>
