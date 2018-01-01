@@ -707,7 +707,7 @@ function notifications() {
     }
     console.log(id);
     httpGetAsync(
-        "http://cityrunner-server.genav.ga/notificaions?id=" + id, function (data) {
+        "http://cityrunner-server.genav.ga/notifications?id=" + id, function (data) {
             var json = JSON.parse(data);
             myApp.addNotification({
                 message: json.message
