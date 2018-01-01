@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
-        version   = "1.30.1BETA">
+        version   = "1.30.3BETA">
 
     <name>GéNav</name>
 
@@ -12,7 +12,7 @@
         GéNav
     </description>
 
-    <author href="http://m.genav.ga" email="GeNav@adammathieson.33m.co">
+    <author href="http://m.genav.ga/app" email="GeNav@adammathieson.33m.co">
         GéNav Team
     </author>
 
@@ -25,6 +25,8 @@
 	<preference name="permissions" value="none" />
 	<preference name="phonegap-version" value="cli-6.5.0" />
 	<!--<preference name="android-versionCode" value="103000" />-->
+    <preference name="HeaderColor" value="#f44336" />
+    <preference name="StatusBarBackgroundColor" value="#ba000d" />
 
 
     <!-- Define a specific version of PhoneGap to build into your app. -->
@@ -42,6 +44,7 @@
     <plugin name="cordova-plugin-statusbar"           source="npm" spec="~2.1.2" />
 	<plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
 	<plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
+	<plugin name="cordova-plugin-headercolor" spec="~1.0.0" />
 
     <!-- Define app icon and splashscreen for each platform. -->
     <platform name="android">

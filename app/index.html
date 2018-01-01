@@ -339,7 +339,9 @@
             }
         });
     });
+    title2TPGApp();
     myApp.onPageInit("index", function (page) {
+        title2TPGApp();
         $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
             document.getElementsByClassName("homeDis")[0].innerHTML = data;
             document.getElementsByClassName("homeDis")[1].innerHTML = data;
@@ -595,6 +597,7 @@
         document.getElementById("navbar").style.backgroundColor = "#f44336";
         try {
             StatusBar.backgroundColorByHexString("#ba000d");
+            window.plugins.headerColor.tint("#f44336");
         } catch(e) {
             console.error(e);
         }
@@ -703,22 +706,22 @@ function notifications() {
         var id = guid();
     }
     console.log(id);
-//    httpGetAsync(
-//        "http://cityrunner-server.genav.ga/notificaions?id=" + id, function (data) {
-//            var json = JSON.parse(data);
-//            myApp.addNotification({
-//                message: json.message
-//            });
-//        }
-//    );
     httpGetAsync(
-        "../notifications?id=" + id, function (data) {
+        "http://cityrunner-server.genav.ga/notificaions?id=" + id, function (data) {
             var json = JSON.parse(data);
             myApp.addNotification({
-                message: json
+                message: json.message
             });
         }
     );
+//    httpGetAsync(
+//        "../notifications?id=" + id, function (data) {
+//            var json = JSON.parse(data);
+//            myApp.addNotification({
+//                message: json
+//            });
+//        }
+//    );
     setTimeout(function () {
         notifications();
     }, 30000);
