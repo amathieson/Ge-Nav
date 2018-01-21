@@ -1,0 +1,36 @@
+/* Your app styles here */
+.demo-card-header-pic .card-header {
+    height: 40vw;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+.demo-card-header-pic .card-content-padding .date{
+    color: #8e8e93;
+}
+.blinker {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+.material-icons.wifi {
+    top: 5px;
+    left: 3px;
+    width: 28px;
+    position: sticky;
+}
+.picto-ligne {
+    margin: 2px;
+    display: inline-block;
+    padding: 3px 0;
+    border-radius: 20px;
+    min-width: 30px;
+    font-weight: 700;
+    font-size: 10px;
+    text-align: center;
+    float: left;
+    margin-right: 5px;
+    font-family: "Helvetica Neue",Helvetica,sans-serif;
+}

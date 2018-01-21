@@ -1,757 +1,321 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" sizes="180x180" href="../favIcons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favIcons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../favIcons/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favIcons/favicon-16x16.png">
-    <link rel="manifest" href="../favIcons/manifest.json">
-    <link rel="mask-icon" href="../favIcons/safari-pinned-tab.svg" color="#f44336">
-    <link rel="shortcut icon" href="../favIcons/favicon.ico">
-    <meta name="msapplication-TileColor" content="#f44336">
-    <meta name="msapplication-TileImage" content="../favIcons/mstile-144x144.png">
-    <meta name="msapplication-config" content="../favIcons/browserconfig.xml">
-    <meta name="theme-color" content="#f44336">
-    <link id="f7-main" rel="stylesheet" href="css/framework7.material.min.css">
-    <link id="f7-colors" rel="stylesheet" href="css/framework7.material.colors.min.css">
-    <link rel="stylesheet" href="css/my-app.css">
-    <link rel="stylesheet" href="material-design-icons/iconfont/material-icons.css">
-	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" -->
-      <!-- rel="stylesheet"> -->
-    <link rel="stylesheet" href="css/framework7-icons.css">
-    <!--<script src="mdl/material.min.js"></script>-->
-    <!--<script src="mdl/getmdl-select.min.js"></script>-->
-    <!--<link rel="stylesheet" href="mdl/material.min.css">-->
-    <!--<link rel="stylesheet" href="mdl/getmdl-select.min.css">-->
-    <title>GéNav - Home</title>
-    <!--<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>-->
-    <!--<script>-->
-        <!--var OneSignal = window.OneSignal || [];-->
-        <!--OneSignal.push(["init", {-->
-            <!--appId: "7deec5a9-83c0-4844-b71a-7000c9eff8d3",-->
-            <!--autoRegister: true, /* Set to true to automatically prompt visitors */-->
-            <!--notifyButton: {-->
-                <!--enable: true /* Set to false to hide */-->
-            <!--}-->
-        <!--}]);-->
-    <!--</script>-->
+  <meta charset="utf-8">
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+          * Enable inline JS: add 'unsafe-inline' to default-src
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>GéNav - Home</title>
+
+  <link rel="stylesheet" href="framework7/css/framework7.min.css">
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/app.css">
 </head>
-<body onload="iosMaterialConv();" class="theme-red">
-<!-- Status bar overlay for full screen mode (PhoneGap) -->
-<div class="statusbar-overlay"></div>
-<!-- Panels overlay-->
-<div class="panel-overlay"></div>
-<!-- Left panel with reveal cover-->
-<div class="panel panel-left panel-cover">
-    <div class="list-block">
-        <ul>
-            <li>
-                <a href="index.html" onclick="title2TPGApp()" class="item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">home</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-Home">Home</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">warning</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-Disruptions">Disruptions</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 2000);" class="hosted item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">directions_bus</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-Stops">Stops</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a id="favs" href="http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">star</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-Favs">Favorite Stops</div>
-                        </div>
-                    </div>
-                </a>
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a id="routes" href="../hosted_app/routes.php?routes=" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 1000);" class="hosted item-link close-panel">-->
-                    <!--<div class="item-content">-->
-                        <!--<div class="item-media">-->
-                            <!--<i class="material-icons">directions</i>-->
-                        <!--</div>-->
-                        <!--<div class="item-inner">-->
-                            <!--<div class="item-title" translateID="nav-routes">Saved Routes</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</a>-->
-            <!--</li>-->
-            <li>
-                <a href="tickets.html" onclick="title2TPGApp()" class="item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">credit_card</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-SMS">SMS Tickets</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="map.html" onclick="title2TPGApp()" class="item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">map</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-Maps">Maps</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <!--<li>
-                <a href="dir.html" class="item-link close-panel hosted">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">directions</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title">Directions</div>
-                        </div>
-                    </div>
-                </a>
-            </li>-->
-            <!--<li>
-                <a href="lang.html" class="item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">settings</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title">Settings</div>
-                        </div>
-                    </div>
-                </a>
-            </li>-->
-            <li>
-                <a onclick="myApp.alert(translateStr('About-Text',currentLang),translateStr('nav-About',currentLang))" href="#" class="item-link close-panel">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <i class="material-icons">info</i>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-About">About</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a onclick="" href="https://www.paypal.me/GeNavApp/2.5" class="item-link close-panel external">
-                    <div class="item-content">
-                        <div class="item-media">
-                            <!-- Coffee to Go icon by Icons8 -->
-                            <img class="icon icons8-Coffee-to-Go" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACMUlEQVRoQ+1Z0TEFQRDsFwEiQASIABEgAkSACBABMiCCRwSIABEgAjKguuquSr16uzM9u7fqVd3+3szsdM9c79zeBAu+JgueP0YA/13B0gqcAzgCsBYE8gHgFsBl0L+oha4BnEQ3nvEjiONIrGgFyPh7ZMOMDwEQiLSiAGqy3yf8AGBfyh5wtxAZvwKwA2B5ziYHAO7FzVNV/AbwBOAMAN+R7PJUwGqXz4KX+BXARiJDAtmyQHgAkNm9DA03AE4tphLPrVY028oD4CvRNn1OZIlMRtYmgJeMI6uwkgvsAfAzE8DjEwHT+0j7eZKRApZk3vlK+0UAVMhRCpHNcQQgcRkzHivQ88bTcTtGoux11025pqPnHeiDXADg+NxicbzmfuZSAPC05TzUYrlnKwUAB7nHFtl3M5DrdFcAWENdTWzuvNyGiVOyZtJ9LGm6VQHkxt9aYJ677w5XPBVACymVxnMVgDW/u1gzjNwSyjgqgBZnwW73SekiQwXQQkqlDyQVgPUF5WLNMJJykowbSOkbAJLkXhEAvOpYde+gGUoSGnmJ6TOklEoKFAXA679DjVi3NS+zKNXuFWmhIaVUktBoBXh/OXVTpBmuWzdxs+EiFRjyLJDzkR0GlFJZQqMtRD9e+S1p3WFayxJaAmAIKZUltASAdWNt0j3HoOkfmiGUSFagkgrQt2YV3PdANWT0bwweaqxG6i+L1UpUHhLhugOaFywqo1ZizZ6PAJpRndho4SvwC8HeVjE+owFJAAAAAElFTkSuQmCC">
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title" translateID="nav-Donate">Buy us a Coffee</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<!-- Views -->
-<div class="views">
-    <!-- Your main view, should have "view-main" class -->
-    <div class="view view-main">
-        <!-- Top Navbar-->
-        <div class="navbar" id="navbar">
+<body class="color-theme-red">
+  <div id="app">
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar"></div>
+    <!-- Left panel with cover effect-->
+    <div class="panel panel-left panel-cover">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
             <div class="navbar-inner">
-                <div class="left">
-                    <!--
-                      Right link contains only icon - additional "icon-only" class
-                      Additional "open-panel" class tells app to open panel when we click on this link
-                    -->
-                    <div hidden id="currStopCode"></div>
-                    <div hidden id="currStopName"></div>
-                    <div hidden id="currDepCode"></div>
-                    <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
-                </div>
-                <div id="title" class="center">
-                    <!--
-                      Right link contains only icon - additional "icon-only" class
-                      Additional "open-panel" class tells app to open panel when we click on this link
-                    -->
-                    GéNav
-                </div>
-                <div class="right">
-                    <!--
-                      Right link contains only icon - additional "icon-only" class
-                      Additional "open-panel" class tells app to open panel when we click on this link
-                    -->
-                    <a href="http://cityrunner-server.genav.ga/hosted_app/times.php" class="link icon-only" onclick="title2TPGApp();myApp.showPreloader(translateStr('loading',currentLang));setTimeout(function () {myApp.hidePreloader();}, 2000);"><i class="material-icons">search</i></a>
-                    <a onclick="mainView.router.refreshPage();" href="#" class="link icon-only"><i class="material-icons">refresh</i></a>
-                </div>
+              <div class="title" id="title">G&eacute;Nav</div>
+                <span hidden id="currStopCode"></span>
+                <span hidden id="currStopName"></span>
+                <span hidden id="currDepCode"></span>
             </div>
-        </div>
-        <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-        <div id="body" class="pages navbar-through toolbar-through">
-            <!-- Page, "data-page" contains page name -->
-            <div data-page="index" class="page">
-                <!-- Scrollable page content -->
-                <div class="page-content">
-                    <div class="row">
-                        <div class="col-100 tablet-50">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">warnings</i> Disruptions</div><a href="#" onclick='$.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){document.getElementsByClassName("homeDis")[0].innerHTML = data;document.getElementsByClassName("homeDis")[1].innerHTML = data;});'><i class="material-icons">refresh</i></a></div>
-                                    <div class="card-content-inner homeDis" id="homeDis">
-                                        Please press the refresh button above to get the latest disruptions
-                                    </div>
-                                    <div class="card-footer">
-                                        <a href="http://cityrunner-server.genav.ga/hosted_app/disruptions.php">Disruptions</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-100 tablet-50">
-                            <div class="card disabled">
-                                <div class="card-content">
-                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">directions</i> Routes</div></div>
-                                    <div class="card-content-inner">
-                                        <!--No routes saved yet!-->
-                                        Sorry but this card is not currently available.
-                                    </div>
-                                    <div class="card-footer">
-                                        <a href="routes.html" onclick="myApp.alert('Routes are not yet available!', 'Sorry')" class="disabled">Routes</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+          </div>
+          <div class="page-content">
+            <div class="list links-list" style="height: 90%">
+              <ul>
+                <li>
+                  <a href="/home/" onclick="title2TPGApp()" class="item panel-close link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">home</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-Home">Home</div>
+                      </div>
                     </div>
-                    <div class="row">
-                        <div class="col-100 tablet-100">
-                            <div class="card disabled">
-                                <div class="card-content">
-                                    <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">star</i> Favorite Stops</div></div>
-                                    <div class="card-content-inner">
-                                        <!--Favorite stops are not available offline-->
-                                        Sorry but this card is not currently available.
-                                    </div>
-                                    <div class="card-footer">
-                                        <a id="homeFav" href="http://cityrunner-server.genav.g/hosted_app/favs.php?stopCodes=" class="disabled">Favorite Stops</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/disruptions/" onclick="title2TPGApp();app.preloader.show(translateStr('loading',currentLang));setTimeout(function () {app.preloader.hide();}, 1000);" class="hosted item panel-close link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">warning</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-Disruptions">Disruptions</div>
+                      </div>
                     </div>
-                </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/times/" onclick="title2TPGApp();app.preloader.show(translateStr('loading',currentLang));setTimeout(function () {app.preloader.hide();}, 2000);" class="hosted item panel-close link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">directions_bus</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-Stops">Stops</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a id="favs" href="http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();app.preloader.show(translateStr('loading',currentLang));setTimeout(function () {app.preloader.hide();}, 1000);" class="hosted item panel-close link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">star</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-Favs">Favorite Stops</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/tickets/" onclick="title2TPGApp()" class="item panel-close link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">credit_card</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-SMS">SMS Tickets</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/map/" onclick="title2TPGApp()" class="item panel-close link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">map</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-Maps">Maps</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/directions/" class="item panel-close hosted link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">directions</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title">Directions</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a onclick="  app.dialog.create({
+    title: translateStr('nav-About',currentLang),
+    text: translateStr('About-Text',currentLang),
+    buttons: [
+      {
+        text: 'OK',
+        color: 'red'
+      },
+    ],
+  }).open();" href="#" class="item panel-close link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <i class="material-icons">info</i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-About">About</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a onclick="" href="https://www.paypal.me/GeNavApp/2.5" class="item panel-close external link">
+                    <div class="item-content">
+                      <div class="item-media">
+                        <!-- Coffee to Go icon by Icons8 -->
+                        <img class="icon icons8-Coffee-to-Go" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACMUlEQVRoQ+1Z0TEFQRDsFwEiQASIABEgAkSACBABMiCCRwSIABEgAjKguuquSr16uzM9u7fqVd3+3szsdM9c79zeBAu+JgueP0YA/13B0gqcAzgCsBYE8gHgFsBl0L+oha4BnEQ3nvEjiONIrGgFyPh7ZMOMDwEQiLSiAGqy3yf8AGBfyh5wtxAZvwKwA2B5ziYHAO7FzVNV/AbwBOAMAN+R7PJUwGqXz4KX+BXARiJDAtmyQHgAkNm9DA03AE4tphLPrVY028oD4CvRNn1OZIlMRtYmgJeMI6uwkgvsAfAzE8DjEwHT+0j7eZKRApZk3vlK+0UAVMhRCpHNcQQgcRkzHivQ88bTcTtGoux11025pqPnHeiDXADg+NxicbzmfuZSAPC05TzUYrlnKwUAB7nHFtl3M5DrdFcAWENdTWzuvNyGiVOyZtJ9LGm6VQHkxt9aYJ677w5XPBVACymVxnMVgDW/u1gzjNwSyjgqgBZnwW73SekiQwXQQkqlDyQVgPUF5WLNMJJykowbSOkbAJLkXhEAvOpYde+gGUoSGnmJ6TOklEoKFAXA679DjVi3NS+zKNXuFWmhIaVUktBoBXh/OXVTpBmuWzdxs+EiFRjyLJDzkR0GlFJZQqMtRD9e+S1p3WFayxJaAmAIKZUltASAdWNt0j3HoOkfmiGUSFagkgrQt2YV3PdANWT0bwweaqxG6i+L1UpUHhLhugOaFywqo1ZizZ6PAJpRndho4SvwC8HeVjE+owFJAAAAAElFTkSuQmCC">
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title" translateID="nav-Donate">Buy us a Coffee</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+                <span style="position: absolute;top: 100%;left: 16px;color: #5d5b5b;">G&eacute;Nav V10.0.1</span>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/framework7.min.js"></script>
-<!--<script type="text/javascript" src="js/my-app.js"></script>-->
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/AppUpdater.js"></script>
-<script language="javascript" src="js/lz-string.min.js"></script>
-<script language="javascript" src="js/translate.js"></script>
-<script language="javascript" src="js/strings.js"></script>
 
-<script type="text/javascript">
-    // Initialize your app
-    var myApp = new Framework7(
-          {
-            material: true,
-            pushState: true
-          }
-    );
-    // Export selectors engine
-    var $$ = Dom7;
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main ios-edges">
+      <!-- Page, data-name contains page name which can be used in callbacks -->
+      <div class="page" data-name="home">
+        <!-- Top Navbar -->
+        <div class="navbar" id="navbar">
+          <div class="navbar-inner">
+            <div class="left">
+              <a href="#" class="link icon-only panel-open md-only" data-panel="left">
+                <i class="icon f7-icons ios-only">menu</i>
+                <i class="icon material-icons md-only">menu</i>
+              </a>
+            </div>
+            <div class="title sliding">G&eacute;Nav</div>
+            <div class="right">
+            </div>
+          </div>
+        </div>
+      <div class="toolbar tabbar-labels ios-only tabbar-scrollable">
+          <div class="toolbar-inner">
+              <a href="/home/" class="tab-link tab-link-active">
+                  <!-- Different icons for iOS and MD themes -->
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/home%20red.png">
+                  <i class="icon material-icons md-only">home</i>
+                  <!-- Label text -->
+                  <span class="tabbar-label" style="padding-bottom: 2px">Home</span>
+              </a>
+              <a href="/disruptions/" class="tab-link">
+                  <img height="30px" class="icon ios-only" style="padding-top: 5px;" src="ios-icons/disruptions%20grey.png">
+                  <i class="icon material-icons md-only">danger</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">Disruptions</span>
+              </a>
+              <a href="/times/" class="tab-link">
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/stops%20grey.png">
+                  <i class="icon material-icons md-only">file_upload</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">Stops</span>
+              </a>
+              <a href="#tab-3" class="tab-link">
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/favorite%20stops%20grey.png">
+                  <i class="icon material-icons md-only">heart</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">Favorite Stops</span>
+              </a>
+              <a href="/tickets/" class="tab-link">
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/sms%20tickets%20grey.png">
+                  <i class="icon material-icons md-only">heart</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">SMS Tickets</span>
+              </a>
+              <a href="/map/" class="tab-link">
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/maps%20grey.png">
+                  <i class="icon material-icons md-only">heart</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">Maps</span>
+              </a>
+              <a href="/directions/" class="tab-link">
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/directions%20grey.png">
+                  <i class="icon material-icons md-only">heart</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">Directions</span>
+              </a>
+              <a href="#" onclick="  app.dialog.create({
+    title: translateStr('nav-About',currentLang),
+    text: translateStr('About-Text',currentLang),
+    buttons: [
+      {
+        text: 'OK',
+        color: 'red'
+      },
+    ],
+  }).open();" class="tab-link">
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/about%20grey.png">
+                  <i class="icon material-icons md-only">heart</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">About</span>
+              </a>
+              <a href="https://www.paypal.me/GeNavApp/2.5" class="tab-link external">
+                  <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/donations%20grey.png">
+                  <i class="icon material-icons md-only">heart</i>
+                  <span class="tabbar-label" style="padding-bottom: 2px">Buy Us A Coffee</span>
+              </a>
+          </div>
+      </div>
+        <!-- Scrollable page content-->
+        <div class="page-content">
+            <div class="row">
+                <div class="col-100 tablet-50">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">warnings</i> Disruptions</div><a href="#" onclick='$.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){document.getElementsByClassName("homeDis")[0].innerHTML = data;document.getElementsByClassName("homeDis")[1].innerHTML = data;});'><i class="material-icons">refresh</i></a></div>
+                            <div class="card-content-inner card-content-padding homeDis" id="homeDis">
+                                Please press the refresh button above to get the latest disruptions
+                            </div>
+                            <div class="card-footer">
+                                <a href="/disruptions/">Disruptions</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-100 tablet-50">
+                    <div class="card disabled">
+                        <div class="card-content">
+                            <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">directions</i> Routes</div></div>
+                            <div class="card-content-inner card-content-padding">
+                                <!--No routes saved yet!-->
+                                Sorry but this card is not currently available.
+                            </div>
+                            <div class="card-footer">
+                                <a href="routes.html" onclick="myApp.alert('Routes are not yet available!', 'Sorry')" class="disabled">Routes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-100 tablet-100">
+                    <div class="card disabled">
+                        <div class="card-content">
+                            <div class="card-header"><div><i class="material-icons" style="top: 5px; position: relative;">star</i> Favorite Stops</div></div>
+                            <div class="card-content-inner card-content-padding">
+                                <!--Favorite stops are not available offline-->
+                                Sorry but this card is not currently available.
+                            </div>
+                            <div class="card-footer">
+                                <a id="homeFav" href="http://cityrunner-server.genav.g/hosted_app/favs.php?stopCodes=" class="disabled">Favorite Stops</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Cordova -->
+  <script src="cordova.js"></script>
 
-    var mainView = myApp.addView('.view-main');
-    $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
-            document.getElementsByClassName("homeDis")[0].innerHTML = data;
-            document.getElementsByClassName("homeDis")[1].innerHTML = data;
-        }
-    );
-    $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
-        var els = document.getElementsByClassName("homeDis");
+  <!-- App routes -->
+  <script src="js/routes.js"></script>
 
-        Array.prototype.forEach.call(els, function(el) {
-            // Do stuff here
-            el.innerHTML = data;
-        });
-    });
-    var currentLang = "EN";
-    // Option 1. Using one 'page:init' handler for all pages (recommended way):
-    $$(document).on('page:init', function (e) {
-        // Do something here when page loaded and initialized
-        translatePage(currentLang);
-    });
-    $$('.add-route').on('click', function () {
-        myApp.popup('.add-route-popup');
-    });
-    var fruits = ('Apple Apricot Avocado Banana Melon Orange Peach Pear Pineapple').split(' ');
-    myApp.onPageReinit  ("tmp", function (page) {
-        var fruits = ('Apple Apricot Avocado Banana Melon Orange Peach Pear Pineapple').split(' ');
-        // Simple Dropdown
-        myApp.autocomplete({
-            input: '#autocomplete-dropdown',
-            openIn: 'dropdown',
-            source: function (autocomplete, query, render) {
-                var results = [];
-                if (query.length === 0) {
-                    render(results);
-                    return;
-                }
-                // Find matched items
-                for (var i = 0; i < fruits.length; i++) {
-                    if (fruits[i].toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(fruits[i]);
-                }
-                // Render items by passing array with result items
-                render(results);
-            }
-        });
-    });
-    title2TPGApp();
-    myApp.onPageInit("index", function (page) {
-        title2TPGApp();
-        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
-            document.getElementsByClassName("homeDis")[0].innerHTML = data;
-            document.getElementsByClassName("homeDis")[1].innerHTML = data;
-        }
-        );
-        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
-            var els = document.getElementsByClassName("homeDis");
+  <!-- Framework7 library -->
+  <script src="framework7/js/framework7.js"></script>
 
-            Array.prototype.forEach.call(els, function(el) {
-                // Do stuff here
-                el.innerHTML = data;
-            });
-        });
-    });
-    myApp.onPageInit("routes", function () {
-        var options = {
-            url: "js/GetStops.json",
+  <!-- Path to your custom app scripts -->
+  <script src="js/app.js"></script>
 
-            getValue: "stopName",
+  <!-- Translation -->
+  <script language="javascript" src="js/translate.js"></script>
+  <script language="javascript" src="js/strings.js"></script>
 
-            list: {
-                match: {
-                    enabled: true
-                }
-            }
-        };
-        var autocompleteDropdownAjax = myApp.autocomplete({
-            opener: '#stops1',
-            openIn: 'popup',
-            preloader: true, //enable preloader
-            valueProperty: 'stopCode', //object's "value" property name
-            textProperty: 'stopName', //object's "text" property name
-            limit: 20, //limit to 20 results
-            dropdownPlaceholderText: 'Aeroport',
-            expandInput: true, // expand input
-            source: function (autocomplete, query, render) {
-                var results = [];
-                if (query.length === 0) {
-                    render(results);
-                    return;
-                }
-                // Show Preloader
-                autocomplete.showPreloader();
-                // Do Ajax request to Autocomplete data
-                $$.ajax({
-                    url: 'js/GetStops.html',
-                    method: 'GET',
-                    dataType: 'json',
-                    //send "query" to server. Useful in case you generate response dynamically
-                    data: {
-                        stopName: query
-                    },
-                    success: function (data) {
-                        // Find matched items
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].name.toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(data[i]);
-                        }
-                        // Hide Preoloader
-                        autocomplete.hidePreloader();
-                        // Render items by passing array with result items
-                        render(results);
-                    }
-                });
-            }
-        });
-    });
-    document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
-    document.getElementById("homeFav").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("GeNav_Favs")));
-    function setCookie(cname, cvalue, exdays) {
-//        var d = new Date();
-//        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-//        var expires = "expires="+d.toUTCString();
-//        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        window.localStorage.setItem(cname,cvalue);
-        writeFile("files/" + cname + ".txt", cvalue)
-    }
-    function writeFile(fileEntry, dataObj) {
-        // Create a FileWriter object for our FileEntry (log.txt).
-        fileEntry.createWriter(function (fileWriter) {
+  <!-- Jquery -->
+  <script src="js/jquery-3.2.1.min.js"></script>
 
-            fileWriter.onwriteend = function() {
-                console.log("Successful file write...");
-                readFile(fileEntry);
-            };
-
-            fileWriter.onerror = function (e) {
-                console.log("Failed file write: " + e.toString());
-            };
-
-            // If data object is not passed in,
-            // create a new Blob instead.
-            if (!dataObj) {
-                dataObj = new Blob(['some file data'], { type: 'text/plain' });
-            }
-
-            fileWriter.write(dataObj);
-        });
-    }
-
-
-    function getCookie(cname) {
-        if (window.localStorage.getItem(cname) == null) {
-            var str = "CVIN,BAIR,AERO,";
-        } else {
-            var str = window.localStorage.getItem(cname);
-        }
-//        var name = cname + "=";
-//        var ca = document.cookie.split(';');
-//        for(var i = 0; i < ca.length; i++) {
-//            var c = ca[i];
-//            while (c.charAt(0) == ' ') {
-//                c = c.substring(1);
-//            }
-//            if (c.indexOf(name) == 0) {
-//                return c.substring(name.length, c.length);
-//            }
-//        }
-//        return "";
-        return str;
-    }
-    var contains = function(needle) {
-        // Per spec, the way to identify NaN is that it is not equal to itself
-        var findNaN = needle !== needle;
-        var indexOf;
-
-        if(!findNaN && typeof Array.prototype.indexOf === 'function') {
-            indexOf = Array.prototype.indexOf;
-        } else {
-            indexOf = function(needle) {
-                var i = -1, index = -1;
-
-                for(i = 0; i < this.length; i++) {
-                    var item = this[i];
-
-                    if((findNaN && item !== item) || item === needle) {
-                        index = i;
-                        break;
-                    }
-                }
-
-                return index;
-            };
-        }
-
-        return indexOf.call(this, needle) > -1;
-    };
-    myApp.onPageInit('stop', function (page) {
-        isFav();
-        myApp.closeModal();
-        console.log(page);
-    });
-    myApp.onPageInit('dep', function (page) {
-        myApp.closeModal();
-        console.log(page);
-    });
-    myApp.onPageAfterAnimation('times', function (page) {
-        myApp.closeModal();
-        document.getElementById("search").setAttribute("placeholder", translateStr("search", currentLang));
-        console.log(page);
-    });
-    myApp.onPageAfterAnimation('favs', function (page) {
-        myApp.closeModal();
-        document.getElementById("search").setAttribute("placeholder", translateStr("search", currentLang));
-        console.log(page);
-    });
-    function fav() {
-        var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("TPGAPP_Favs").split(",");
-        if(contains.call(cokies,fav)){
-            remove4rmFavs();
-            document.getElementById("FABIcon").innerHTML = "favorite_outline";
-        } else {
-            add2Favs();
-            document.getElementById("FABIcon").innerHTML = "favorite";
-        }
-    }
-    function isFav() {
-        var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("TPGAPP_Favs").split(",");
-        if(contains.call(cokies,fav)){
-            document.getElementById("FABIcon").innerHTML = "favorite";
-        } else {
-            document.getElementById("FABIcon").innerHTML = "favorite_outline";
-        }
-    }
-    function add2Favs() {
-        var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("TPGAPP_Favs").split(",");
-        cokies.push(fav);
-        var str = cokies.join(",");
-        if (str.substring(0, 1) == ',') {
-            str = str.substring(1);
-        }
-        setCookie("TPGAPP_Favs",str,365);
-        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
-        document.getElementById("homeFav").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
-        return getCookie("TPGAPP_Favs");
-    }
-    function remove4rmFavs() {
-        var fav = document.getElementById("currStopCode").innerHTML;
-        var cokies = getCookie("TPGAPP_Favs").split(",");
-        var index = cokies.indexOf(fav);
-        if (index > -1) {
-            cokies.splice(index, 1);
-        }
-        var str = cokies.join(",");
-        if (str.substring(0, 1) == ',') {
-            str = str.substring(1);
-        }
-        setCookie("TPGAPP_Favs",str,365);
-        document.getElementById("favs").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
-        document.getElementById("homeFav").setAttribute("href","http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=".concat(getCookie("TPGAPP_Favs")));
-        return getCookie("TPGAPP_Favs");
-    }
-    refreshdiststopdep();
-    function refreshdiststopdep() {
-        var getValue = $('.page-on-center').attr("data-page");
-        //console.log(getValue);
-        if (getValue == 'disruptions') {
-            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/disruptions.php");
-            console.log("currently reloading disruptions page");
-        }
-        if (getValue == 'dep') {
-            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/dep.php?dc=".concat(document.getElementById("currDepCode").innerHTML));
-            console.log("currently reloading dep page");
-        }
-        if (getValue == 'stop') {
-            mainView.router.reloadPage("http://cityrunner-server.genav.ga/hosted_app/stop.php?off=0&len=20&stop=".concat(document.getElementById("currStopCode").innerHTML));
-            console.log("currently reloading stop page");
-        }
-        setTimeout(function () {
-            refreshdiststopdep();
-        },30000);
-    }
-    myApp.onPageBack("stop",function (data) {
-        console.log(data + " changed the title on back.");
-        title2TPGApp();
-    });
-    myApp.onPageBack("dep",function (data) {
-        console.log(data + " changed the title on back.");
-        document.getElementById("title").innerHTML = document.getElementById("currStopName").innerHTML + " - " + document.getElementById("currStopCode").innerHTML;
-        document.getElementById("navbar").style.color = "#fff";
-        document.getElementById("navbar").style.backgroundColor = "#f44336";
-        try {
-            StatusBar.backgroundColorByHexString("#ba000d");
-        } catch(e) {
-            console.error(e);
-        }
-    });
-    function title2TPGApp() {
-        document.getElementById("title").innerHTML = "GéNav";
-        document.getElementById("navbar").style.color = "#fff";
-        document.getElementById("navbar").style.backgroundColor = "#f44336";
-        try {
-            StatusBar.backgroundColorByHexString("#ba000d");
-            window.plugins.headerColor.tint("#f44336");
-        } catch(e) {
-            console.error(e);
-        }
-
-    }
-    function updateLink() {
-        var href = "../hosted_app/dir.php?origin=";
-        href = href + encodeURIComponent(document.getElementById('origin').value) + '&destination=' + encodeURIComponent(document.getElementById('destination').value);
-        document.getElementById("btn").href = href;
-    }
-    function dirSubmit(d) {
-        var frm = $(d);
-
-        frm.submit(function (e) {
-
-            e.preventDefault();
-
-            $.ajax({
-                type: frm.attr('method'),
-                url: frm.attr('action'),
-                data: frm.serialize(),
-                success: function (data) {
-                    console.log('Submission was successful.');
-                    console.log(data);
-                    $("return").innerHTML = data;
-                },
-                error: function (data) {
-                    console.log('An error occurred.');
-                    console.log(data);
-                },
-            });
-        });
-        //console.log($.get('../inc/php/mapsCalculator.php?' + $(d).serialize()));
-    }
-    var origin = document.getElementById("origin");
-    function prefillOrigin() {
-        origin = document.getElementById("origin");
-        getLocation();
-    }
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            origin.value = "Geolocation is not supported by this browser.";
-        }
-    }
-    function showPosition(position) {
-        origin.value = position.coords.latitude + "," + position.coords.longitude;
-    }
-    function iosMaterialConv() {
-    /*    var platform = device.platform;
-        //var platform = "ios";
-        if (platform == "ios") {
-            document.getElementById("f7-main").href = "css/framework7.ios.min.css";
-            document.getElementById("f7-colors").href = "css/framework7.ios.colors.min.css";
-        } else {
-            document.getElementById("f7-main").href = "css/framework7.material.min.css";
-            document.getElementById("f7-colors").href = "css/framework7.material.colors.min.css";
-        }*/
-    }
-    function checkConnection() {
-        var networkState = navigator.connection.type;
-
-        var states = {};
-        states[Connection.UNKNOWN]  = 'Unknown connection';
-        states[Connection.ETHERNET] = 'Ethernet connection';
-        states[Connection.WIFI]     = 'WiFi connection';
-        states[Connection.CELL_2G]  = 'Cell 2G connection';
-        states[Connection.CELL_3G]  = 'Cell 3G connection';
-        states[Connection.CELL_4G]  = 'Cell 4G connection';
-        states[Connection.CELL]     = 'Cell generic connection';
-        states[Connection.NONE]     = 'No network connection';
-
-        return states[networkState];
-    }
-        $('.hosted').click(function () {
-            if (checkConnection() == 'No network connection') {
-                myApp.alert("Sorry but you cannot access this page while offline", "Sorry");
-            }
-        });
-document.addEventListener(
-    'deviceready',
-    function(){
-        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
-                document.getElementsByClassName("homeDis")[0].innerHTML = data;
-                document.getElementsByClassName("homeDis")[1].innerHTML = data;
-            }
-        );
-        $.get("http://cityrunner-server.genav.ga/hosted_app/disruptions-home.php", function(data, status){
-            var els = document.getElementsByClassName("homeDis");
-
-            Array.prototype.forEach.call(els, function(el) {
-                // Do stuff here
-                el.innerHTML = data;
-            });
-        });
-        AppUpdater('http://cityrunner-server.genav.ga/app_update/');
-    },
-    false
-);
-notifications();
-function notifications() {
-    if (typeof device !== 'undefined') {
-        var id = device.uuid;
-    } else {
-        var id = guid();
-    }
-    console.log(id);
-    httpGetAsync(
-        "http://cityrunner-server.genav.ga/notifications?id=" + id, function (data) {
-            var json = JSON.parse(data);
-            myApp.addNotification({
-                message: json.message
-            });
-        }
-    );
-//    httpGetAsync(
-//        "../notifications?id=" + id, function (data) {
-//            var json = JSON.parse(data);
-//            myApp.addNotification({
-//                message: json
-//            });
-//        }
-//    );
-    setTimeout(function () {
-        notifications();
-    }, 30000);
-}
-function httpGetAsync(theUrl, callback)
-    {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() {
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                callback(xmlHttp.responseText);
-        }
-        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-        xmlHttp.send(null);
-    }
-
-    function guid() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-        if (typeof localStorage.GeNav_UUID !== 'undefined') {
-            return localStorage.getItem("GeNav_UUID");
-        } else {
-            var id = s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-            localStorage.setItem("GeNav_UUID", id);
-            return id;
-        }
-
-    }
-</script>
 </body>
 </html>
