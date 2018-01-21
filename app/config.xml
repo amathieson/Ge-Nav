@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
-        version   = "1.30.4BETA">
-		<preference name="android-versionCode" value="103004" />
+        version   = "1.30.5BETA">
+		<preference name="android-versionCode" value="103005" />
 
     <name>GéNav</name>
 
