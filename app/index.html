@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <!--
-  Customize this policy to fit your own app's needs. For more guidance, see:
-      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-  Some notes:
-      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-          * Enable inline JS: add 'unsafe-inline' to default-src
-  -->
-  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#2196f3">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
-  <title>GéNav - Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favIcons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favIcons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favIcons/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favIcons/favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="mask-icon" href="../favIcons/safari-pinned-tab.svg" color="#f44336">
+    <link rel="shortcut icon" href="../favIcons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#f44336">
+    <meta name="msapplication-TileImage" content="../favIcons/mstile-144x144.png">
+    <meta name="msapplication-config" content="../favIcons/browserconfig.xml">
+    <meta name="theme-color" content="#f44336">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>GéNav - Home</title>
 
-  <link rel="stylesheet" href="framework7/css/framework7.min.css">
-  <link rel="stylesheet" href="css/icons.css">
-  <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="framework7/css/framework7.min.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body class="color-theme-red">
   <div id="app">
@@ -80,7 +81,7 @@
                   </a>
                 </li>
                 <li>
-                  <a id="favs" href="http://cityrunner-server.genav.ga/hosted_app/favs.php?stopCodes=" onclick="title2TPGApp();app.preloader.show(translateStr('loading',currentLang));setTimeout(function () {app.preloader.hide();}, 1000);" class="hosted item panel-close link">
+                  <a id="favs" href="#" onclick="title2TPGApp();app.preloader.show(translateStr('loading',currentLang));setTimeout(function () {app.preloader.hide();}, 1000);" class="hosted item panel-close link">
                     <div class="item-content">
                       <div class="item-media">
                         <i class="material-icons">star</i>
@@ -184,6 +185,10 @@
             </div>
             <div class="title sliding">G&eacute;Nav</div>
             <div class="right">
+                <a href="/times/" class="link icon-only md-only">
+                    <i class="icon f7-icons ios-only">search</i>
+                    <i class="icon material-icons md-only">search</i>
+                </a>
             </div>
           </div>
         </div>
@@ -206,7 +211,7 @@
                   <i class="icon material-icons md-only">file_upload</i>
                   <span class="tabbar-label" style="padding-bottom: 2px">Stops</span>
               </a>
-              <a href="#tab-3" class="tab-link">
+              <a href="#" class="tab-link">
                   <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/favorite%20stops%20grey.png">
                   <i class="icon material-icons md-only">heart</i>
                   <span class="tabbar-label" style="padding-bottom: 2px">Favorite Stops</span>
@@ -311,8 +316,8 @@
   <script src="js/app.js"></script>
 
   <!-- Translation -->
-  <script language="javascript" src="js/translate.js"></script>
   <script language="javascript" src="js/strings.js"></script>
+  <script language="javascript" src="js/translate.js"></script>
 
   <!-- Jquery -->
   <script src="js/jquery-3.2.1.min.js"></script>

@@ -32,45 +32,51 @@ function title2TPGApp() {
 
 }
 function refreshDeps() {
-    $.get("../hosted_app-V2/stopsASYNC.php?stop=" + document.getElementById("currStopCode").innerHTML + "&off=0&len=50",function (data) {
-        var depsVlist = app.virtualList.create({
-            // List Element
-            el: '.depsList',
-            // Pass array with items
-            items: JSON.parse(data),
-            // Custom search function for searchbar
-            searchAll: function (query, items) {
-                var found = [];
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                }
-                return found; //return array with mathceds indexes
-            },
+    if (document.getElementsByClassName("page-current")[0].dataset.name == "stop") {
+        app.preloader.show();
+        setTimeout(function () {
+            app.preloader.hide();
+        }, 200);
+        $.get(hostedDir() + "/stopsASYNC.php?stop=" + document.getElementById("currStopCode").innerHTML + "&off=0&len=50", function (data) {
+            var depsVlist = app.virtualList.create({
+                // List Element
+                el: '.depsList',
+                // Pass array with items
+                items: JSON.parse(data),
+                // Custom search function for searchbar
+                searchAll: function (query, items) {
+                    var found = [];
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                    }
+                    return found; //return array with mathceds indexes
+                },
 
-            // List item Template7 template
-            itemTemplate:
-            '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
-            '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
-            'app.preloader.show(translateStr(\'loading\',currentLang));' +
-            'setTimeout(function () {app.preloader.hide();}, 1000);' +
-            'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
-            'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
-            '<div class="item-inner">' +
-            '<div class="item-title-row" style="position: relative; top: -5px;">' +
-            '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
-            '<div class="item-after"style="color: #{{txtCol}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
-            '</div>' +
-            '</div>' +
-            '</a>' +
-            '</li>',
-            // Item height
-            height: app.theme === 'ios' ? 63 : 73,
-            updatableScroll: true
+                // List item Template7 template
+                itemTemplate:
+                '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
+                '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
+                'app.preloader.show(translateStr(\'loading\',currentLang));' +
+                'setTimeout(function () {app.preloader.hide();}, 1000);' +
+                'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
+                'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
+                '<div class="item-inner">' +
+                '<div class="item-title-row" style="position: relative; top: -5px;">' +
+                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
+                '<div class="item-after"style="color: #{{txtCol}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
+                '</div>' +
+                '</div>' +
+                '</a>' +
+                '</li>',
+                // Item height
+                height: app.theme === 'ios' ? 63 : 73,
+                updatableScroll: true
+            });
         });
-    });
-    setTimeout(function () {
-        refreshDeps();
-    }, 10000);
+        setTimeout(function () {
+            refreshDeps();
+        }, 30000);
+    }
 }
 
 title2TPGApp();
@@ -128,6 +134,33 @@ app.on('pageInit', function (e) {
             updatableScroll: true
         });
     }
+    if (e.name == "dep") {
+        var stopsVlist = app.virtualList.create({
+            // List Element
+            el: '.thermoList',
+            // Pass array with items
+            items: JSON.parse(document.getElementById("thermo").innerHTML),
+
+            // List item Template7 template
+            itemTemplate:
+            '<li class="{{disabled}}">' +
+            '<a href="/stop/?stop={{stopCode}}&off=0&len=20" onclick="app.preloader.show(translateStr(\'loading\',currentLang));' +
+            'setTimeout(function () {app.preloader.hide();}, 1000); ' +
+            'document.getElementById(\'currStopCode\').innerHTML = \'{{stopCode}}\';' +
+            'document.getElementById(\'currStopName\').innerHTML = \'{{stopName}}\'" class="item-link item-content">' +
+            '<div class="item-inner">' +
+            '<div class="item-title-row">' +
+            '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
+            '<div class="item-after">{{#if bus}}<i class="blinker material-icons">directions_bus</i>{{else}}{{time}}{{/if}}{{#if mins}}&nbsp;<span translateID="mins">mins</span>{{/if}}</div>' +
+            '</div>' +
+            '</div>' +
+            '</a>' +
+            '</li>',
+            // Item height
+            height: app.theme === 'ios' ? 63 : 73,
+            updatableScroll: true
+        });
+    }
     if (e.name == "stop") {
         var depsVlist = app.virtualList.create({
             // List Element
@@ -171,10 +204,6 @@ app.on('pageInit', function (e) {
 
 
 });
-// IOS
-$$(document).on('page:init', function (e, page) {
-    console.log(page);
-})
 function dirMap(id) {
     var a = document.getElementsByClassName("trajet-map");
     for (index = 0; index < a.length; ++index) {
@@ -193,3 +222,7 @@ function submitDir() {
     var sub = document.getElementById("subDir");
     sub.setAttribute("href", "/directionsRTN/?origin=" + origin.value+ "&destination=" + desination.value);
 }
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+}
+

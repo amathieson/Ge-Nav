@@ -89,7 +89,7 @@ function hostedDir() {
     if (window.location.hostname == "adam.local") {
         return "../hosted_app-V2";
     } else {
-        return "http://cityrunner-server.genav.ga/hosted_app-V2/";
+        return "https://cityrunner-server.genav.ga/hosted_app-V2";
     }
 
 }
