@@ -63,6 +63,13 @@ routes = [
         }
     },
     {
+        path: '/favs/',
+        url: 'pages/favs.html',
+        options: {
+            pushState: true
+        }
+    },
+    {
         path: '/map/',
         url: 'pages/map.html',
         options: {

@@ -1,0 +1,101 @@
+<div class="page" data-page="favs" data-name="favs">
+    <!-- Top Navbar -->
+    <div class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a  href="#" class="link icon-only panel-open md-only" data-panel="left">
+                    <i class="icon f7-icons ios-only">menu</i>
+                    <i class="icon material-icons md-only">menu</i>
+                </a>
+            </div>
+            <div class="title sliding">G&eacute;Nav</div>
+            <div class="right">
+                <a href="/times/" class="link icon-only md-only">
+                    <i class="icon f7-icons ios-only">search</i>
+                    <i class="icon material-icons md-only">search</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="subnavbar">
+        <form data-search-container=".stops" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
+            <div class="searchbar-inner">
+                <div class="searchbar-input-wrap">
+                    <input type="search" placeholder="Search"/>
+                    <i class="searchbar-icon"></i>
+                    <span class="input-clear-button"></span>
+                </div>
+                <span class="searchbar-disable-button">Cancel</span>
+            </div>
+        </form>
+    </div>
+    <div class="searchbar-backdrop"></div>
+    <div class="toolbar tabbar-labels ios-only tabbar-scrollable">
+        <div class="toolbar-inner">
+            <a href="/home/" class="tab-link">
+                <!-- Different icons for iOS and MD themes -->
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/home%20grey.png">
+                <i class="icon material-icons md-only">home</i>
+                <!-- Label text -->
+                <span class="tabbar-label" style="padding-bottom: 2px">Home</span>
+            </a>
+            <a href="/disruptions/" class="tab-link">
+                <img height="30px" class="icon ios-only" style="padding-top: 5px;" src="ios-icons/disruptions%20grey.png">
+                <i class="icon material-icons md-only">danger</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Disruptions</span>
+            </a>
+            <a href="/times/" class="tab-link tab-link-active">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/stops%20grey.png">
+                <i class="icon material-icons md-only">file_upload</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Stops</span>
+            </a>
+            <a href="/favs/" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/favorite%20stops%20red.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Favorite Stops</span>
+            </a>
+            <a href="/tickets/" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/sms%20tickets%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">SMS Tickets</span>
+            </a>
+            <a href="/map/" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/maps%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Maps</span>
+            </a>
+            <a href="/directions/" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/directions%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Directions</span>
+            </a>
+            <a href="#" onclick="  app.dialog.create({
+    title: translateStr('nav-About',currentLang),
+    text: translateStr('About-Text',currentLang),
+    buttons: [
+      {
+        text: 'OK',
+        color: 'red'
+      },
+    ],
+  }).open();" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/about%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">About</span>
+            </a>
+            <a href="https://www.paypal.me/GeNavApp/2.5" class="tab-link external">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/donations%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Buy Us A Coffee</span>
+            </a>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="list simple-list searchbar-not-found">
+            <ul>
+                <li>Nothing found</li>
+            </ul>
+        </div>
+        <div style="margin-top: 0px;" class="list favs virtual-list media-list searchbar-found search-list"></div>
+    </div>
+</div>

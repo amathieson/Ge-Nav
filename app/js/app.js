@@ -73,10 +73,10 @@ function refreshDeps() {
                 updatableScroll: true
             });
         });
-        setTimeout(function () {
-            refreshDeps();
-        }, 30000);
     }
+    setTimeout(function () {
+        refreshDeps();
+    }, 30000);
 }
 
 title2TPGApp();
@@ -134,6 +134,41 @@ app.on('pageInit', function (e) {
             updatableScroll: true
         });
     }
+    if (e.name == "favs") {
+        var stopsVlist = app.virtualList.create({
+            // List Element
+            el: '.favs',
+            // Pass array with items
+            items: JSON.parse(getFavorites()),
+            // Custom search function for searchbar
+            searchAll: function (query, items) {
+                var found = [];
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].stopName.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].stopCode.toLowerCase().indexOf(query.toLowerCase()) >= 0|| query.trim() === '') found.push(i);
+                }
+                return found; //return array with mathced indexes
+            },
+
+            // List item Template7 template
+            itemTemplate:
+            '<li>' +
+            '<a href="/stop/?stop={{stopCode}}&off=0&len=20" onclick="app.preloader.show(translateStr(\'loading\',currentLang));' +
+            'setTimeout(function () {app.preloader.hide();}, 1000); ' +
+            'document.getElementById(\'currStopCode\').innerHTML = \'{{stopCode}}\';' +
+            'document.getElementById(\'currStopName\').innerHTML = \'{{stopName}}\'" class="item-link item-content">' +
+            '<div class="item-inner">' +
+            '<div class="item-title-row">' +
+            '<div class="item-title">{{stopName}}</div>' +
+            '</div>' +
+            '<div class="item-subtitle">{{stopCode}}</div>' +
+            '</div>' +
+            '</a>' +
+            '</li>',
+            // Item height
+            height: app.theme === 'ios' ? 63 : 73,
+            updatableScroll: true
+        });
+    }
     if (e.name == "dep") {
         var stopsVlist = app.virtualList.create({
             // List Element
@@ -162,6 +197,17 @@ app.on('pageInit', function (e) {
         });
     }
     if (e.name == "stop") {
+        if (!isFav(document.getElementsByClassName("page-current")[0].dataset.stopcode)) {
+            document.getElementById("favFAB").setAttribute("onClick", "addFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "', '" + document.getElementsByClassName("page-current")[0].dataset.stopname + "')");
+            document.getElementById("favFAB").innerHTML =
+                "<i class=\"icon material-icons md-only\">favorite_border</i>" +
+                "<i class=\"icon f7-icons ios-only\">heart</i>";
+        } else {
+            document.getElementById("favFAB").setAttribute("onClick", "remFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "')");
+            document.getElementById("favFAB").innerHTML =
+                "<i class=\"icon material-icons md-only\">favorite</i>" +
+                "<i class=\"icon f7-icons ios-only\">heart_fill</i>";
+        }
         var depsVlist = app.virtualList.create({
             // List Element
             el: '.depsList',
@@ -222,7 +268,98 @@ function submitDir() {
     var sub = document.getElementById("subDir");
     sub.setAttribute("href", "/directionsRTN/?origin=" + origin.value+ "&destination=" + desination.value);
 }
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
+if (location.protocol == 'https:' || window.location.hostname == "localhost") {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
+    }
+}
+function getFavorites() {
+
+    var rtn = getCookie("GeNav_Favorites");
+    if (rtn == "") {
+        rtn = "[]"
+    }
+    return rtn
+}
+function addFavorite(stopCode, stopName) {
+    var curr = JSON.parse(getFavorites());
+    curr.push({"stopCode":stopCode, "stopName":stopName});
+    var out = JSON.stringify(curr);
+    setCookie("GeNav_Favorites", out, 9999999999);
+    if (!isFav(document.getElementsByClassName("page-current")[0].dataset.stopcode)) {
+        document.getElementById("favFAB").setAttribute("onClick", "addFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "', '" + document.getElementsByClassName("page-current")[0].dataset.stopname + "')");
+        document.getElementById("favFAB").innerHTML =
+            "<i class=\"icon material-icons md-only\">favorite_border</i>" +
+            "<i class=\"icon f7-icons ios-only\">heart</i>";
+    } else {
+        document.getElementById("favFAB").setAttribute("onClick", "remFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "')");
+        document.getElementById("favFAB").innerHTML =
+            "<i class=\"icon material-icons md-only\">favorite</i>" +
+            "<i class=\"icon f7-icons ios-only\">heart_fill</i>";
+    }
+}
+function remFavorite(stopCode) {
+    var curr = JSON.parse(getFavorites());
+    for (index = 0; index < curr.length; ++index) {
+        if (curr[index].stopCode == stopCode) {
+            curr.remove(index);
+        }
+    }
+    var out = JSON.stringify(curr);
+    setCookie("GeNav_Favorites", out, 9999999999);
+    if (!isFav(document.getElementsByClassName("page-current")[0].dataset.stopcode)) {
+        document.getElementById("favFAB").setAttribute("onClick", "addFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "', '" + document.getElementsByClassName("page-current")[0].dataset.stopname + "')");
+        document.getElementById("favFAB").innerHTML =
+            "<i class=\"icon material-icons md-only\">favorite_border</i>" +
+            "<i class=\"icon f7-icons ios-only\">heart</i>";
+    } else {
+        document.getElementById("favFAB").setAttribute("onClick", "remFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "')");
+        document.getElementById("favFAB").innerHTML =
+            "<i class=\"icon material-icons md-only\">favorite</i>" +
+            "<i class=\"icon f7-icons ios-only\">heart_fill</i>";
+    }
+}
+function isFav(stopCode) {
+    var curr = JSON.parse(getFavorites());
+    for (index = 0; index < curr.length; ++index) {
+        if (curr[index].stopCode == stopCode) {
+            return true;
+        }
+    }
+    return false;
 }
 
+function setCookie(cname, cvalue, exdays) {
+    if (window.location.hostname == "adam.local" || window.location.hostname == "genav.ga") {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    } else {
+
+    }
+}
+function getCookie(cname) {
+    if (window.location.hostname == "adam.local" || window.location.hostname == "genav.ga") {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+    } else {
+
+    }
+    return "";
+}
+Array.prototype.remove = function(from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+};
