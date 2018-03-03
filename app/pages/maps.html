@@ -1,0 +1,99 @@
+
+<div data-page="maps" data-name="maps"  class="page">
+    <!-- Top Navbar -->
+    <div class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="link icon-only panel-open" data-panel="left">
+                    <i class="icon material-icons md-only">menu</i>
+                </a>
+            </div>
+            <div class="title sliding">G&eacute;Nav</div>
+            <div class="right">
+            </div>
+        </div>
+    </div>
+    <div class="toolbar tabbar-labels ios-only tabbar-scrollable">
+        <div class="toolbar-inner">
+            <a href="/home/" class="tab-link tab-link">
+                <!-- Different icons for iOS and MD themes -->
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/home%20grey.png">
+                <i class="icon material-icons md-only">home</i>
+                <!-- Label text -->
+                <span class="tabbar-label" style="padding-bottom: 2px">Home</span>
+            </a>
+            <a href="/disruptions/" class="tab-link">
+                <img height="30px" class="icon ios-only" style="padding-top: 5px;" src="ios-icons/disruptions%20grey.png">
+                <i class="icon material-icons md-only">danger</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Disruptions</span>
+            </a>
+            <a href="/times/" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/stops%20grey.png">
+                <i class="icon material-icons md-only">file_upload</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Stops</span>
+            </a>
+            <a href="#tab-3" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/favorite%20stops%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Favorite Stops</span>
+            </a>
+            <a href="/tickets/" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/sms%20tickets%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">SMS Tickets</span>
+            </a>
+            <a href="/map/" class="tab-link tab-link-active">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/maps%20red.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Maps</span>
+            </a>
+            <a href="/directions/" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/directions%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Directions</span>
+            </a>
+            <a href="#" onclick="  app.dialog.create({
+    title: translateStr('nav-About',currentLang),
+    text: translateStr('About-Text',currentLang),
+    buttons: [
+      {
+        text: 'OK',
+        color: 'red'
+      },
+    ],
+  }).open();" class="tab-link">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/about%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">About</span>
+            </a>
+            <a href="https://www.paypal.me/GeNavApp/2.5" class="tab-link external">
+                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/donations%20grey.png">
+                <i class="icon material-icons md-only">heart</i>
+                <span class="tabbar-label" style="padding-bottom: 2px">Buy Us A Coffee</span>
+            </a>
+        </div>
+    </div>
+    <!-- Scrollable page content -->
+    <div class="page-content">
+        <canvas id="Canv" style="width: 100%; height: 100%">
+        </canvas>
+        <div class="fab fab-right-bottom">
+            <a href="#">
+                <!-- Icons For iOS Theme -->
+                <i class="icon f7-icons ios-only">eye</i>
+                <i class="icon f7-icons ios-only">close</i>
+                <!-- Icons For MD Theme -->
+                <i class="icon material-icons md-only">visibility</i>
+                <i class="icon material-icons md-only">close</i>
+            </a>
+            <!-- FAB speed dial actions -->
+            <div class="fab-buttons fab-buttons-top">
+                <a href="" onclick="imageCanv('nocambusSubruban');" style="width: 150px; left: -100px;">Noctambus Suburban</a>
+                <a href="" onclick="imageCanv('nocambusUrban');" style="width: 125px; left: -75px">Noctambus Urban</a>
+                <a href="" onclick="imageCanv('suburban');" style="width: 75px; left: -25px">Suburban</a>
+                <a href="" onclick="imageCanv('urban');" style="width: 50px">Urban</a>
+                <a href="" onclick="imageCanv('fares');" style="width: 50px">Fares</a>
+            </div>
+        </div>
+    </div>
+</div>

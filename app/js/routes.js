@@ -77,6 +77,13 @@ routes = [
         }
     },
     {
+        path: '/maps/',
+        url: 'pages/maps.html',
+        options: {
+            pushState: true
+        }
+    },
+    {
         path: '/help/',
         url: 'pages/help.html',
         options: {

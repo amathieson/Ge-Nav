@@ -38,40 +38,42 @@ function refreshDeps() {
             app.preloader.hide();
         }, 200);
         $.get(hostedDir() + "/stopsASYNC.php?stop=" + document.getElementById("currStopCode").innerHTML + "&off=0&len=50", function (data) {
-            var depsVlist = app.virtualList.create({
-                // List Element
-                el: '.depsList',
-                // Pass array with items
-                items: JSON.parse(data),
-                // Custom search function for searchbar
-                searchAll: function (query, items) {
-                    var found = [];
-                    for (var i = 0; i < items.length; i++) {
-                        if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                    }
-                    return found; //return array with mathceds indexes
-                },
+            if (data != "") {
+                var depsVlist = app.virtualList.create({
+                    // List Element
+                    el: '.depsList',
+                    // Pass array with items
+                    items: JSON.parse(data),
+                    // Custom search function for searchbar
+                    searchAll: function (query, items) {
+                        var found = [];
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                        }
+                        return found; //return array with mathceds indexes
+                    },
 
-                // List item Template7 template
-                itemTemplate:
-                '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
-                '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
-                'app.preloader.show(translateStr(\'loading\',currentLang));' +
-                'setTimeout(function () {app.preloader.hide();}, 1000);' +
-                'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
-                'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
-                '<div class="item-inner">' +
-                '<div class="item-title-row" style="position: relative; top: -5px;">' +
-                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
-                '<div class="item-after"style="color: #{{txtCol}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
-                '</div>' +
-                '</div>' +
-                '</a>' +
-                '</li>',
-                // Item height
-                height: app.theme === 'ios' ? 63 : 73,
-                updatableScroll: true
-            });
+                    // List item Template7 template
+                    itemTemplate:
+                    '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
+                    '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
+                    'app.preloader.show(translateStr(\'loading\',currentLang));' +
+                    'setTimeout(function () {app.preloader.hide();}, 1000);' +
+                    'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
+                    'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
+                    '<div class="item-inner">' +
+                    '<div class="item-title-row" style="position: relative; top: -5px;">' +
+                    '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
+                    '<div class="item-after"style="color: #{{txtCol}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</li>',
+                    // Item height
+                    height: app.theme === 'ios' ? 63 : 73,
+                    updatableScroll: true
+                });
+            }
         });
     }
     setTimeout(function () {
@@ -208,48 +210,97 @@ app.on('pageInit', function (e) {
                 "<i class=\"icon material-icons md-only\">favorite</i>" +
                 "<i class=\"icon f7-icons ios-only\">heart_fill</i>";
         }
-        var depsVlist = app.virtualList.create({
-            // List Element
-            el: '.depsList',
-            // Pass array with items
-            items: JSON.parse(document.getElementById("deps").value),
-            // Custom search function for searchbar
-            searchAll: function (query, items) {
-                var found = [];
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                }
-                return found; //return array with mathceds indexes
-            },
+        if (document.getElementById("deps").value != "") {
+            var depsVlist = app.virtualList.create({
+                // List Element
+                el: '.depsList',
+                // Pass array with items
+                items: JSON.parse(document.getElementById("deps").value),
+                // Custom search function for searchbar
+                searchAll: function (query, items) {
+                    var found = [];
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                    }
+                    return found; //return array with mathceds indexes
+                },
 
-            // List item Template7 template
-            itemTemplate:
-            '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
-            '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
-            'app.preloader.show(translateStr(\'loading\',currentLang));' +
-            'setTimeout(function () {app.preloader.hide();}, 1000);' +
-            'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
-            'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
-            '<div class="item-inner">' +
-            '<div class="item-title-row" style="position: relative; top: -5px;">' +
-            '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
-            '<div class="item-after"style="color: #{{#if pink}}ff00ff{{else}}{{txtCol}}{{/if}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
-            '</div>' +
-            '</div>' +
-            '</a>' +
-            '</li>',
-            // Item height
-            height: app.theme === 'ios' ? 63 : 73,
-            updatableScroll: true
-        });
+                // List item Template7 template
+                itemTemplate:
+                '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
+                '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
+                'app.preloader.show(translateStr(\'loading\',currentLang));' +
+                'setTimeout(function () {app.preloader.hide();}, 1000);' +
+                'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
+                'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
+                '<div class="item-inner">' +
+                '<div class="item-title-row" style="position: relative; top: -5px;">' +
+                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
+                '<div class="item-after"style="color: #{{#if pink}}ff00ff{{else}}{{txtCol}}{{/if}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
+                '</div>' +
+                '</div>' +
+                '</a>' +
+                '</li>',
+                // Item height
+                height: app.theme === 'ios' ? 63 : 73,
+                updatableScroll: true
+            });
+        }
         refreshDeps();
     }
     if (e.name == "directionsRTN") {
         dirMap("HOME");
     }
+    if (e.name == "maps") {
+        imageCanv(getUrlParameter("map"));
+        app.tab.show(document.getElementById(getUrlParameter("map")), true);
+    }
 
 
 });
+function imageCanv(image) {
+    if (image == "fares") {
+        new ImgTouchCanvas({
+            canvas: document.getElementById("Canv"),
+            path: "tpg_map_zones.svg",
+            desktop: true
+        });
+    }
+    if (image == "urban") {
+        new ImgTouchCanvas({
+            canvas: document.getElementById("Canv"),
+            path: "tpg_map_urbmap.svg",
+            desktop: true
+        });
+    }
+    if (image == "suburban") {
+        new ImgTouchCanvas({
+            canvas: document.getElementById("Canv"),
+            path: "tpg_map_submap.svg",
+            desktop: true
+        });
+    }
+    if (image == "noctamUrban") {
+        new ImgTouchCanvas({
+            canvas: document.getElementById("Canv"),
+            path: "noctambus_map_urbmap.svg",
+            desktop: true
+        });
+    }
+    if (image == "noctamSuburban") {
+        new ImgTouchCanvas({
+            canvas: document.getElementById("Canv"),
+            path: "noctambus_map_submap.svg",
+            desktop: true
+        });
+    }
+}
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.href);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
 function dirMap(id) {
     var a = document.getElementsByClassName("trajet-map");
     for (index = 0; index < a.length; ++index) {
