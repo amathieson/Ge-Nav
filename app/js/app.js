@@ -17,7 +17,14 @@ var app = new Framework7({
 var mainView = app.views.create('.view-main', {
     url: '/'
 });
+
 var currentLang = "EN";
+
+if (location.protocol == 'https:' || window.location.hostname == "localhost") {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
+    }
+}
 
 function title2TPGApp() {
     // document.getElementById("title").innerHTML = "GéNav";
@@ -86,12 +93,13 @@ title2TPGApp();
 app.on('pageInit', function (e) {
     // do something on page init
     if (e.name == "home") {
+        hostedDir();
         title2TPGApp();
-        $.get(hostedDir() + "/disruptions-home.php", function (data, status) {
+        $.get(server + "/disruptions-home.php", function (data, status) {
                 document.getElementsByClassName("homeDis")[0].innerHTML = data;
             }
         );
-        $.get(hostedDir() + "/disruptions-home.php", function (data, status) {
+        $.get(server + "/disruptions-home.php", function (data, status) {
             var els = document.getElementsByClassName("homeDis");
 
             Array.prototype.forEach.call(els, function (el) {
@@ -235,7 +243,7 @@ app.on('pageInit', function (e) {
                 'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row" style="position: relative; top: -5px;">' +
-                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
+                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}} landscape-only">{{vehicle}}</span><i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
                 '<div class="item-after"style="color: #{{#if pink}}ff00ff{{else}}{{txtCol}}{{/if}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
                 '</div>' +
                 '</div>' +
@@ -245,6 +253,9 @@ app.on('pageInit', function (e) {
                 height: app.theme === 'ios' ? 63 : 73,
                 updatableScroll: true
             });
+            if (document.getElementById("depID").value != "") {
+                stopsVlist.scrollToItem(document.getElementById("depID").value);
+            }
         }
         refreshDeps();
     }
@@ -414,3 +425,24 @@ Array.prototype.remove = function(from, to) {
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
 };
+function vehiclePopover(vehicle, e) {
+    e.preventDefault();
+    app.preloader.show(translateStr('loading',currentLang));
+    $.get("//adam.local/TPG_App/TPG?vc=" + vehicle, function (data) {
+        app.preloader.hide();
+        var rtn = JSON.parse(data);
+        var dynamicPopover = app.popover.create({
+            content: '<div class="popover">'+
+            '<div class="popover-inner">' +
+            '<div class="block-title">Vehicle Number ' + vehicle + '</div>'+
+            '<div class="block">'+
+            '<img style="width:100%;" src="' + rtn.image + '">'+
+            '<p><a href="#" class="link popover-close">Close</a></p>'+
+            '</div>'+
+            '</div>'+
+            '</div>'
+        });
+        dynamicPopover.open();
+    });
+    return false;
+}

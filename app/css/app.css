@@ -34,3 +34,16 @@
     margin-right: 5px;
     font-family: "Helvetica Neue",Helvetica,sans-serif;
 }
+@media screen and (orientation:portrait) {
+	.landscape-only {
+		display: none;
+	}
+}
+@media screen and (orientation:landscape) {
+	.portrait-only {
+		display: none;
+	}
+}
+.ABTimg {
+    filter: grayscale(100%);
+}
