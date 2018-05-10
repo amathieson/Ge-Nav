@@ -1,5 +1,5 @@
 // hostedDir();
-var server = "../hosted_app-V2";
+var server = "https://cityrunner-server.genav.ga/hosted_app-V2";
 var routes = [
         {
             path: '/home/',
