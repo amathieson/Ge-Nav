@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
-        version   = "10.30.9BETA">
-		<preference name="android-versionCode" value="103009" />
+        version   = "10.30.10BETA">
+		<preference name="android-versionCode" value="103010" />
 
     <name>GéNav</name>
 
@@ -22,7 +22,8 @@
     <!-- Customize your app and platform with the preference element. -->
     <preference name="DisallowOverscroll"         value="true" />
     <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
-    <preference name="android-minSdkVersion"      value="14" />
+    <preference name="android-minSdkVersion"      value="14" />	
+	<preference name="android-targetSdkVersion"      value="26" />	
 	<preference name="permissions" value="none" />
 	<preference name="phonegap-version" value="cli-6.5.0" />
 
