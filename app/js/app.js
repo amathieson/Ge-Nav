@@ -243,7 +243,7 @@ app.on('pageInit', function (e) {
                 'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row" style="position: relative; top: -5px;">' +
-                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}} landscape-only">{{vehicle}}</span><i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
+                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}}">{{vehicle}}</span><i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
                 '<div class="item-after"style="color: #{{#if pink}}ff00ff{{else}}{{txtCol}}{{/if}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
                 '</div>' +
                 '</div>' +
@@ -254,7 +254,7 @@ app.on('pageInit', function (e) {
                 updatableScroll: true
             });
             if (document.getElementById("depID").value != "") {
-                stopsVlist.scrollToItem(document.getElementById("depID").value);
+                depsVlist.scrollToItem(document.getElementById("depID").value);
             }
         }
         refreshDeps();

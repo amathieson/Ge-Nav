@@ -111,7 +111,6 @@ var routes = [
 function hostedDir() {
     if (window.location.hostname == "adam.local") {
         server =  "../hosted_app-V2";
-        refreshRoutes();
     } else {
         var img = document.body.appendChild(document.createElement("img"));
         img.style.display = "none";
@@ -128,28 +127,5 @@ function hostedDir() {
         img.src = "https://cityrunner-server.genav.ga/favIcons/favicon-16x16.png";
     }
     return server;
-
-}
-
-function routest() {
-    if (window.location.hostname == "adam.local") {
-        server =  "../hosted_app-V2";
-        return refreshRoutes();
-    } else {
-        var img = document.body.appendChild(document.createElement("img"));
-        img.style.display = "none";
-        img.src = "https://cityrunner-server.genav.ga/favIcons/favicon-16x16.png";
-        img.onload = function()
-        {
-            server = "https://cityrunner-server.genav.ga/hosted_app-V2";
-            var rtn = refreshRoutes();
-        };
-        img.onerror = function()
-        {
-            server = "https://genav-prod.herokuapp.com/hosted_app-V2";
-            var rtn = refreshRoutes();
-        };
-        return rtn;
-    }
 
 }
