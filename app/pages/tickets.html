@@ -1,303 +1,243 @@
-<div class="page" data-page="tickets" data-name="tickets">
-    <!-- Top Navbar -->
-    <div class="navbar" id="navbar">
-        <div class="navbar-inner">
-            <div class="left">
-                <a href="#" class="link icon-only panel-open" data-panel="left">
-                    <i class="icon material-icons md-only">menu</i>
-                </a>
-            </div>
-            <div class="title sliding">G&eacute;Nav</div>
-            <div class="right">
-            </div>
-        </div>
+<div class="page" data-name="tickets">
+  <div class="navbar" id="nav">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back tablet-only">
+          <i class="icon icon-back" id="backNav"></i>
+          <span class="ios-only">Back</span>
+        </a>
+        <a href="#" class="link icon-only panel-open" data-panel="left">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">menu</i>
+        </a>
+      </div>
+      <div class="title" id="title">SMS Tickets</div>
+      <div class="right">
+        <a href="/stops/" class="link icon-only">
+          <i class="icon f7-icons ios-only">search_strong</i>
+          <i class="icon material-icons md-only">search</i>
+        </a>
+        <a href="#" class="link icon-only popover-open" data-popover=".popover-links">
+          <i class="icon f7-icons ios-only">more_vertical</i>
+          <i class="icon material-icons md-only">more_vert</i>
+        </a>
+      </div>
     </div>
-    <div class="toolbar tabbar-labels ios-only tabbar-scrollable">
-        <div class="toolbar-inner">
-            <a href="/home/" class="tab-link tab-link">
-                <!-- Different icons for iOS and MD themes -->
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/home%20grey.png">
-                <i class="icon material-icons md-only">home</i>
-                <!-- Label text -->
-                <span class="tabbar-label" style="padding-bottom: 2px">Home</span>
-            </a>
-            <a href="/disruptions/" class="tab-link">
-                <img height="30px" class="icon ios-only" style="padding-top: 5px;" src="ios-icons/disruptions%20grey.png">
-                <i class="icon material-icons md-only">danger</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Disruptions</span>
-            </a>
-            <a href="/times/" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/stops%20grey.png">
-                <i class="icon material-icons md-only">file_upload</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Stops</span>
-            </a>
-            <a href="#tab-3" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/favorite%20stops%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Favorite Stops</span>
-            </a>
-            <a href="/tickets/" class="tab-link tab-link-active">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/sms%20tickets%20red.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">SMS Tickets</span>
-            </a>
-            <a href="/map/" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/maps%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Maps</span>
-            </a>
-            <a href="/directions/" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/directions%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Directions</span>
-            </a>
-            <a href="#" onclick="  app.dialog.create({
-    title: translateStr('nav-About',currentLang),
-    text: translateStr('About-Text',currentLang),
-    buttons: [
-      {
-        text: 'OK',
-        color: 'red'
-      },
-    ],
-  }).open();" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/about%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">About</span>
-            </a>
-            <a href="https://www.paypal.me/GeNavApp/2.5" class="tab-link external">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/donations%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Buy Us A Coffee</span>
-            </a>
-        </div>
-    </div>
-    <!-- Scrollable page content -->
-    <div class="page-content">
-        <div class="block-title">SMS Tickets</div>
-        <div class="list accordion-list">
-            <ul>
-                <li class="accordion-item"><a href="#" class="item-content item-link">
-                    <div class="item-inner">
-                        <div class="item-title">Tout Gen&egrave;ve</div>
-                    </div></a>
-                    <div class="accordion-item-content">
-                        <div class="list-block cards-list">
-                            <div class="card">
-                                <div class="card-header">Tout Gen&egrave;ve (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet Tout Gen&egrave;ve, plein tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external" href="sms:788?body=tpg1">CHF 3 / EUR 2.90</a> tpg1</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Tout Gen&egrave;ve (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet Tout Gen&egrave;ve, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=tpg2">CHF 2 / EUR 1.90</a> tpg2</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Carte Journali&egrave;re Tout Gen&egrave;ve</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Carte journali&egrave;re unireso Tout Gen&egrave;ve plein tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=cj1">CHF 10 / EUR 9.60</a> cj1</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Carte Journali&egrave;re Tout Gen&egrave;ve</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Carte journali&egrave;re unireso Tout Gen&egrave;ve tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=cj2">CHF 7.30 / EUR 7</a> cj2</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Carte Journali&egrave;re d&egrave;s 9h Tout Geneve</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Carte Journali&egrave;re d&egrave;s 9h Unireso Tout Gen&egrave;ve plein tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=cj91">CHF 8 / EUR 7.60</a> cj91</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Carte Journali&egrave;re d&egrave;s 9h Tout Geneve</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Carte Journali&egrave;re d&egrave;s 9h Unireso Tout Gen&egrave;ve tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=cj92">CHF 5.60 / EUR 5.40</a> cj92</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="accordion-item"><a href="#" class="item-content item-link">
-                    <div class="item-inner">
-                        <div class="item-title">Billets 3 zones</div>
-                    </div></a>
-                    <div class="accordion-item-content">
-                        <div class="list-block cards-list">
-                            <div class="card">
-                                <div class="card-header">Zone 10+81 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Veigy, Plein Tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1081">CHF 4.80 / EUR 4.60</a> 1081</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+81 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Veigy, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1081r">CHF 2.90 / EUR 2.80</a> 1081r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+82 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Annemasse, Plein Tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1082">CHF 4.80 / EUR 4.60</a> 1082</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+82 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Annemasse, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1082r">CHF 2.90 / EUR 2.80</a> 1082r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+84 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + St Julien, Plein Tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1084">CHF 4.80 / EUR 4.60</a> 1084</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+84 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + St Julien, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1084r">CHF 2.90 / EUR 2.80</a> 1084r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+85 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Challex, Plein Tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1085">CHF 4.80 / EUR 4.60</a> 1085</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+85 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Challex, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1085r">CHF 2.90 / EUR 2.80</a> 1085r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+87 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Ferney / Thoiry, Plein Tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1087">CHF 4.80 / EUR 4.60</a> 1087</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+87 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Ferney / Thoiry, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1087r">CHF 2.90 / EUR 2.80</a> 1087r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+88 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Sauverney, Plein Tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1088">CHF 4.80 / EUR 4.60</a> 1088</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 10+88 (valable 120 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">G&egrave;neve + Sauverney, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=1088r">CHF 2.90 / EUR 2.80</a> 1088r</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="accordion-item"><a href="#" class="item-content item-link">
-                    <div class="item-inner">
-                        <div class="item-title">Billets local</div>
-                    </div></a>
-                    <div class="accordion-item-content">
-                        <div class="list-block cards-list">
-                            <div class="card">
-                                <div class="card-header">Zone 81 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 81, plein tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=81">CHF 1.50 / EUR 1.40</a> 81</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 81 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 81, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=81r">CHF 1.30 / EUR 1.20</a> 81r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 84 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 84, plein tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=84">CHF 1.50 / EUR 1.40</a> 84</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 84 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 84, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=84r">CHF 1.30 / EUR 1.20</a> 84r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 85 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 85, plein tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=85">CHF 1.50 / EUR 1.40</a> 85</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 85 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 85, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=85r">CHF 1.30 / EUR 1.20</a> 85r</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 87 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 87, plein tarif</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=87">CHF 1.50 / EUR 1.40</a> 87</div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">Zone 87 (valable 60 minutes)</div>
-                                <div class="card-content">
-                                    <div class="card-content-padding">Billet local, zone 87, tarif r&eacute;duit</div>
-                                </div>
-                                <div class="card-footer"><a class="external link" href="sms:788?body=87r">CHF 1.30 / EUR 1.20</a> 87r</div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <script>
-        (function() {
-            if ( !navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ) return;
-
-            jQuery('a[href^="sms:"]').attr('href', function() {
-                // Convert: sms:+000?body=example
-                // To iOS:  sms:+000;body=example (semicolon, not question mark)
-                return jQuery(this).attr('href').replace(/sms:(\+?([0-9]*))?\?/, 'sms:$1;');
-            });
-        })();
-    </script>
+  </div>
+  <div class="page-content">
+      <div class="block-title">SMS Tickets</div>
+      <div class="list accordion-list">
+          <ul>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                  <div class="item-inner">
+                      <div class="item-title">Tout Gen&egrave;ve</div>
+                  </div></a>
+                  <div class="accordion-item-content">
+                      <div class="list-block cards-list">
+                          <div class="card">
+                              <div class="card-header">Tout Gen&egrave;ve (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet Tout Gen&egrave;ve, plein tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external" href="sms:788?body=tpg1">CHF 3 / EUR 2.90</a> tpg1</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Tout Gen&egrave;ve (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet Tout Gen&egrave;ve, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=tpg2">CHF 2 / EUR 1.90</a> tpg2</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Carte Journali&egrave;re Tout Gen&egrave;ve</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Carte journali&egrave;re unireso Tout Gen&egrave;ve plein tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=cj1">CHF 10 / EUR 9.60</a> cj1</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Carte Journali&egrave;re Tout Gen&egrave;ve</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Carte journali&egrave;re unireso Tout Gen&egrave;ve tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=cj2">CHF 7.30 / EUR 7</a> cj2</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Carte Journali&egrave;re d&egrave;s 9h Tout Geneve</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Carte Journali&egrave;re d&egrave;s 9h Unireso Tout Gen&egrave;ve plein tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=cj91">CHF 8 / EUR 7.60</a> cj91</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Carte Journali&egrave;re d&egrave;s 9h Tout Geneve</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Carte Journali&egrave;re d&egrave;s 9h Unireso Tout Gen&egrave;ve tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=cj92">CHF 5.60 / EUR 5.40</a> cj92</div>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                  <div class="item-inner">
+                      <div class="item-title">Billets 3 zones</div>
+                  </div></a>
+                  <div class="accordion-item-content">
+                      <div class="list-block cards-list">
+                          <div class="card">
+                              <div class="card-header">Zone 10+81 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Veigy, Plein Tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1081">CHF 4.80 / EUR 4.60</a> 1081</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+81 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Veigy, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1081r">CHF 2.90 / EUR 2.80</a> 1081r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+82 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Annemasse, Plein Tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1082">CHF 4.80 / EUR 4.60</a> 1082</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+82 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Annemasse, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1082r">CHF 2.90 / EUR 2.80</a> 1082r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+84 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + St Julien, Plein Tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1084">CHF 4.80 / EUR 4.60</a> 1084</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+84 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + St Julien, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1084r">CHF 2.90 / EUR 2.80</a> 1084r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+85 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Challex, Plein Tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1085">CHF 4.80 / EUR 4.60</a> 1085</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+85 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Challex, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1085r">CHF 2.90 / EUR 2.80</a> 1085r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+87 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Ferney / Thoiry, Plein Tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1087">CHF 4.80 / EUR 4.60</a> 1087</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+87 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Ferney / Thoiry, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1087r">CHF 2.90 / EUR 2.80</a> 1087r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+88 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Sauverney, Plein Tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1088">CHF 4.80 / EUR 4.60</a> 1088</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 10+88 (valable 120 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">G&egrave;neve + Sauverney, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=1088r">CHF 2.90 / EUR 2.80</a> 1088r</div>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+              <li class="accordion-item"><a href="#" class="item-content item-link">
+                  <div class="item-inner">
+                      <div class="item-title">Billets local</div>
+                  </div></a>
+                  <div class="accordion-item-content">
+                      <div class="list-block cards-list">
+                          <div class="card">
+                              <div class="card-header">Zone 81 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 81, plein tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=81">CHF 1.50 / EUR 1.40</a> 81</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 81 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 81, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=81r">CHF 1.30 / EUR 1.20</a> 81r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 84 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 84, plein tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=84">CHF 1.50 / EUR 1.40</a> 84</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 84 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 84, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=84r">CHF 1.30 / EUR 1.20</a> 84r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 85 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 85, plein tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=85">CHF 1.50 / EUR 1.40</a> 85</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 85 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 85, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=85r">CHF 1.30 / EUR 1.20</a> 85r</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 87 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 87, plein tarif</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=87">CHF 1.50 / EUR 1.40</a> 87</div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header">Zone 87 (valable 60 minutes)</div>
+                              <div class="card-content">
+                                  <div class="card-content-padding">Billet local, zone 87, tarif r&eacute;duit</div>
+                              </div>
+                              <div class="card-footer"><a class="external link" href="sms:788?body=87r">CHF 1.30 / EUR 1.20</a> 87r</div>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+  </div>
 </div>

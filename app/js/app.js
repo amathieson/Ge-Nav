@@ -2,447 +2,523 @@
 var $$ = Dom7;
 
 // Framework7 App main instance
-var app = new Framework7({
-    root: '#app', // App root element
-    id: 'eu.mathieson.adam.genav', // App bundle ID
-    name: 'GéNav', // App name
-    theme: 'auto', // Automatic theme detection
-    routes: routes,
-    view: {
-        pushState: true
-    }
+var app  = new Framework7({
+  root: '#app', // App root element
+  id: 'eu.mathieson.adam.genav', // App bundle ID
+  name: 'G&eacute;Nav', // App name
+  theme: 'auto', // Automatic theme detection
+  // App routes
+  routes: routes,
+  // Enable panel left visibility breakpoint
+  panel: {
+    leftBreakpoint: 960,
+  },
+});
+
+// Init/Create left panel view
+var mainView = app.views.create('.view-left', {
+  url: '/'
 });
 
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
-    url: '/'
+  url: '/',
+  // pushState: true
 });
 
-var currentLang = "EN";
-
-if (location.protocol == 'https:' || window.location.hostname == "localhost") {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js');
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
+    return "";
+}
+function loadHome() {
+    app.dialog.progress();
+    var votdDone = false;
+    var disruptionsDone = false;
+    var favsDone = false;
+    $.get("../hosted_app-V2/processODAPI.php?disruptions", function (data) {
+        var j = JSON.parse(data);
+        document.getElementById("disurptionsHome").innerHTML = "";
+        for (var i = 0; i < j.length; i++) {
+            document.getElementById("disurptionsHome").innerHTML += "<li>\n" +
+                "                    <a href=\"#\" onclick='showDisruption(this)' class=\"item-link item-content\">\n" +
+                "                        <div class=\"item-inner\">\n" +
+                "                            <div class=\"item-title-row\">\n" +
+                "                                <div class=\"item-title\">" + j[i].title + "</div>\n" +
+                "                                <div class=\"item-after\">" + j[i].time + "</div>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"item-subtitle\">" + j[i].text + "</div>\n" +
+                "                            <div class=\"item-text\">" + j[i].line + "</div>\n" +
+                "                        </div>\n" +
+                "                    </a>\n" +
+                "                </li>";
+        }
+        disruptionsDone = true;
+        if (votdDone && disruptionsDone && favsDone) {
+            app.dialog.close();
+        }
+    });
+    $.get("../hosted_app-V2/votm.php", function (data) {
+        var j = JSON.parse(data);
+        document.getElementById("iodt").src = j.image;
+        document.getElementById("votd").innerHTML = j.Vehicle_number;
+        votdDone = true;
+        if (votdDone && disruptionsDone && favsDone) {
+            app.dialog.close();
+        }
+    });
+    $.get("../hosted_app-V2/users.php?favs&u=" + uid, function (data) {
+        var j = JSON.parse(data);
+        document.getElementById("favsHome").innerHTML = "";
+        for (var i = 0; i < j.length; i++) {
+            document.getElementById("favsHome").innerHTML += "<li class='swipeout'>\n" +
+                "                        <a href=\"/stop/?s=" + j[i].stopCode + "\" onclick='currentStop = \"" + j[i].stopCode + "\";' class=\"item-link item-content swipeout-content\">\n" +
+                "                            <div class=\"item-inner\">\n" +
+                "                                <div class=\"item-title-row\">\n" +
+                "                                    <div class=\"item-title\">" + j[i].stopName + "</div>\n" +
+                "                                    <div class=\"item-after\"></div>\n" +
+                "                                </div>\n" +
+                "                                <div class=\"item-subtitle\">" + j[i].stopCode + "</div>\n" +
+                "                                <div class=\"item-text tablet-only\">\n" + j[i].connections +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </a>\n" +
+                "      <div class=\"swipeout-actions-right\">\n" +
+                "        <a href=\"#\" class=\"swipeout-delete\" onclick='deleteFav(\"" + j[i].stopCode + "\");'>Delete</a>\n" +
+                "      </div>" +
+                "                    </li>"
+        }
+        favsDone = true;
+        if (votdDone && disruptionsDone && favsDone) {
+            app.dialog.close();
+        }
+    });
+}
+function addFav(stopCode) {
+    $.get("../hosted_app-V2/users.php?addFav&s=" + stopCode + "&u=" + uid, function (data) {
+        var j = JSON.parse(data);
+        document.getElementById("favsHome").innerHTML = "";
+        for (var i = 0; i < j.length; i++) {
+            document.getElementById("favsHome").innerHTML += "<li class='swipeout'>\n" +
+                "                        <a href=\"/stop/?s=" + j[i].stopCode + "\" onclick='currentStop = \"" + j[i].stopCode + "\";' class=\"item-link item-content swipeout-content\">\n" +
+                "                            <div class=\"item-inner\">\n" +
+                "                                <div class=\"item-title-row\">\n" +
+                "                                    <div class=\"item-title\">" + j[i].stopName + "</div>\n" +
+                "                                    <div class=\"item-after\"></div>\n" +
+                "                                </div>\n" +
+                "                                <div class=\"item-subtitle\">" + j[i].stopCode + "</div>\n" +
+                "                                <div class=\"item-text tablet-only\">\n" + j[i].connections +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </a>\n" +
+                "      <div class=\"swipeout-actions-right\">\n" +
+                "        <a href=\"#\" class=\"swipeout-delete\" onclick='deleteFav(\"" + j[i].stopCode + "\");'>Delete</a>\n" +
+                "      </div>" +
+                "                    </li>"
+        }
+    });
+}
+function deleteFav(stopCode) {
+    $.get("../hosted_app-V2/users.php?deleteFav&s=" + stopCode + "&u=" + uid, function (data) {
+        var j = JSON.parse(data);
+        document.getElementById("favsHome").innerHTML = "";
+        for (var i = 0; i < j.length; i++) {
+            document.getElementById("favsHome").innerHTML += "<li class='swipeout'>\n" +
+                "                        <a href=\"/stop/?s=" + j[i].stopCode + "\" onclick='currentStop = \"" + j[i].stopCode + "\";' class=\"item-link item-content swipeout-content\">\n" +
+                "                            <div class=\"item-inner\">\n" +
+                "                                <div class=\"item-title-row\">\n" +
+                "                                    <div class=\"item-title\">" + j[i].stopName + "</div>\n" +
+                "                                    <div class=\"item-after\"></div>\n" +
+                "                                </div>\n" +
+                "                                <div class=\"item-subtitle\">" + j[i].stopCode + "</div>\n" +
+                "                                <div class=\"item-text tablet-only\">\n" + j[i].connections +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </a>\n" +
+                "      <div class=\"swipeout-actions-right\">\n" +
+                "        <a href=\"#\" class=\"swipeout-delete\" onclick='deleteFav(\"" + j[i].stopCode + "\");'>Delete</a>\n" +
+                "      </div>" +
+                "                    </li>"
+        }
+    });
+}
+function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
 }
 
-function title2TPGApp() {
-    // document.getElementById("title").innerHTML = "GéNav";
-    // document.getElementById("navbar").style.color = "#fff";
-    // document.getElementById("navbar").style.backgroundColor = "#f44336";
-    try {
-        StatusBar.backgroundColorByHexString("#ba000d");
-        window.plugins.headerColor.tint("#f44336");
-    } catch (e) {
-        console.error(e);
-    }
+function loop() {
+    var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
 
-}
-function refreshDeps() {
-    if (document.getElementsByClassName("page-current")[0].dataset.name == "stop") {
-        app.preloader.show();
-        setTimeout(function () {
-            app.preloader.hide();
-        }, 200);
-        $.get(hostedDir() + "/stopsASYNC.php?stop=" + document.getElementById("currStopCode").innerHTML + "&off=0&len=50", function (data) {
-            if (data != "") {
-                var depsVlist = app.virtualList.create({
-                    // List Element
-                    el: '.depsList',
-                    // Pass array with items
-                    items: JSON.parse(data),
-                    // Custom search function for searchbar
-                    searchAll: function (query, items) {
-                        var found = [];
-                        for (var i = 0; i < items.length; i++) {
-                            if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                        }
-                        return found; //return array with mathceds indexes
-                    },
-
-                    // List item Template7 template
-                    itemTemplate:
-                    '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
-                    '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
-                    'app.preloader.show(translateStr(\'loading\',currentLang));' +
-                    'setTimeout(function () {app.preloader.hide();}, 1000);' +
-                    'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
-                    'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
+    if (pageName == "stop") {
+        $.get("../hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
+            var j = JSON.parse(data);
+            document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
+            var virtualList = app.virtualList.create({
+                // List Element
+                el: '.depsVirtual-list',
+                // Pass array with items
+                items: j.departures,
+                // Custom search function for searchbar
+                searchAll: function (query, items) {
+                    var found = [];
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].vehicle.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                    }
+                    return found; //return array with mathced indexes
+                },
+                // List item Template7 template
+                itemTemplate:
+                    '<li style="color: #{{txtCol}}; background: #{{primCol}};">' +
+                    '<a href="/departure/?d={{depCde}}" onclick="currentDeparture = {{depCde}};"  class="item-link item-content">' +
                     '<div class="item-inner">' +
                     '<div class="item-title-row" style="position: relative; top: -5px;">' +
-                    '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
+                    '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}}">{{vehicle}}</span>&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
                     '<div class="item-after"style="color: #{{txtCol}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
                     '</div>' +
                     '</div>' +
                     '</a>' +
                     '</li>',
-                    // Item height
-                    height: app.theme === 'ios' ? 63 : 73,
-                    updatableScroll: true
-                });
-            }
-        });
-    }
-    setTimeout(function () {
-        refreshDeps();
-    }, 30000);
-}
-
-title2TPGApp();
-// MD
-app.on('pageInit', function (e) {
-    // do something on page init
-    if (e.name == "home") {
-        hostedDir();
-        title2TPGApp();
-        $.get(server + "/disruptions-home.php", function (data, status) {
-                document.getElementsByClassName("homeDis")[0].innerHTML = data;
-            }
-        );
-        $.get(server + "/disruptions-home.php", function (data, status) {
-            var els = document.getElementsByClassName("homeDis");
-
-            Array.prototype.forEach.call(els, function (el) {
-                // Do stuff here
-                el.innerHTML = data;
+                // Item height
+                height: app.theme === 'ios' ? 63 : 73,
             });
+            console.log(j);
         });
-    }
-    if (e.name == "times") {
-        var stopsVlist = app.virtualList.create({
-            // List Element
-            el: '.stops',
-            // Pass array with items
-            items: JSON.parse(document.getElementById("stops").innerHTML),
-            // Custom search function for searchbar
-            searchAll: function (query, items) {
-                var found = [];
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].name.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].code.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].stopNoChars.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                }
-                return found; //return array with mathced indexes
-            },
-
-            // List item Template7 template
-            itemTemplate:
-            '<li>' +
-            '<a href="/stop/?stop={{code}}&off=0&len=20" onclick="app.preloader.show(translateStr(\'loading\',currentLang));' +
-            'setTimeout(function () {app.preloader.hide();}, 1000); ' +
-            'document.getElementById(\'currStopCode\').innerHTML = \'{{code}}\';' +
-            'document.getElementById(\'currStopName\').innerHTML = \'{{name}}\'" class="item-link item-content">' +
-            '<div class="item-inner">' +
-            '<div class="item-title-row">' +
-            '<div class="item-title">{{name}}</div>' +
-            '{{#if DATTM}}<span class="badge color-green">New Ticket Machine</span>{{else}}{{/if}} {{#if DATTO}}<span class="badge color-blue">Old Ticket Machine</span>{{else}}{{/if}}' +
-            '</div>' +
-            '<div class="item-subtitle">{{code}}</div>' +
-            '</div>' +
-            '</a>' +
-            '</li>',
-            // Item height
-            height: app.theme === 'ios' ? 63 : 73,
-            updatableScroll: true
+    } else if (pageName == "disruptions") {
+        $.get("../hosted_app-V2/processODAPI.php?disruptions", function (data) {
+            var j = JSON.parse(data);
+            document.getElementById("disurptions").innerHTML = "";
+            for (var i = 0; i < j.length; i++) {
+                document.getElementById("disurptions").innerHTML += "<li>\n" +
+                    "                    <a href=\"#\" onclick='showDisruption(this)' class=\"item-link item-content\">\n" +
+                    "                        <div class=\"item-inner\">\n" +
+                    "                            <div class=\"item-title-row\">\n" +
+                    "                                <div class=\"item-title\">" + j[i].title + "</div>\n" +
+                    "                                <div class=\"item-after\">" + j[i].time + "</div>\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"item-subtitle\">" + j[i].text + "</div>\n" +
+                    "                            <div class=\"item-text\">" + j[i].line + "</div>\n" +
+                    "                        </div>\n" +
+                    "                    </a>\n" +
+                    "                </li>";
+            }
         });
-    }
-    if (e.name == "favs") {
-        var stopsVlist = app.virtualList.create({
-            // List Element
-            el: '.favs',
-            // Pass array with items
-            items: JSON.parse(getFavorites()),
-            // Custom search function for searchbar
-            searchAll: function (query, items) {
-                var found = [];
-                for (var i = 0; i < items.length; i++) {
-                    if (items[i].stopName.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].stopCode.toLowerCase().indexOf(query.toLowerCase()) >= 0|| query.trim() === '') found.push(i);
-                }
-                return found; //return array with mathced indexes
-            },
-
-            // List item Template7 template
-            itemTemplate:
-            '<li>' +
-            '<a href="/stop/?stop={{stopCode}}&off=0&len=20" onclick="app.preloader.show(translateStr(\'loading\',currentLang));' +
-            'setTimeout(function () {app.preloader.hide();}, 1000); ' +
-            'document.getElementById(\'currStopCode\').innerHTML = \'{{stopCode}}\';' +
-            'document.getElementById(\'currStopName\').innerHTML = \'{{stopName}}\'" class="item-link item-content">' +
-            '<div class="item-inner">' +
-            '<div class="item-title-row">' +
-            '<div class="item-title">{{stopName}}</div>' +
-            '</div>' +
-            '<div class="item-subtitle">{{stopCode}}</div>' +
-            '</div>' +
-            '</a>' +
-            '</li>',
-            // Item height
-            height: app.theme === 'ios' ? 63 : 73,
-            updatableScroll: true
+    } else if (pageName == "home") {
+        $.get("../hosted_app-V2/processODAPI.php?disruptions", function (data) {
+            var j = JSON.parse(data);
+            document.getElementById("disurptionsHome").innerHTML = "";
+            for (var i = 0; i < j.length; i++) {
+                document.getElementById("disurptionsHome").innerHTML += "<li>\n" +
+                    "                    <a href=\"#\" onclick='showDisruption(this)' class=\"item-link item-content\">\n" +
+                    "                        <div class=\"item-inner\">\n" +
+                    "                            <div class=\"item-title-row\">\n" +
+                    "                                <div class=\"item-title\">" + j[i].title + "</div>\n" +
+                    "                                <div class=\"item-after\">" + j[i].time + "</div>\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"item-subtitle\">" + j[i].text + "</div>\n" +
+                    "                            <div class=\"item-text\">" + j[i].line + "</div>\n" +
+                    "                        </div>\n" +
+                    "                    </a>\n" +
+                    "                </li>";
+            }
         });
-    }
-    if (e.name == "dep") {
-        var stopsVlist = app.virtualList.create({
-            // List Element
-            el: '.thermoList',
-            // Pass array with items
-            items: JSON.parse(document.getElementById("thermo").innerHTML),
-
-            // List item Template7 template
-            itemTemplate:
-            '<li class="{{disabled}}">' +
-            '<a href="/stop/?stop={{stopCode}}&off=0&len=20" onclick="app.preloader.show(translateStr(\'loading\',currentLang));' +
-            'setTimeout(function () {app.preloader.hide();}, 1000); ' +
-            'document.getElementById(\'currStopCode\').innerHTML = \'{{stopCode}}\';' +
-            'document.getElementById(\'currStopName\').innerHTML = \'{{stopName}}\'" class="item-link item-content">' +
-            '<div class="item-inner">' +
-            '<div class="item-title-row">' +
-            '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
-            '<div class="item-after">{{#if bus}}<i class="blinker material-icons">directions_bus</i>{{else}}{{time}}{{/if}}{{#if mins}}&nbsp;<span translateID="mins">mins</span>{{/if}}</div>' +
-            '</div>' +
-            '</div>' +
-            '</a>' +
-            '</li>',
-            // Item height
-            height: app.theme === 'ios' ? 63 : 73,
-            updatableScroll: true
+        $.get("../hosted_app-V2/users.php?favs&u=" + uid, function (data) {
+            var j = JSON.parse(data);
+            document.getElementById("favsHome").innerHTML = "";
+            for (var i = 0; i < j.length; i++) {
+                document.getElementById("favsHome").innerHTML += "<li class='swipeout'>\n" +
+                    "                        <a href=\"/stop/?s=" + j[i].stopCode + "\" onclick='currentStop = \"" + j[i].stopCode + "\";' class=\"item-link item-content swipeout-content\">\n" +
+                    "                            <div class=\"item-inner\">\n" +
+                    "                                <div class=\"item-title-row\">\n" +
+                    "                                    <div class=\"item-title\">" + j[i].stopName + "</div>\n" +
+                    "                                    <div class=\"item-after\"></div>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"item-subtitle\">" + j[i].stopCode + "</div>\n" +
+                    "                                <div class=\"item-text tablet-only\">\n" + j[i].connections +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </a>\n" +
+                    "      <div class=\"swipeout-actions-right\">\n" +
+                    "        <a href=\"#\" class=\"swipeout-delete\" onclick='deleteFav(\"" + j[i].stopCode + "\");'>Delete</a>\n" +
+                    "      </div>" +
+                    "                    </li>"
+            }
         });
-    }
-    if (e.name == "stop") {
-        if (!isFav(document.getElementsByClassName("page-current")[0].dataset.stopcode)) {
-            document.getElementById("favFAB").setAttribute("onClick", "addFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "', '" + document.getElementsByClassName("page-current")[0].dataset.stopname + "')");
-            document.getElementById("favFAB").innerHTML =
-                "<i class=\"icon material-icons md-only\">favorite_border</i>" +
-                "<i class=\"icon f7-icons ios-only\">heart</i>";
-        } else {
-            document.getElementById("favFAB").setAttribute("onClick", "remFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "')");
-            document.getElementById("favFAB").innerHTML =
-                "<i class=\"icon material-icons md-only\">favorite</i>" +
-                "<i class=\"icon f7-icons ios-only\">heart_fill</i>";
-        }
-        if (document.getElementById("deps").value != "") {
-            var depsVlist = app.virtualList.create({
+    } else if (pageName == "departure") {
+        $.get("../hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
+            console.log(data);
+            document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
+            document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
+            document.getElementById("depStopImg").src = data.streetViewImage;
+            document.getElementById("depStopMap").src = data.mapsImage;
+            document.getElementById("depConnMap").src = data.platformImage;
+            document.getElementById("nav").style.color = "#" + data.textCol;
+            document.getElementById("nav").style.background = "#" + data.backCol;
+            document.getElementById("nav").style.background = "#" + data.backCol;
+            document.getElementById("title").innerHTML = data.lineCode + " &nbsp;&nbsp;<i style=\"position: relative; top: 4px;\" class=\"f7-icons\">arrow_right</i>&nbsp;&nbsp; " + data.destination;
+            document.getElementById("vehicleNo").innerHTML = data.vehicle;
+            document.getElementById("platformNo").innerHTML = data.platformNo;
+            document.getElementById("time").innerHTML = data.arrivalTime;
+            document.getElementById("destinationName").innerHTML = data.destination;
+            document.getElementById("stopDATT").innerHTML = data.stopDATT;
+            document.getElementById("vcDATT").innerHTML = data.vcDATT;
+            var backBtn = window.btoa("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z' fill='#" + data.textCol + "'/></svg>");
+            document.getElementById("backNav").style.backgroundImage = "url('data:image/svg+xml;base64," + backBtn + "')";
+            PbDepConnMap = app.photoBrowser.create({
+                photos : [
+                    data.platformImage,
+                ],
+                type: 'popup'
+            });
+            var virtualList = app.virtualList.create({
                 // List Element
-                el: '.depsList',
+                el: '.virtual-list-Steps',
                 // Pass array with items
-                items: JSON.parse(document.getElementById("deps").value),
+                items: data.steps,
                 // Custom search function for searchbar
                 searchAll: function (query, items) {
                     var found = [];
                     for (var i = 0; i < items.length; i++) {
-                        if (items[i].destination.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].line.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].wifi.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].USB.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                        if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
                     }
-                    return found; //return array with mathceds indexes
+                    return found; //return array with mathced indexes
                 },
-
                 // List item Template7 template
                 itemTemplate:
-                '<li style="background-color: #{{primCol}}; color: #{{txtCol}};">' +
-                '<a href="/dep/?dc={{depCde}}&col={{primCol}}&colT={{txtCol}}&nav={{navBar}}" onclick="document.getElementById(\'currDepCode\').innerHTML = \'{{depCde}}\';' +
-                'app.preloader.show(translateStr(\'loading\',currentLang));' +
-                'setTimeout(function () {app.preloader.hide();}, 1000);' +
-                'StatusBar.backgroundColorByHexString(\'#{{secCol}}\');' +
-                'window.plugins.headerColor.tint(\'#{{promCol}}\');" class="item-link item-content">' +
-                '<div class="item-inner">' +
-                '<div class="item-title-row" style="position: relative; top: -5px;">' +
-                '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}}">{{vehicle}}</span><i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
-                '<div class="item-after"style="color: #{{#if pink}}ff00ff{{else}}{{txtCol}}{{/if}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
-                '</div>' +
-                '</div>' +
-                '</a>' +
-                '</li>',
+                    '<li>' +
+                    '<a href="#" class="item-link item-content {{disabled}}">' +
+                    '<div class="item-inner">' +
+                    '<div class="item-title-row">' +
+                    '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
+                    '<div class="item-after">{{arrivalTime}}</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</li>',
                 // Item height
                 height: app.theme === 'ios' ? 63 : 73,
-                updatableScroll: true
             });
-            if (document.getElementById("depID").value != "") {
-                depsVlist.scrollToItem(document.getElementById("depID").value);
-            }
+            var virtualList2 = app.virtualList.create({
+                // List Element
+                el: '.virtual-list-Steps2',
+                // Pass array with items
+                items: data.steps,
+                // Custom search function for searchbar
+                searchAll: function (query, items) {
+                    var found = [];
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                    }
+                    return found; //return array with mathced indexes
+                },
+                // List item Template7 template
+                itemTemplate:
+                    '<li>' +
+                    '<a href="#" class="item-link item-content {{disabled}}">' +
+                    '<div class="item-inner">' +
+                    '<div class="item-title-row">' +
+                    '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
+                    '<div class="item-after">{{time}}</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</li>',
+                // Item height
+                height: app.theme === 'ios' ? 63 : 73,
+            });
+        });
+    }
+    setTimeout(loop, 30000);
+}
+loop();
+function showDisruption(disruptionEL) {
+    app.dialog.alert(disruptionEL.childNodes[2].childNodes[3].innerHTML + "<br><br>" + disruptionEL.childNodes[2].childNodes[5].innerHTML, disruptionEL.childNodes[2].childNodes[1].childNodes[1].innerHTML);
+}
+function createMap(map) {
+    document.getElementById("canvasContainer").innerHTML = "";
+    document.getElementById("canvasContainer").innerHTML = "<canvas id=\"map\" style=\"width: 100%; height: 100%;\"></canvas>";
+    var canvas = document.getElementsByTagName('canvas')[0];
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetWidth * (1628/835);
+    var ctx = canvas.getContext('2d');
+    trackTransforms(ctx);
+    function redraw(){
+
+        // Clear the entire canvas
+        var p1 = ctx.transformedPoint(0,0);
+        var p2 = ctx.transformedPoint(canvas.width,canvas.height);
+        ctx.clearRect(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
+
+        ctx.save();
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.restore();
+
+        ctx.drawImage(gkhead,0,0);
+
+    }
+    var zoom = function(clicks){
+        var pt = ctx.transformedPoint(lastX,lastY);
+        ctx.translate(pt.x,pt.y);
+        var factor = Math.pow(scaleFactor,clicks);
+        ctx.scale(factor,factor);
+        ctx.translate(-pt.x,-pt.y);
+        redraw();
+    };
+
+    var handleScroll = function(evt){
+        var delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
+        if (delta) zoom(delta);
+        return evt.preventDefault() && false;
+    };
+
+    redraw();
+
+    var lastX=canvas.width/2, lastY=canvas.height/2;
+    var dragStart,dragged;
+
+    canvas.addEventListener('mousedown',function(evt){
+        document.body.style.mozUserSelect = document.body.style.webkitUserSelect = document.body.style.userSelect = 'none';
+        lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
+        lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
+        dragStart = ctx.transformedPoint(lastX,lastY);
+        dragged = false;
+    },false);
+
+    canvas.addEventListener('mousemove',function(evt){
+        lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
+        lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
+        dragged = true;
+        if (dragStart){
+            var pt = ctx.transformedPoint(lastX,lastY);
+            ctx.translate(pt.x-dragStart.x,pt.y-dragStart.y);
+            redraw();
         }
-        refreshDeps();
-    }
-    if (e.name == "directionsRTN") {
-        dirMap("HOME");
-    }
-    if (e.name == "maps") {
-        imageCanv(getUrlParameter("map"));
-        app.tab.show(document.getElementById(getUrlParameter("map")), true);
+    },false);
+
+    canvas.addEventListener('mouseup',function(evt){
+        dragStart = null;
+        if (!dragged) zoom(evt.shiftKey ? -1 : 1 );
+    },false);
+
+    var scaleFactor = 1.1;
+
+    canvas.addEventListener('DOMMouseScroll',handleScroll,false);
+    canvas.addEventListener('mousewheel',handleScroll,false);
+    switch (map) {
+        case "urban":
+            gkhead.src = 'maps/urban_day.png';
+            app.toolbar.setHighlight("#tab1");
+            return;
+        case "suburban":
+            gkhead.src = 'maps/suburban_day.png';
+            app.toolbar.setHighlight("#tab2");
+            return;
+        case "urbanNight":
+            gkhead.src = 'maps/urban_night.png';
+            app.toolbar.setHighlight("#tab3");
+            return;
+        case "suburbanNight":
+            gkhead.src = 'maps/suburban_night.png';
+            app.toolbar.setHighlight("#tab4");
+            return;
     }
 
+    // Adds ctx.getTransform() - returns an SVGMatrix
+    // Adds ctx.transformedPoint(x,y) - returns an SVGPoint
 
-});
-function imageCanv(image) {
-    if (image == "fares") {
-        new ImgTouchCanvas({
-            canvas: document.getElementById("Canv"),
-            path: "tpg_map_zones.svg",
-            desktop: true
-        });
-    }
-    if (image == "urban") {
-        new ImgTouchCanvas({
-            canvas: document.getElementById("Canv"),
-            path: "tpg_map_urbmap.svg",
-            desktop: true
-        });
-    }
-    if (image == "suburban") {
-        new ImgTouchCanvas({
-            canvas: document.getElementById("Canv"),
-            path: "tpg_map_submap.svg",
-            desktop: true
-        });
-    }
-    if (image == "noctamUrban") {
-        new ImgTouchCanvas({
-            canvas: document.getElementById("Canv"),
-            path: "noctambus_map_urbmap.svg",
-            desktop: true
-        });
-    }
-    if (image == "noctamSuburban") {
-        new ImgTouchCanvas({
-            canvas: document.getElementById("Canv"),
-            path: "noctambus_map_submap.svg",
-            desktop: true
-        });
-    }
-}
-function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.href);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
-function dirMap(id) {
-    var a = document.getElementsByClassName("trajet-map");
-    for (index = 0; index < a.length; ++index) {
-        //console.log(a[index].src.replace("SCREENWIDTH", screen.width));
-        a[index].src = a[index].src.replace("SCREENWIDTH", screen.width);
-    }
-    var a = document.getElementsByClassName("trajet-map");
-    for (index = 0; index < a.length; ++index) {
-        a[index] = a[index].setAttribute("hidden","hidden");
-    }
-    document.getElementById("journey_" + id).removeAttribute("hidden");
-}
-function submitDir() {
-    var origin = document.getElementById("originDir");
-    var desination = document.getElementById("destinationDir");
-    var sub = document.getElementById("subDir");
-    sub.setAttribute("href", "/directionsRTN/?origin=" + origin.value+ "&destination=" + desination.value);
-}
-if (location.protocol == 'https:' || window.location.hostname == "localhost") {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js');
-    }
-}
-function getFavorites() {
+    function trackTransforms(ctx) {
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+        var xform = svg.createSVGMatrix();
+        ctx.getTransform = function () {
+            return xform;
+        };
 
-    var rtn = getCookie("GeNav_Favorites");
-    if (rtn == "") {
-        rtn = "[]"
-    }
-    return rtn
-}
-function addFavorite(stopCode, stopName) {
-    var curr = JSON.parse(getFavorites());
-    curr.push({"stopCode":stopCode, "stopName":stopName});
-    var out = JSON.stringify(curr);
-    setCookie("GeNav_Favorites", out, 9999999999);
-    if (!isFav(document.getElementsByClassName("page-current")[0].dataset.stopcode)) {
-        document.getElementById("favFAB").setAttribute("onClick", "addFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "', '" + document.getElementsByClassName("page-current")[0].dataset.stopname + "')");
-        document.getElementById("favFAB").innerHTML =
-            "<i class=\"icon material-icons md-only\">favorite_border</i>" +
-            "<i class=\"icon f7-icons ios-only\">heart</i>";
-    } else {
-        document.getElementById("favFAB").setAttribute("onClick", "remFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "')");
-        document.getElementById("favFAB").innerHTML =
-            "<i class=\"icon material-icons md-only\">favorite</i>" +
-            "<i class=\"icon f7-icons ios-only\">heart_fill</i>";
-    }
-}
-function remFavorite(stopCode) {
-    var curr = JSON.parse(getFavorites());
-    for (index = 0; index < curr.length; ++index) {
-        if (curr[index].stopCode == stopCode) {
-            curr.remove(index);
+        var savedTransforms = [];
+        var save = ctx.save;
+        ctx.save = function () {
+            savedTransforms.push(xform.translate(0, 0));
+            return save.call(ctx);
+        };
+
+        var restore = ctx.restore;
+        ctx.restore = function () {
+            xform = savedTransforms.pop();
+            return restore.call(ctx);
+        };
+
+        var scale = ctx.scale;
+        ctx.scale = function (sx, sy) {
+            xform = xform.scaleNonUniform(sx, sy);
+            return scale.call(ctx, sx, sy);
+        };
+
+        var rotate = ctx.rotate;
+        ctx.rotate = function (radians) {
+            xform = xform.rotate(radians * 180 / Math.PI);
+            return rotate.call(ctx, radians);
+        };
+
+        var translate = ctx.translate;
+        ctx.translate = function (dx, dy) {
+            xform = xform.translate(dx, dy);
+            return translate.call(ctx, dx, dy);
+        };
+
+        var transform = ctx.transform;
+        ctx.transform = function (a, b, c, d, e, f) {
+            var m2 = svg.createSVGMatrix();
+            m2.a = a;
+            m2.b = b;
+            m2.c = c;
+            m2.d = d;
+            m2.e = e;
+            m2.f = f;
+            xform = xform.multiply(m2);
+            return transform.call(ctx, a, b, c, d, e, f);
+        };
+
+        var setTransform = ctx.setTransform;
+        ctx.setTransform = function (a, b, c, d, e, f) {
+            xform.a = a;
+            xform.b = b;
+            xform.c = c;
+            xform.d = d;
+            xform.e = e;
+            xform.f = f;
+            return setTransform.call(ctx, a, b, c, d, e, f);
+        };
+
+        var pt = svg.createSVGPoint();
+        ctx.transformedPoint = function (x, y) {
+            pt.x = x;
+            pt.y = y;
+            return pt.matrixTransform(xform.inverse());
         }
     }
-    var out = JSON.stringify(curr);
-    setCookie("GeNav_Favorites", out, 9999999999);
-    if (!isFav(document.getElementsByClassName("page-current")[0].dataset.stopcode)) {
-        document.getElementById("favFAB").setAttribute("onClick", "addFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "', '" + document.getElementsByClassName("page-current")[0].dataset.stopname + "')");
-        document.getElementById("favFAB").innerHTML =
-            "<i class=\"icon material-icons md-only\">favorite_border</i>" +
-            "<i class=\"icon f7-icons ios-only\">heart</i>";
-    } else {
-        document.getElementById("favFAB").setAttribute("onClick", "remFavorite('" + document.getElementsByClassName("page-current")[0].dataset.stopcode + "')");
-        document.getElementById("favFAB").innerHTML =
-            "<i class=\"icon material-icons md-only\">favorite</i>" +
-            "<i class=\"icon f7-icons ios-only\">heart_fill</i>";
-    }
-}
-function isFav(stopCode) {
-    var curr = JSON.parse(getFavorites());
-    for (index = 0; index < curr.length; ++index) {
-        if (curr[index].stopCode == stopCode) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function setCookie(cname, cvalue, exdays) {
-    if (window.location.hostname == "adam.local" || window.location.hostname == "genav.ga") {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    } else {
-
-    }
-}
-function getCookie(cname) {
-    if (window.location.hostname == "adam.local" || window.location.hostname == "genav.ga") {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-    } else {
-
-    }
-    return "";
-}
-Array.prototype.remove = function(from, to) {
-    var rest = this.slice((to || from) + 1 || this.length);
-    this.length = from < 0 ? this.length + from : from;
-    return this.push.apply(this, rest);
-};
-function vehiclePopover(vehicle, e) {
-    e.preventDefault();
-    app.preloader.show(translateStr('loading',currentLang));
-    $.get("//adam.local/TPG_App/TPG?vc=" + vehicle, function (data) {
-        app.preloader.hide();
-        var rtn = JSON.parse(data);
-        var dynamicPopover = app.popover.create({
-            content: '<div class="popover">'+
-            '<div class="popover-inner">' +
-            '<div class="block-title">Vehicle Number ' + vehicle + '</div>'+
-            '<div class="block">'+
-            '<img style="width:100%;" src="' + rtn.image + '">'+
-            '<p><a href="#" class="link popover-close">Close</a></p>'+
-            '</div>'+
-            '</div>'+
-            '</div>'
-        });
-        dynamicPopover.open();
-    });
-    return false;
 }

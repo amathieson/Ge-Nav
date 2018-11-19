@@ -1,49 +1,70 @@
 /* Your app styles here */
-.demo-card-header-pic .card-header {
-    height: 40vw;
-    background-size: cover;
-    background-position: center;
-    color: #fff;
+
+/* Left Panel right border when it is visible by breakpoint */
+.panel-left.panel-visible-by-breakpoint:before {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: rgba(0,0,0,0.1);
+  content: '';
+  z-index: 6000;
 }
-.demo-card-header-pic .card-content-padding .date{
-    color: #8e8e93;
+
+/* Hide navbar link which opens left panel when it is visible by breakpoint */
+.panel-left.panel-visible-by-breakpoint ~ .view .navbar .panel-open[data-panel="left"] {
+  display: none;
 }
+
+/*
+  Extra borders for main view and left panel for iOS theme when it behaves as panel (before breakpoint size)
+*/
+.ios .panel-left:not(.panel-visible-by-breakpoint).panel-active ~ .view-main:before,
+.ios .panel-left:not(.panel-visible-by-breakpoint).panel-closing ~ .view-main:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: rgba(0,0,0,0.1);
+  content: '';
+  z-index: 6000;
+}
+.picto-ligne {
+  margin: 2px;
+  display: inline-block;
+  padding: 3px 0;
+  border-radius: 20px;
+  min-width: 35px;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+  float: initial;
+  margin-right: 5px;
+  font-family: "Helvetica Neue",Helvetica,sans-serif;
+}
+@media only screen and (max-width: 600px) {
+  .tablet-only {
+    display: none !important;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
 .blinker {
-    animation: blinker 1s linear infinite;
+  animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {
-    50% { opacity: 0; }
+  50% { opacity: 0; }
 }
 .material-icons.wifi {
-    top: 5px;
-    left: 3px;
-    width: 28px;
-    position: sticky;
-}
-.picto-ligne {
-    margin: 2px;
-    display: inline-block;
-    padding: 3px 0;
-    border-radius: 20px;
-    min-width: 35px;
-    font-weight: 700;
-    font-size: 15px;
-    text-align: center;
-    float: initial;
-    margin-right: 5px;
-    font-family: "Helvetica Neue",Helvetica,sans-serif;
-}
-@media screen and (orientation:portrait) {
-	.landscape-only {
-		display: none;
-	}
-}
-@media screen and (orientation:landscape) {
-	.portrait-only {
-		display: none;
-	}
-}
-.ABTimg {
-    filter: grayscale(100%);
+  top: 5px;
+  left: 3px;
+  width: 28px;
+  position: sticky;
 }

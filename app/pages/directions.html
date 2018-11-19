@@ -1,0 +1,98 @@
+<div class="page" data-name="about">
+  <div class="navbar" id="nav">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back tablet-only">
+          <i class="icon icon-back" id="backNav"></i>
+          <span class="ios-only">Back</span>
+        </a>
+        <a href="#" class="link icon-only panel-open" data-panel="left">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">menu</i>
+        </a>
+      </div>
+      <div class="title" id="title">Directions</div>
+      <div class="right">
+        <a href="/stops/" class="link icon-only">
+          <i class="icon f7-icons ios-only">search_strong</i>
+          <i class="icon material-icons md-only">search</i>
+        </a>
+        <a href="#" class="link icon-only popover-open" data-popover=".popover-links">
+          <i class="icon f7-icons ios-only">more_vertical</i>
+          <i class="icon material-icons md-only">more_vert</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="page-content">
+      <div class="block-title">
+          Please select your stops
+      </div>
+      <div class="block">
+        <form id="directionForm">
+          <div class="list">
+            <ul>
+              <li>
+                <a class="item smart-select smart-select-init" data-open-in="popup"  data-searchbar="true" data-searchbar-placeholder="Search stop">
+                  <select name="Origin" id="orrList">
+                    <option value="" disabled selected>Please Select A Stop</option>
+                  </select>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title" style="color: black;">Going From</div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="item smart-select smart-select-init" data-open-in="popup"  data-searchbar="true" data-searchbar-placeholder="Search stop">
+                  <select name="Destination" id="destList">
+                    <option value="" disabled selected>Please Select A Stop</option>
+                  </select>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title" style="color: black;">Going To</div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="item-content item-input">
+                <!--<div class="item-media">... icon/image here ...</div>-->
+                <div class="item-inner">
+                  <!-- "item-floating-label" class on item title -->
+                  <div class="item-title item-floating-label">Date</div>
+                  <div class="item-input-wrap">
+                      <input type="text" placeholder="Date Time" name="time" readonly="readonly" id="picker-date"/>
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <!--<div class="item-media">... icon/image here ...</div>-->
+                  <label class="item-checkbox item-content">
+                      <input type="checkbox" name="arrivalTime" value="Arrival"/>
+                      <i class="icon icon-checkbox"></i>
+                      <div class="item-inner">
+                          <div class="item-title">Arrival Time?</div>
+                      </div>
+                  </label>
+              </li>
+              <li class="item-content item-input">
+                <!--<div class="item-media">... icon/image here ...</div>-->
+                <div class="item-inner">
+                  <!-- "item-floating-label" class on item title -->
+                  <div class="item-title item-floating-label">Submit</div>
+                  <div class="item-input-wrap">
+                    <input class="button button-fill" type="button" onclick="function f() {
+                      app.router.navigate('/directionsRTN/');
+                    } f();" value="Go">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>

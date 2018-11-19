@@ -1,165 +1,117 @@
-
-<div data-page="about" data-name="about"  class="page">
-    <!-- Top Navbar -->
-    <div class="navbar" id="navbar">
-        <div class="navbar-inner">
-            <div class="left">
-                <a href="#" class="link icon-only panel-open" data-panel="left">
-                    <i class="icon material-icons md-only">menu</i>
-                </a>
-            </div>
-            <div class="title sliding">G&eacute;Nav</div>
-            <div class="right">
-            </div>
-        </div>
+<div class="page" data-name="about">
+  <div class="navbar" id="nav">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back tablet-only">
+          <i class="icon icon-back" id="backNav"></i>
+          <span class="ios-only">Back</span>
+        </a>
+        <a href="#" class="link icon-only panel-open" data-panel="left">
+          <i class="icon f7-icons ios-only">menu</i>
+          <i class="icon material-icons md-only">menu</i>
+        </a>
+      </div>
+      <div class="title" id="title">About G&eacute;Nav</div>
+      <div class="right">
+        <a href="/stops/" class="link icon-only">
+          <i class="icon f7-icons ios-only">search_strong</i>
+          <i class="icon material-icons md-only">search</i>
+        </a>
+        <a href="#" class="link icon-only popover-open" data-popover=".popover-links">
+          <i class="icon f7-icons ios-only">more_vertical</i>
+          <i class="icon material-icons md-only">more_vert</i>
+        </a>
+      </div>
     </div>
-    <div class="toolbar tabbar-labels ios-only tabbar-scrollable">
-        <div class="toolbar-inner">
-            <a href="/home/" class="tab-link tab-link">
-                <!-- Different icons for iOS and MD themes -->
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/home%20grey.png">
-                <i class="icon material-icons md-only">home</i>
-                <!-- Label text -->
-                <span class="tabbar-label" style="padding-bottom: 2px">Home</span>
-            </a>
-            <a href="/disruptions/" class="tab-link">
-                <img height="30px" class="icon ios-only" style="padding-top: 5px;" src="ios-icons/disruptions%20grey.png">
-                <i class="icon material-icons md-only">danger</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Disruptions</span>
-            </a>
-            <a href="/times/" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/stops%20grey.png">
-                <i class="icon material-icons md-only">file_upload</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Stops</span>
-            </a>
-            <a href="#tab-3" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/favorite%20stops%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Favorite Stops</span>
-            </a>
-            <a href="/tickets/" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/sms%20tickets%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">SMS Tickets</span>
-            </a>
-            <a href="/map/" class="tab-link tab-link-active">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/maps%20red.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Maps</span>
-            </a>
-            <a href="/directions/" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/directions%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Directions</span>
-            </a>
-            <a href="#" onclick="  app.dialog.create({
-    title: translateStr('nav-About',currentLang),
-    text: translateStr('About-Text',currentLang),
-    buttons: [
-      {
-        text: 'OK',
-        color: 'red'
-      },
-    ],
-  }).open();" class="tab-link">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/about%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">About</span>
-            </a>
-            <a href="https://www.paypal.me/GeNavApp/2.5" class="tab-link external">
-                <img class="ios-only icon" style="padding-top: 5px;" height="30px" src="ios-icons/donations%20grey.png">
-                <i class="icon material-icons md-only">heart</i>
-                <span class="tabbar-label" style="padding-bottom: 2px">Buy Us A Coffee</span>
-            </a>
-        </div>
-    </div>
-    <!-- Scrollable page content -->
-    <div class="page-content">
-        <div class="block-title">About this app</div>
-        <div class="block">
-        G&eacute;Nav is a project that was started originally in late 2016 by the lead developer Adam Mathieson, he started creating the app because there where  no really good apps that worked exactly the way he wanted. The version that was originally created was written in JAVA and would run as a native Android app, this proved to be very difficult and time consuming to update, so in July of 2017 Adam and Deyan (one of his friends) decided to change it over to an HTML5 and JavaScript app, using Adobe PhoneGap to build the app into the native apps that you know of today. The system is heavily based on the local public transport APIs (TPG Open Data), as well as the unofficial SBB Open Data APIs, the backend system combines all this data with data that was meticulously collected by hand by our developers as well as the Beta testers, who helped a lot with gathering images of around 90% of the TPG (and it's subcontractors) fleet.
-        </div>
-        <div class="block-title">Our Team</div>
-        <div class="list media-list">
-            <ul>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media avatarABT">
-                            <img class="ABTimg" height="64" src="images/Adam.jpg">
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">Adam Mathieson</div>
-                                <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@AdamMathieson__</div>
-                            </div>
-                            <div class="item-subtitle">Main Developer</div>
-                            <div class="item-text">The main developer at G&eacute;Nav, also the person who started the project.</div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media avatarABT">
-                            <img class="ABTimg" height="64" src="http://lorempixel.com/64/64/people/6/">
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">Deyan Marinov</div>
-                                <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@Thebosonsword</div>
-                            </div>
-                            <div class="item-subtitle">Comunicatoins Manager / Data Gatherer</div>
-                            <div class="item-text">Adam's right-hand-man, the person who is always willing to do things for the app.</div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media avatarABT">
-                            <img class="ABTimg" height="64" src="images/Thomas.jpg">
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">Thomas Mathieson</div>
-                                <div class="item-after"></div>
-                            </div>
-                            <div class="item-subtitle">Photos and Brother</div>
-                            <div class="item-text">Adam's twin, the one of our many photographers.</div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media avatarABT">
-                            <img class="ABTimg" height="64" src="http://lorempixel.com/64/64/people/6/">
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">TramBusAl</div>
-                                <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@trambusalOff</div>
-                            </div>
-                            <div class="item-subtitle">Photos</div>
-                            <div class="item-text">TramBusAl is our main photographer.</div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media">
-                            <div class="avatarABT">
-                                <img class="ABTimg" height="64" src="http://lorempixel.com/64/64/people/6/">
-                            </div>
-                        </div>
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">Nicolapps</div>
-                                <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@nicolapps</div>
-                            </div>
-                            <div class="item-subtitle">Data help / Bug Fixing</div>
-                            <div class="item-text">Nicolapps was the person who inspired Adam to start creating G&eacute;Nav, he created the app called TPGWidget, which is a very similar app used by many people. He is also the person who created the vehicle icons</div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+  </div>
+  <div class="page-content">
+      <div class="block-title">
+          About The App
+      </div>
+      <div class="block">
+          G&eacute;Nav is an app that was designed to give users the ability to see more information about the transport
+          network that they ride on every day. The project started in summer of 2015 by Adam Mathieson, he was joined in
+          spring of the next year by Deyan Marinov, who helped make the app more public, allowing the team to grow.
+      </div>
+      <div class="block-title">
+          About The Staff
+      </div>
+      <div class="block">
+          <div class="list media-list">
+              <ul>
+                  <li>
+                      <a href="#" class="item-link item-content">
+                          <div class="item-media"><img src="profilePics/adam.png" width="80" style="border-radius: 80px; -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);"/></div>
+                          <div class="item-inner">
+                              <div class="item-title-row">
+                                  <div class="item-title">Adam Mathieson</div>
+                                  <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@AdamMathieson__</div>
+                              </div>
+                              <div class="item-subtitle">Founder and Primary Developer</div>
+                              <div class="item-text">Adam has enjoyed public transport for as long as he can remember, he is the creator of the app that was inspired by Nicolas. He built the app because he was furstrated with all of the existing apps.</div>
+                          </div></a></li>
+                  <li>
+                      <a href="#" class="item-link item-content">
+                          <div class="item-media"><img src="profilePics/deyan.jpeg" width="80" style="border-radius: 80px; -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);"/></div>
+                          <div class="item-inner">
+                              <div class="item-title-row">
+                                  <div class="item-title">Deyan Marinov</div>
+                                  <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@Thebosonsword</div>
+                              </div>
+                              <div class="item-subtitle">Communications Manager / Photographer</div>
+                              <div class="item-text">Deyan Marinov enjoys Public Transport since he's been very little. While he was a small child he used to love it when his family and him went on holidays in big cities because he would be able to admire the public transport network. Nowadays, he takes the Geneva public transport everyday and enjoys focusing on every little detail. GéNav has been an amazing project and he's glad that he has such a big role of doing pretty much everything (usually done quite late :D).</div>
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" class="item-link item-content">
+                          <div class="item-media"><img src="profilePics/trambusal.jpeg" width="80" style="border-radius: 80px; -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);"/></div>
+                          <div class="item-inner">
+                              <div class="item-title-row">
+                                  <div class="item-title">TramBusAl</div>
+                                  <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@TramBusAlOff</div>
+                              </div>
+                              <div class="item-subtitle">Lead Photographer</div>
+                              <div class="item-text">A guy in Geneva, taking public transport pics as a hobby.</div>
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" class="item-link item-content">
+                          <div class="item-media"><img src="profilePics/thomas.jpeg" width="80" style="border-radius: 80px; -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);"/></div>
+                          <div class="item-inner">
+                              <div class="item-title-row">
+                                  <div class="item-title">Thomas Mathieson</div>
+                                  <div class="item-after"></div>
+                              </div>
+                              <div class="item-subtitle">Beta Tester / Photographer</div>
+                              <div class="item-text">Adam's twin brother who has helped with debugging, testing and gathering data for the app.</div>
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" class="item-link item-content">
+                          <div class="item-media"><img src="profilePics/nicolas.jpeg" width="80" style="border-radius: 80px; -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */ filter: grayscale(100%);"/></div>
+                          <div class="item-inner">
+                              <div class="item-title-row">
+                                  <div class="item-title">Nicolas</div>
+                                  <div class="item-after"><i class="f7-icons" style="font-size: 20px;top: 2px;position: relative;">social_twitter</i>&nbsp;@nicolapps</div>
+                              </div>
+                              <div class="item-subtitle">Inspiration / Debugging</div>
+                              <div class="item-text">Hi! I’m Nicolas, I’m 17 and I love public transportation as well as computers. I’ve created the app TPGwidget and I sometimes help the guys at GéNav too!</div>
+                          </div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" class="item-link item-content">
+                          <div class="item-media"></div>
+                          <div class="item-inner">
+                              <div class="item-text">We would also like to thank all other people that have helped</div>
+                          </div>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
 </div>

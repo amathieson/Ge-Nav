@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
-        version   = "10.30.12BETA">
-		<preference name="android-versionCode" value="103012" />
+        version   = "1.0.0pre">
+		<preference name="android-versionCode" value="9991000" />
 
     <name>GéNav</name>
 
@@ -13,7 +13,7 @@
         GéNav
     </description>
 
-    <author href="http://m.genav.ga/app" email="GeNav@adammathieson.33m.co">
+    <author href="http://m.genav.ch/app" email="Adam@genav.ch">
         GéNav Team
     </author>
 

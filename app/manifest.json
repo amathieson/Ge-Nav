@@ -60,5 +60,7 @@
     "background_color": "#f44336",
     "display": "standalone",
     "lang": "en-UK",
-    "start_url": "index.html"
+    "start_url": "index.html",
+	"gcm_sender_id": "482941778795",
+	"gcm_sender_id_comment": "Do not change the GCM Sender ID"
 }
