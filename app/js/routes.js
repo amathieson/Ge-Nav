@@ -5,6 +5,8 @@ var currentDeparture;
 var formData;
 var currentVehicle;
 var gkhead = new Image;
+var rootURL = "https://genav.ga";
+// var rootURL = ".."
 routes = [
   {
     path: '/',
@@ -14,7 +16,7 @@ routes = [
             if (uid == null) {
                 if (getCookie("uid") == "") {
                     app.dialog.progress();
-                    $.get("../hosted_app-V2/users.php?getUID", function (data) {
+                    $.get(rootURL + "/hosted_app-V2/users.php?getUID", function (data) {
                         setCookie("uid", JSON.parse(data).uid,36525);
                         uid = getCookie("uid");
                         app.dialog.close();
@@ -35,7 +37,7 @@ routes = [
     url: './pages/stops.html',
     on: {pageInit: function (e, page) {
             app.dialog.progress();
-            $.get("../hosted_app-V2/processODAPI.php?stops", function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops", function (data) {
                 var j = JSON.parse(data);
                 var virtualList = app.virtualList.create({
                     // List Element
@@ -81,7 +83,7 @@ routes = [
         pageInit: function (e, page) {
             app.dialog.progress();
             setTimeout(function () {
-                $.get("../hosted_app-V2/processODAPI.php?vehicleInfo&v=" + currentVehicle, function (data) {
+                $.get(rootURL + "/hosted_app-V2/processODAPI.php?vehicleInfo&v=" + currentVehicle, function (data) {
                     console.log(data);
                     for (var i = 0; i < data.pictures.images.length; i++) {
                         $("#images").append("<div class=\"swiper-slide\"><img style=\"display: block; margin: auto; width: 100%; max-width: 1080px; vertical-align: middle;\" src=\"" + data.pictures.images[i] + "\"/></div>");
@@ -189,7 +191,7 @@ routes = [
                 }
             });
             app.dialog.progress();
-            $.get("../hosted_app-V2/processODAPI.php?stops", function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops", function (data) {
                 var j = JSON.parse(data);
                 var list = "<option value=\"\" disabled selected>Please Select A Stop</option>";
                 for (var i = 0; i < j.length; i++) {
@@ -215,9 +217,9 @@ routes = [
     on: {
         pageInit: function (e, page) {
             app.dialog.progress();
-            // $.get("../hosted_app-V2/getDirections.php?Origin=CHLA&Destination=SGGA&time=8-11-2018%2020%3A04", function (data) {
+            // $.get(rootURL + "/hosted_app-V2/getDirections.php?Origin=CHLA&Destination=SGGA&time=8-11-2018%2020%3A04", function (data) {
             console.log(formData);
-            $.get("../hosted_app-V2/getDirections.php?" + $('#directionForm').serialize(), function (data) {
+            $.get(rootURL + "/hosted_app-V2/getDirections.php?" + $('#directionForm').serialize(), function (data) {
                 var j = (data);
                 $("#directionsMap").attr("src", j.initMap);
                 for (var i = 0; i < j.routes.length; i++) {
@@ -274,7 +276,7 @@ routes = [
     on: {
         pageInit: function (e, page) {
             app.dialog.progress();
-            $.get("../hosted_app-V2/processODAPI.php?disruptions", function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
                 var j = JSON.parse(data);
                 document.getElementById("disurptions").innerHTML = "";
                 for (var i = 0; i < j.length; i++) {
@@ -303,7 +305,7 @@ routes = [
         pageInit: function (e, page) {
             app.dialog.progress();
             // $.get("http://cityrunner-server.genav.ga/TPG/?dc=" + currentDeparture, function (data) {
-            $.get("../hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
                 console.log(data);
                 document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
                 document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
@@ -395,7 +397,7 @@ routes = [
     on: {
         pageInit: function (e, page) {
             app.dialog.progress();
-            $.get("../hosted_app-V2/processODAPI.php?Fstops&u=" + uid, function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?Fstops&u=" + uid, function (data) {
                 var j = JSON.parse(data);
                 var virtualList = app.virtualList.create({
                     // List Element
@@ -438,7 +440,7 @@ routes = [
         pageInit: function (e, page) {
             app.dialog.progress();
             // var query = getQueryParams(document.location.search);
-            $.get("../hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
                 var j = JSON.parse(data);
                 document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
                 var virtualList = app.virtualList.create({
@@ -472,17 +474,17 @@ routes = [
                 console.log(j);
                 app.dialog.close();
             });
-            $.get("../hosted_app-V2/users.php?u=" + uid + "&isFav&s=" + currentStop, function (data) {
+            $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&isFav&s=" + currentStop, function (data) {
                if (data == "true") {
                    $("#favButton").click(function () {
-                       $.get("../hosted_app-V2/users.php?u=" + uid + "&deleteFav&s=" + currentStop, function () {
+                       $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&deleteFav&s=" + currentStop, function () {
 
                        });
                    });
                    $("#favButton").innerHTML = "<i class=\"icon f7-icons\">heart_fill</i>";
                } else {
                    $("#favButton").click(function () {
-                       $.get("../hosted_app-V2/users.php?u=" + uid + "&addFav&s=" + currentStop, function () {
+                       $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&addFav&s=" + currentStop, function () {
 
                        });
                    });
@@ -498,7 +500,7 @@ routes = [
   },
   {
     path: '/supportUs/',
-    url: './pages/suportUs.html',
+    url: './pages/suportUS.html',
   },
   {
     path: '/tickets/',

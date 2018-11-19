@@ -52,7 +52,7 @@ function loadHome() {
     var votdDone = false;
     var disruptionsDone = false;
     var favsDone = false;
-    $.get("../hosted_app-V2/processODAPI.php?disruptions", function (data) {
+    $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
         var j = JSON.parse(data);
         document.getElementById("disurptionsHome").innerHTML = "";
         for (var i = 0; i < j.length; i++) {
@@ -74,7 +74,7 @@ function loadHome() {
             app.dialog.close();
         }
     });
-    $.get("../hosted_app-V2/votm.php", function (data) {
+    $.get(rootURL + "/hosted_app-V2/votm.php", function (data) {
         var j = JSON.parse(data);
         document.getElementById("iodt").src = j.image;
         document.getElementById("votd").innerHTML = j.Vehicle_number;
@@ -83,7 +83,7 @@ function loadHome() {
             app.dialog.close();
         }
     });
-    $.get("../hosted_app-V2/users.php?favs&u=" + uid, function (data) {
+    $.get(rootURL + "/hosted_app-V2/users.php?favs&u=" + uid, function (data) {
         var j = JSON.parse(data);
         document.getElementById("favsHome").innerHTML = "";
         for (var i = 0; i < j.length; i++) {
@@ -111,7 +111,7 @@ function loadHome() {
     });
 }
 function addFav(stopCode) {
-    $.get("../hosted_app-V2/users.php?addFav&s=" + stopCode + "&u=" + uid, function (data) {
+    $.get(rootURL + "/hosted_app-V2/users.php?addFav&s=" + stopCode + "&u=" + uid, function (data) {
         var j = JSON.parse(data);
         document.getElementById("favsHome").innerHTML = "";
         for (var i = 0; i < j.length; i++) {
@@ -135,7 +135,7 @@ function addFav(stopCode) {
     });
 }
 function deleteFav(stopCode) {
-    $.get("../hosted_app-V2/users.php?deleteFav&s=" + stopCode + "&u=" + uid, function (data) {
+    $.get(rootURL + "/hosted_app-V2/users.php?deleteFav&s=" + stopCode + "&u=" + uid, function (data) {
         var j = JSON.parse(data);
         document.getElementById("favsHome").innerHTML = "";
         for (var i = 0; i < j.length; i++) {
@@ -176,7 +176,7 @@ function loop() {
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
 
     if (pageName == "stop") {
-        $.get("../hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
             var virtualList = app.virtualList.create({
@@ -210,7 +210,7 @@ function loop() {
             console.log(j);
         });
     } else if (pageName == "disruptions") {
-        $.get("../hosted_app-V2/processODAPI.php?disruptions", function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
             var j = JSON.parse(data);
             document.getElementById("disurptions").innerHTML = "";
             for (var i = 0; i < j.length; i++) {
@@ -229,7 +229,7 @@ function loop() {
             }
         });
     } else if (pageName == "home") {
-        $.get("../hosted_app-V2/processODAPI.php?disruptions", function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
             var j = JSON.parse(data);
             document.getElementById("disurptionsHome").innerHTML = "";
             for (var i = 0; i < j.length; i++) {
@@ -247,7 +247,7 @@ function loop() {
                     "                </li>";
             }
         });
-        $.get("../hosted_app-V2/users.php?favs&u=" + uid, function (data) {
+        $.get(rootURL + "/hosted_app-V2/users.php?favs&u=" + uid, function (data) {
             var j = JSON.parse(data);
             document.getElementById("favsHome").innerHTML = "";
             for (var i = 0; i < j.length; i++) {
@@ -270,7 +270,7 @@ function loop() {
             }
         });
     } else if (pageName == "departure") {
-        $.get("../hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
             console.log(data);
             document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
             document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
