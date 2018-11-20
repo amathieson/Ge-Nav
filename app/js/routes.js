@@ -6,7 +6,7 @@ var formData;
 var currentVehicle;
 var gkhead = new Image;
 var rootURL = "https://genav.ga";
-// var rootURL = ".."
+// var rootURL = "..";
 routes = [
   {
     path: '/',
