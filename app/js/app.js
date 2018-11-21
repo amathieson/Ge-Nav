@@ -173,11 +173,11 @@ function getQueryParams(qs) {
 }
 
 function loop() {
-	alert("loopStart")l;
+	app.dialog.alert("loopStart")l;
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
 
     if (pageName == "stop") {
-		alert("loopStopSection")l;
+		app.dialog.alert("loopStopSection")l;
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
@@ -357,7 +357,7 @@ function loop() {
     }
     setTimeout(loop, 30000);
 }
-alert("callLoop");
+app.dialog.alert("callLoop");
 loop();
 function showDisruption(disruptionEL) {
     app.dialog.alert(disruptionEL.childNodes[2].childNodes[3].innerHTML + "<br><br>" + disruptionEL.childNodes[2].childNodes[5].innerHTML, disruptionEL.childNodes[2].childNodes[1].childNodes[1].innerHTML);
