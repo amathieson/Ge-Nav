@@ -173,11 +173,11 @@ function getQueryParams(qs) {
 }
 
 function loop() {
-	app.dialog.alert("loopStart")l;
+	app.dialog.alert("loopStart");
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
 
     if (pageName == "stop") {
-		app.dialog.alert("loopStopSection")l;
+		app.dialog.alert("loopStopSection");
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
