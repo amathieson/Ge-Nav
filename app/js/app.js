@@ -173,11 +173,6 @@ function getQueryParams(qs) {
 }
 
 function loop() {
-	app.dialog.alert("loopStart");
-	setTimeout(function() {
-	app.dialog.close();
-	}, 5000);
-	
 
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
 
@@ -217,7 +212,7 @@ function loop() {
                 // Item height
                 height: app.theme === 'ios' ? 63 : 73,
             });
-            console.log(j);
+            // console.log(j);
         });
     } else if (pageName == "disruptions") {
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
