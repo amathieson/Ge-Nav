@@ -363,6 +363,11 @@ function loop() {
             });
         });
     }
+	
+	app.dialog.alert("loopEnd");
+	setTimeout(function() {
+	app.dialog.close();
+	}, 5000);
     setTimeout(loop, 30000);
 }
 loop();
