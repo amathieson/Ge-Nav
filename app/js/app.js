@@ -365,10 +365,6 @@ function loop() {
     }
     setTimeout(loop, 30000);
 }
-app.dialog.alert("callLoop");
-	setTimeout(function() {
-	app.dialog.close();
-	}, 5000);
 loop();
 function showDisruption(disruptionEL) {
     app.dialog.alert(disruptionEL.childNodes[2].childNodes[3].innerHTML + "<br><br>" + disruptionEL.childNodes[2].childNodes[5].innerHTML, disruptionEL.childNodes[2].childNodes[1].childNodes[1].innerHTML);
