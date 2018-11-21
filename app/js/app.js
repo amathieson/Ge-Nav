@@ -174,13 +174,18 @@ function getQueryParams(qs) {
 
 function loop() {
 	app.dialog.alert("loopStart");
+	setTimeout(function() {
 	app.dialog.close();
+	}, 5000);
+	
 
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
 
     if (pageName == "stop") {
 		app.dialog.alert("loopStopSection");
-		app.dialog.close();
+	setTimeout(function() {
+	app.dialog.close();
+	}, 5000);
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
@@ -361,7 +366,9 @@ function loop() {
     setTimeout(loop, 30000);
 }
 app.dialog.alert("callLoop");
-app.dialog.close();
+	setTimeout(function() {
+	app.dialog.close();
+	}, 5000);
 loop();
 function showDisruption(disruptionEL) {
     app.dialog.alert(disruptionEL.childNodes[2].childNodes[3].innerHTML + "<br><br>" + disruptionEL.childNodes[2].childNodes[5].innerHTML, disruptionEL.childNodes[2].childNodes[1].childNodes[1].innerHTML);
