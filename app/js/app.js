@@ -199,7 +199,7 @@ function loop() {
                 // List item Template7 template
                 itemTemplate:
                     '<li style="color: #{{txtCol}}; background: #{{primCol}};">' +
-                    '<a href="/departure/?d={{depCde}}" onclick="currentDeparture = {{depCde}};"  class="item-link item-content">' +
+                    '<a href="/departure/?d={{depCde}}" onclick="' + "currentDeparture = '{{depCde}}'" + '"  class="item-link item-content">' +
                     '<div class="item-inner">' +
                     '<div class="item-title-row" style="position: relative; top: -5px;">' +
                     '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}}">{{vehicle}}</span>&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
