@@ -25,7 +25,11 @@ var mainView = app.views.create('.view-main', {
   url: '/',
   // pushState: true
 });
-
+if (location.protocol == 'https:' || window.location.hostname == "localhost") {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js');
+    }
+}
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -173,14 +177,9 @@ function getQueryParams(qs) {
 }
 
 function loop() {
-
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
 
     if (pageName == "stop") {
-		app.dialog.alert("loopStopSection");
-	setTimeout(function() {
-	app.dialog.close();
-	}, 5000);
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
@@ -212,7 +211,7 @@ function loop() {
                 // Item height
                 height: app.theme === 'ios' ? 63 : 73,
             });
-            // console.log(j);
+            console.log(j);
         });
     } else if (pageName == "disruptions") {
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
@@ -358,11 +357,6 @@ function loop() {
             });
         });
     }
-	
-	app.dialog.alert("loopEnd");
-	setTimeout(function() {
-	app.dialog.close();
-	}, 5000);
     setTimeout(loop, 30000);
 }
 loop();

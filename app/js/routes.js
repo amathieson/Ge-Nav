@@ -84,7 +84,7 @@ routes = [
             app.dialog.progress();
             setTimeout(function () {
                 $.get(rootURL + "/hosted_app-V2/processODAPI.php?vehicleInfo&v=" + currentVehicle, function (data) {
-                    // console.log(data);
+                    console.log(data);
                     for (var i = 0; i < data.pictures.images.length; i++) {
                         $("#images").append("<div class=\"swiper-slide\"><img style=\"display: block; margin: auto; width: 100%; max-width: 1080px; vertical-align: middle;\" src=\"" + data.pictures.images[i] + "\"/></div>");
                     }
@@ -218,7 +218,7 @@ routes = [
         pageInit: function (e, page) {
             app.dialog.progress();
             // $.get(rootURL + "/hosted_app-V2/getDirections.php?Origin=CHLA&Destination=SGGA&time=8-11-2018%2020%3A04", function (data) {
-            // console.log(formData);
+            console.log(formData);
             $.get(rootURL + "/hosted_app-V2/getDirections.php?" + $('#directionForm').serialize(), function (data) {
                 var j = (data);
                 $("#directionsMap").attr("src", j.initMap);
@@ -226,7 +226,7 @@ routes = [
                     var steps = "";
                     for (var ii = 0; ii < j.routes[i].steps.length; ii++ ) {
                         var intermediates = "";
-                        // // console.log(j.routes[i].steps[ii]);
+                        // console.log(j.routes[i].steps[ii]);
                         for (var iii = 0; iii < j.routes[i].steps[ii].passList.length; iii++) {
                             intermediates = intermediates + "<li>\n" +
                                 "      <a href=\"/stop/?s=" + j.routes[i].steps[ii].passList[iii].stopCode + "\" onclick=\"currentStop = '" + j.routes[i].steps[ii].passList[iii].stopCode + "'\" class=\"item item-content\">\n" +
@@ -306,7 +306,7 @@ routes = [
             app.dialog.progress();
             // $.get("http://cityrunner-server.genav.ga/TPG/?dc=" + currentDeparture, function (data) {
             $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
-                // console.log(data);
+                console.log(data);
                 document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
                 document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
                 // document.getElementById("depStopImg").src = data.streetViewImage;
@@ -459,7 +459,7 @@ routes = [
                     // List item Template7 template
                     itemTemplate:
                     '<li style="color: #{{txtCol}}; background: #{{primCol}};">' +
-                    '<a href="/departure/?d={{depCde}}" onclick="currentDeparture = {{depCde}};"  class="item-link item-content">' +
+                    '<a href="/departure/?d={{depCde}}" onclick="' + "currentDeparture = '{{depCde}}'" + '"  class="item-link item-content">' +
                     '<div class="item-inner">' +
                     '<div class="item-title-row" style="position: relative; top: -5px;">' +
                     '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}}">{{vehicle}}</span>&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
@@ -471,7 +471,7 @@ routes = [
                     // Item height
                     height: app.theme === 'ios' ? 63 : 73,
                 });
-                // console.log(j);
+                console.log(j);
                 app.dialog.close();
             });
             $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&isFav&s=" + currentStop, function (data) {
