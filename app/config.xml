@@ -5,7 +5,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "eu.mathieson.adam.genav"
         version   = "1.0.3pre">
-		<preference name="android-versionCode" value="9991003" />
+		<preference name="android-versionCode" value="9991004" />
 
     <name>GéNav</name>
 

@@ -23,7 +23,7 @@ var mainView = app.views.create('.view-left', {
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
   url: '/',
-  // pushState: true
+  pushState: true
 });
 if (location.protocol == 'https:' || window.location.hostname == "localhost") {
     if ('serviceWorker' in navigator) {
@@ -315,7 +315,7 @@ function loop() {
                 // List item Template7 template
                 itemTemplate:
                     '<li>' +
-                    '<a href="#" class="item-link item-content {{disabled}}">' +
+                    '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
                     '<div class="item-inner">' +
                     '<div class="item-title-row">' +
                     '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
@@ -343,7 +343,7 @@ function loop() {
                 // List item Template7 template
                 itemTemplate:
                     '<li>' +
-                    '<a href="#" class="item-link item-content {{disabled}}">' +
+                    '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
                     '<div class="item-inner">' +
                     '<div class="item-title-row">' +
                     '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +

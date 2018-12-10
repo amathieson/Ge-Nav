@@ -5,7 +5,7 @@ var currentDeparture;
 var formData;
 var currentVehicle;
 var gkhead = new Image;
-var rootURL = "https://genav.ga";
+var rootURL = "https://cityrunner-server.genav.ga";
 // var rootURL = "..";
 routes = [
   {
@@ -346,7 +346,7 @@ routes = [
                     // List item Template7 template
                     itemTemplate:
                         '<li>' +
-                        '<a href="#" class="item-link item-content {{disabled}}">' +
+                        '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
                         '<div class="item-inner">' +
                         '<div class="item-title-row">' +
                         '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
@@ -374,7 +374,7 @@ routes = [
                     // List item Template7 template
                     itemTemplate:
                         '<li>' +
-                        '<a href="#" class="item-link item-content {{disabled}}">' +
+                        '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
                         '<div class="item-inner">' +
                         '<div class="item-title-row">' +
                         '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
