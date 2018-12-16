@@ -162,24 +162,13 @@ function deleteFav(stopCode) {
         }
     });
 }
-function getQueryParams(qs) {
-    qs = qs.split('+').join(' ');
-
-    var params = {},
-        tokens,
-        re = /[?&]?([^=]+)=([^&]*)/g;
-
-    while (tokens = re.exec(qs)) {
-        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-    }
-
-    return params;
-}
 
 function loop() {
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
-
+    var query = window.location.hash.split("?")[1];
+    var qs = parse_query_string(query);
     if (pageName == "stop") {
+        currentStop = qs.s;
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
@@ -274,12 +263,13 @@ function loop() {
             }
         });
     } else if (pageName == "departure") {
+        currentDeparture = qs.d;
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
             console.log(data);
             document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
             document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
-            document.getElementById("depStopImg").src = data.streetViewImage;
-            document.getElementById("depStopMap").src = data.mapsImage;
+            // document.getElementById("depStopImg").src = data.streetViewImage;
+            // document.getElementById("depStopMap").src = data.mapsImage;
             document.getElementById("depConnMap").src = data.platformImage;
             document.getElementById("nav").style.color = "#" + data.textCol;
             document.getElementById("nav").style.background = "#" + data.backCol;
@@ -525,4 +515,25 @@ function createMap(map) {
             return pt.matrixTransform(xform.inverse());
         }
     }
+}
+function parse_query_string(query) {
+    var vars = query.split("&");
+    var query_string = {};
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        var key = decodeURIComponent(pair[0]);
+        var value = decodeURIComponent(pair[1]);
+        // If first entry with this name
+        if (typeof query_string[key] === "undefined") {
+            query_string[key] = decodeURIComponent(value);
+            // If second entry with this name
+        } else if (typeof query_string[key] === "string") {
+            var arr = [query_string[key], decodeURIComponent(value)];
+            query_string[key] = arr;
+            // If third or later entry with this name
+        } else {
+            query_string[key].push(decodeURIComponent(value));
+        }
+    }
+    return query_string;
 }

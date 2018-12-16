@@ -86,7 +86,7 @@ routes = [
                 $.get(rootURL + "/hosted_app-V2/processODAPI.php?vehicleInfo&v=" + currentVehicle, function (data) {
                     console.log(data);
                     for (var i = 0; i < data.pictures.images.length; i++) {
-                        $("#images").append("<div class=\"swiper-slide\"><img style=\"display: block; margin: auto; width: 100%; max-width: 1080px; vertical-align: middle;\" src=\"" + data.pictures.images[i] + "\"/></div>");
+                        $("#images").append("<div class=\"swiper-slide vinfo-slides\"><img style=\"display: block; margin: auto; width: 100%; max-width: 1080px; vertical-align: middle;\" src=\"" + data.pictures.images[i] + "\"/></div>");
                     }
                     var swiper = app.swiper.create('.swiper-container', {});
                     $("#brand")[0].innerHTML = data.Brand;
@@ -101,6 +101,13 @@ routes = [
                     $("#constroction")[0].innerHTML = data.Year_of_construction_if_found;
                     $("#comment")[0].innerHTML = data.Comment;
                     $("#vehicle")[0].innerHTML = currentVehicle;
+                    var vinfoPB = app.photoBrowser.create({
+                        photos : data.pictures.images,
+                        type: 'popup'
+                    });
+                    $$('.vinfo-slides').on('click', function () {
+                        vinfoPB.open();
+                    });
                     app.dialog.close();
                 });
             }, 10);
@@ -304,13 +311,14 @@ routes = [
     on: {
         pageInit: function (e, page) {
             app.dialog.progress();
+            var query = window.location.hash.split("?")[1];
+            var qs = parse_query_string(query);
+            currentDeparture = qs.d;
             // $.get("http://cityrunner-server.genav.ga/TPG/?dc=" + currentDeparture, function (data) {
             $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
                 console.log(data);
                 document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
                 document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
-                // document.getElementById("depStopImg").src = data.streetViewImage;
-                document.getElementById("depStopMap").src = data.mapsImage;
                 document.getElementById("depConnMap").src = data.platformImage;
                 document.getElementById("nav").style.color = "#" + data.textCol;
                 document.getElementById("nav").style.background = "#" + data.backCol;
@@ -327,9 +335,14 @@ routes = [
                 PbDepConnMap = app.photoBrowser.create({
                     photos : [
                         data.platformImage,
+                        data.vehicleImage
                     ],
                     type: 'popup'
                 });
+                $$('#depConnMap').on('click', function () {
+                    PbDepConnMap.open();
+                });
+
                 var virtualList = app.virtualList.create({
                     // List Element
                     el: '.virtual-list-Steps',
@@ -439,6 +452,9 @@ routes = [
     on: {
         pageInit: function (e, page) {
             app.dialog.progress();
+            var query = window.location.hash.split("?")[1];
+            var qs = parse_query_string(query);
+            currentStop = qs.s;
             // var query = getQueryParams(document.location.search);
             $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
                 var j = JSON.parse(data);
