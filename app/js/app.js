@@ -58,20 +58,24 @@ function loadHome() {
     var favsDone = false;
     $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
         var j = JSON.parse(data);
-        document.getElementById("disurptionsHome").innerHTML = "";
-        for (var i = 0; i < j.length; i++) {
-            document.getElementById("disurptionsHome").innerHTML += "<li>\n" +
-                "                    <a href=\"#\" onclick='showDisruption(this)' class=\"item-link item-content\">\n" +
-                "                        <div class=\"item-inner\">\n" +
-                "                            <div class=\"item-title-row\">\n" +
-                "                                <div class=\"item-title\">" + j[i].title + "</div>\n" +
-                "                                <div class=\"item-after\">" + j[i].time + "</div>\n" +
-                "                            </div>\n" +
-                "                            <div class=\"item-subtitle\">" + j[i].text + "</div>\n" +
-                "                            <div class=\"item-text\">" + j[i].line + "</div>\n" +
-                "                        </div>\n" +
-                "                    </a>\n" +
-                "                </li>";
+        try {
+            document.getElementById("disurptionsHome").innerHTML = "";
+            for (var i = 0; i < j.length; i++) {
+                document.getElementById("disurptionsHome").innerHTML += "<li>\n" +
+                    "                    <a href=\"#\" onclick='showDisruption(this)' class=\"item-link item-content\">\n" +
+                    "                        <div class=\"item-inner\">\n" +
+                    "                            <div class=\"item-title-row\">\n" +
+                    "                                <div class=\"item-title\">" + j[i].title + "</div>\n" +
+                    "                                <div class=\"item-after\">" + j[i].time + "</div>\n" +
+                    "                            </div>\n" +
+                    "                            <div class=\"item-subtitle\">" + j[i].text + "</div>\n" +
+                    "                            <div class=\"item-text\">" + j[i].line + "</div>\n" +
+                    "                        </div>\n" +
+                    "                    </a>\n" +
+                    "                </li>";
+            }
+        } catch (e) {
+            console.log(e);
         }
         disruptionsDone = true;
         if (votdDone && disruptionsDone && favsDone) {
@@ -80,8 +84,12 @@ function loadHome() {
     });
     $.get(rootURL + "/hosted_app-V2/votm.php", function (data) {
         var j = JSON.parse(data);
-        document.getElementById("iodt").src = j.image;
-        document.getElementById("votd").innerHTML = j.Vehicle_number;
+        try {
+            document.getElementById("iodt").src = j.image;
+            document.getElementById("votd").innerHTML = j.Vehicle_number;
+        } catch (e) {
+            console.log(e);
+        }
         votdDone = true;
         if (votdDone && disruptionsDone && favsDone) {
             app.dialog.close();
@@ -89,24 +97,28 @@ function loadHome() {
     });
     $.get(rootURL + "/hosted_app-V2/users.php?favs&u=" + uid, function (data) {
         var j = JSON.parse(data);
-        document.getElementById("favsHome").innerHTML = "";
-        for (var i = 0; i < j.length; i++) {
-            document.getElementById("favsHome").innerHTML += "<li class='swipeout'>\n" +
-                "                        <a href=\"/stop/?s=" + j[i].stopCode + "\" onclick='currentStop = \"" + j[i].stopCode + "\";' class=\"item-link item-content swipeout-content\">\n" +
-                "                            <div class=\"item-inner\">\n" +
-                "                                <div class=\"item-title-row\">\n" +
-                "                                    <div class=\"item-title\">" + j[i].stopName + "</div>\n" +
-                "                                    <div class=\"item-after\"></div>\n" +
-                "                                </div>\n" +
-                "                                <div class=\"item-subtitle\">" + j[i].stopCode + "</div>\n" +
-                "                                <div class=\"item-text tablet-only\">\n" + j[i].connections +
-                "                                </div>\n" +
-                "                            </div>\n" +
-                "                        </a>\n" +
-                "      <div class=\"swipeout-actions-right\">\n" +
-                "        <a href=\"#\" class=\"swipeout-delete\" onclick='deleteFav(\"" + j[i].stopCode + "\");'>Delete</a>\n" +
-                "      </div>" +
-                "                    </li>"
+        try {
+            document.getElementById("favsHome").innerHTML = "";
+            for (var i = 0; i < j.length; i++) {
+                document.getElementById("favsHome").innerHTML += "<li class='swipeout'>\n" +
+                    "                        <a href=\"/stop/?s=" + j[i].stopCode + "\" onclick='currentStop = \"" + j[i].stopCode + "\";' class=\"item-link item-content swipeout-content\">\n" +
+                    "                            <div class=\"item-inner\">\n" +
+                    "                                <div class=\"item-title-row\">\n" +
+                    "                                    <div class=\"item-title\">" + j[i].stopName + "</div>\n" +
+                    "                                    <div class=\"item-after\"></div>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"item-subtitle\">" + j[i].stopCode + "</div>\n" +
+                    "                                <div class=\"item-text tablet-only\">\n" + j[i].connections +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </a>\n" +
+                    "      <div class=\"swipeout-actions-right\">\n" +
+                    "        <a href=\"#\" class=\"swipeout-delete\" onclick='deleteFav(\"" + j[i].stopCode + "\");'>Delete</a>\n" +
+                    "      </div>" +
+                    "                    </li>"
+            }
+        } catch (e) {
+            console.log(e);
         }
         favsDone = true;
         if (votdDone && disruptionsDone && favsDone) {
@@ -165,11 +177,24 @@ function deleteFav(stopCode) {
 
 function loop() {
     var pageName = app.views.main.router.currentPageEl.getAttribute('data-name');
-    var query = window.location.hash.split("?")[1];
-    var qs = parse_query_string(query);
     if (pageName == "stop") {
-        currentStop = qs.s;
+        var query = window.location.hash.split("?")[1];
+        if (query == null) {
+            if (getCookie("lastStop") != null) {
+                currentStop = getCookie("lastStop");
+            }
+        } else {
+            var qs = parse_query_string(query);
+            if (qs.s == null) {
+                if (getCookie("lastStop") != null) {
+                    currentStop = getCookie("lastStop");
+                }
+            } else {
+                currentStop = qs.s;
+            }
+        }
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
+            setCookie("lastStop",currentStop, 18250);
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
             var virtualList = app.virtualList.create({
@@ -263,9 +288,24 @@ function loop() {
             }
         });
     } else if (pageName == "departure") {
-        currentDeparture = qs.d;
+        var query = window.location.hash.split("?")[1];
+        if (query == null) {
+            if (getCookie("lastDeparture") != null) {
+                currentDeparture = getCookie("lastDeparture");
+            }
+        } else {
+            var qs = parse_query_string(query);
+            if (qs.d == null) {
+                if (getCookie("lastDeparture") != null) {
+                    currentDeparture = getCookie("lastDeparture");
+                }
+            } else {
+                currentDeparture = qs.d;
+            }
+        }
         $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
             console.log(data);
+            setCookie("lastDeparture", currentDeparture, 18250);
             document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
             document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
             // document.getElementById("depStopImg").src = data.streetViewImage;
@@ -349,7 +389,7 @@ function loop() {
     }
     setTimeout(loop, 30000);
 }
-loop();
+setTimeout(loop, 30000);
 function showDisruption(disruptionEL) {
     app.dialog.alert(disruptionEL.childNodes[2].childNodes[3].innerHTML + "<br><br>" + disruptionEL.childNodes[2].childNodes[5].innerHTML, disruptionEL.childNodes[2].childNodes[1].childNodes[1].innerHTML);
 }

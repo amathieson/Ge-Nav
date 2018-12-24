@@ -5,7 +5,8 @@ var currentDeparture;
 var formData;
 var currentVehicle;
 var gkhead = new Image;
-var rootURL = "https://cityrunner-server.genav.ga";
+var city = "Geneva";
+var rootURL = "https://cityrunner-server.genav.ch";
 // var rootURL = "..";
 routes = [
   {
@@ -312,10 +313,23 @@ routes = [
         pageInit: function (e, page) {
             app.dialog.progress();
             var query = window.location.hash.split("?")[1];
-            var qs = parse_query_string(query);
-            currentDeparture = qs.d;
+            if (query == null) {
+                if (getCookie("lastDeparture") != null) {
+                    currentDeparture = getCookie("lastDeparture");
+                }
+            } else {
+                var qs = parse_query_string(query);
+                if (qs.d == null) {
+                    if (getCookie("lastDeparture") != null) {
+                        currentDeparture = getCookie("lastDeparture");
+                    }
+                } else {
+                    currentDeparture = qs.d;
+                }
+            }
             // $.get("http://cityrunner-server.genav.ga/TPG/?dc=" + currentDeparture, function (data) {
             $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
+                setCookie("lastDeparture", currentDeparture, 18250);
                 console.log(data);
                 document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
                 document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
@@ -453,10 +467,23 @@ routes = [
         pageInit: function (e, page) {
             app.dialog.progress();
             var query = window.location.hash.split("?")[1];
-            var qs = parse_query_string(query);
-            currentStop = qs.s;
+            if (query == null) {
+                if (getCookie("lastStop") != null) {
+                    currentStop = getCookie("lastStop");
+                }
+            } else {
+                var qs = parse_query_string(query);
+                if (qs.s == null) {
+                    if (getCookie("lastStop") != null) {
+                        currentStop = getCookie("lastStop");
+                    }
+                } else {
+                    currentStop = qs.s;
+                }
+            }
             // var query = getQueryParams(document.location.search);
             $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
+                setCookie("lastStop",currentStop, 18250);
                 var j = JSON.parse(data);
                 document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
                 var virtualList = app.virtualList.create({
@@ -527,7 +554,7 @@ routes = [
     url: './pages/maps.html',
     on: {
         pageInit: function (e, page) {
-            createMap("urban");
+
         }
     }
   },
