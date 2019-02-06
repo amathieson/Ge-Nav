@@ -11,7 +11,7 @@
           <i class="icon material-icons md-only">menu</i>
         </a>
       </div>
-      <div class="title" id="title">Y &nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp; Ferney-Voltaire</div>
+      <div class="title" id="title"> &nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp; </div>
       <div class="right">
         <a href="/stops/" class="link icon-only">
           <i class="icon f7-icons ios-only">search_strong</i>
@@ -37,66 +37,77 @@
       <div class="block">
           <div class="row">
               <div class="col-50 left">
-                  Destination: <span id="destinationName">Val-Thoiry</span>
+                  Destination: <span id="destinationName"></span>
               </div>
               <div class="col-50 right">
-                  <span style="font-size: x-large; text-align: right;" id="time">5 mins</span>
+                  <span style="font-size: x-large; text-align: right;" id="time"></span>
               </div>
               <div class="col-50 left">
-                  Platform Number: <span id="platformNo">01</span><br>
+                  Platform Number: <span id="platformNo"></span><br>
                   <span id="stopDATT"></span>
               </div>
               <div class="col-50 right" style="align-content: right;">
-                  Vehicle: <a href="/vehicleInfo/" onclick="currentVehicle = this.innerHTML;" id="vehicleNo">21920</a><br>
+                  Vehicle: <a href="/vehicleInfo/" onclick="currentVehicle = this.innerHTML;" id="vehicleNo"></a><br>
                   <span id="vcDATT"></span>
               </div>
           </div>
       </div>
       <div class="block">
-          <a href="#tab-1" class="tab-link">Time To Departure</a>
-          <a href="#tab-2" class="tab-link">Departure Time</a>
-          <div class="tabs-swipeable-wrap">
-              <div class="tabs">
-                  <div id="tab-1" class="page-content tab tab-active">
-                      <div class="block" style="width: 100%">
-                          <form data-search-container=".virtual-list-Steps" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
-                              <div class="searchbar-inner">
-                                  <div class="searchbar-input-wrap">
-                                      <input type="search" placeholder="Search"/>
-                                      <i class="searchbar-icon"></i>
-                                      <span class="input-clear-button"></span>
-                                  </div>
-                                  <span class="searchbar-disable-button">Cancel</span>
-                              </div>
-                          </form>
-                          <div class="searchbar-backdrop"></div>
-                          <div class="list simple-list searchbar-not-found">
-                              <ul>
-                                  <li>Nothing found</li>
-                              </ul>
-                          </div>
-                          <div class="list virtual-list-Steps media-list searchbar-found"></div>
+          <div class="list simple-list">
+          <ul>
+              <li>
+                  <span>Departure Time</span>
+                  <label class="toggle">
+                      <input type="checkbox" oninput="$('#tab-1').toggleClass('tab-active');$('#tab-2').toggleClass('tab-active');">
+                      <span class="toggle-icon"></span>
+                  </label>
+              </li>
+          </ul>
+          </div>
+          <div class="tabs">
+              <div id="tab-1" class="page-content tab tab-active" style="padding-top: 0;">
+                  <div class="block" style="width: 100%">
+                      <script id="depsList1" type="text/template7">
+                          {{#each steps}}
+                          <li>
+                              <a href="/stop/?s={{stopCode}}" onclick="currentStop = '{{stopCode}}'" class="item-content {{disabled}}">
+                                  <div class="item-inner">
+                                      <div class="item-title-row" style="width: 100%;">
+                                          <div class="item-title">{{stopName}} - {{stopCode}}</div>
+                                          <div class="item-after">{{arrivalTime}}</div>
+                                          </div>
+                                      </div>
+                                  </a>
+                              </li>
+                          {{/each}}
+                      </script>
+                      <div class="list links-list">
+                          <ul id="depsList1Container">
+
+                          </ul>
                       </div>
                   </div>
-                  <div id="tab-2" class="page-content tab">
-                      <div class="block">
-                          <form data-search-container=".virtual-list-Steps2" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
-                              <div class="searchbar-inner">
-                                  <div class="searchbar-input-wrap">
-                                      <input type="search" placeholder="Search"/>
-                                      <i class="searchbar-icon"></i>
-                                      <span class="input-clear-button"></span>
+              </div>
+              <div id="tab-2" class="page-content tab " style="padding-top: 0;">
+                  <div class="block">
+                      <script id="depsList2" type="text/template7">
+                          {{#each steps}}
+                          <li>
+                              <a href="/stop/?s={{stopCode}}" onclick="currentStop = '{{stopCode}}'" class="item-content {{disabled}}">
+                                  <div class="item-inner">
+                                      <div class="item-title-row" style="width: 100%;">
+                                          <div class="item-title">{{stopName}} - {{stopCode}}</div>
+                                          <div class="item-after">{{time}}</div>
+                                      </div>
                                   </div>
-                                  <span class="searchbar-disable-button">Cancel</span>
-                              </div>
-                          </form>
-                          <div class="searchbar-backdrop"></div>
-                          <div class="list simple-list searchbar-not-found">
-                              <ul>
-                                  <li>Nothing found</li>
-                              </ul>
-                          </div>
-                          <div class="list virtual-list-Steps2 media-list searchbar-found"></div>
+                              </a>
+                          </li>
+                          {{/each}}
+                      </script>
+                      <div class="list links-list">
+                          <ul id="depsList2Container">
+
+                          </ul>
                       </div>
                   </div>
               </div>

@@ -31,7 +31,7 @@
   <meta name="theme-color" content="#f44336">
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>G&eacute;Nav</title>
+  <title>G&eacute;Nav - Geneva</title>
 
   <link rel="stylesheet" href="framework7/css/framework7.min.css">
   <link rel="stylesheet" href="css/icons.css">
@@ -57,8 +57,7 @@
                 <li>
                   <a href="/" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">home</i>
-                      <i class="md-only material-icons">home</i>
+                      <i class="material-icons">home</i>
                     </div>
                     <div class="item-inner">Home</div>
                   </a>
@@ -66,8 +65,7 @@
                 <li>
                   <a href="/disruptions/" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">warning</i>
-                      <i class="md-only material-icons">warning</i>
+                      <i class="material-icons">warning</i>
                     </div>
                     <div class="item-inner">Disruptions</div>
                   </a>
@@ -75,8 +73,7 @@
                 <li>
                   <a href="/stops/" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">directions_bus</i>
-                      <i class="md-only material-icons">directions_bus</i>
+                      <i class="material-icons">directions_bus</i>
                     </div>
                     <div class="item-inner">Stops</div>
                   </a>
@@ -84,8 +81,7 @@
                 <li>
                   <a href="/Fstops/" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">star</i>
-                      <i class="md-only material-icons">star</i>
+                      <i class="material-icons">star</i>
                     </div>
                     <div class="item-inner">Favorite Stops</div>
                   </a>
@@ -94,17 +90,36 @@
                 <li>
                   <a href="/directions/" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">directions</i>
-                      <i class="md-only material-icons">directions</i>
+                      <i class="material-icons">directions</i>
                     </div>
                     <div class="item-inner">Directions</div>
                   </a>
                 </li>
                 <li>
-                  <a href="/maps/" data-view=".view-main" class="panel-close item-content">
+                  <a href="#" onclick="var mapsPB = app.photoBrowser.create({
+                photos : [
+                    {
+                        url: 'maps/urban_day.png',
+                        caption: 'Urban Map'
+                    },
+                    {
+                        url: 'maps/suburban_day.png',
+                        caption: 'Suburban Map'
+                    },
+                    {
+                        url: 'maps/urban_night.png',
+                        caption: 'Urban Noctambus'
+                    },
+                    {
+                        url: 'maps/suburban_night.png',
+                        caption: 'Suburban Noctambus'
+                    }
+                ],
+                type: 'standalone'
+            });
+            mapsPB.open();" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">map</i>
-                      <i class="md-only material-icons">map</i>
+                      <i class="material-icons">map</i>
                     </div>
                     <div class="item-inner">Maps</div>
                   </a>
@@ -112,8 +127,7 @@
                 <li>
                   <a href="/tickets/" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">credit_card</i>
-                      <i class="md-only material-icons">credit_card</i>
+                      <i class="material-icons">credit_card</i>
                     </div>
                     <div class="item-inner">Tickets</div>
                   </a>
@@ -121,8 +135,7 @@
                 <li>
                   <a href="/about/" data-view=".view-main" class="panel-close item-content">
                     <div class="item-media">
-                      <i class="icon ios-only">info</i>
-                      <i class="md-only material-icons">info</i>
+                      <i class="material-icons">info</i>
                     </div>
                     <div class="item-inner">About</div>
                   </a>
@@ -199,7 +212,7 @@
               <!--<li><a class="list-button item-link" href="#">Link 1</a></li>-->
               <!--<li><a class="list-button item-link" href="#">Link 2</a></li>-->
               <!--<li><a class="list-button item-link" href="#">Link 3</a></li>-->
-              <li><a class="item-link list-button disabled" style="color: inherit;" href="#">G&eacute;Nav V1.0.6pre</a></li>
+              <li><a class="item-link list-button disabled" style="color: inherit;" href="#">G&eacute;Nav V1.0.7b</a></li>
             </ul>
           </div>
         </div>

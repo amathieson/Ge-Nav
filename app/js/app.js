@@ -56,7 +56,7 @@ function loadHome() {
     var votdDone = false;
     var disruptionsDone = false;
     var favsDone = false;
-    $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
+    $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions" + "&_=" + new Date().getTime(), function (data) {
         var j = JSON.parse(data);
         try {
             document.getElementById("disurptionsHome").innerHTML = "";
@@ -82,11 +82,13 @@ function loadHome() {
             app.dialog.close();
         }
     });
-    $.get(rootURL + "/hosted_app-V2/votm.php", function (data) {
+    $.get(rootURL + "/hosted_app-V2/votm.php" + "?_=" + new Date().getTime(), function (data) {
         var j = JSON.parse(data);
         try {
-            document.getElementById("iodt").src = j.image;
-            document.getElementById("votd").innerHTML = j.Vehicle_number;
+            if (document.getElementById("iodt") != null) {
+                document.getElementById("iodt").src = j.image;
+                document.getElementById("votd").innerHTML = j.Vehicle_number;
+            }
         } catch (e) {
             console.log(e);
         }
@@ -95,7 +97,7 @@ function loadHome() {
             app.dialog.close();
         }
     });
-    $.get(rootURL + "/hosted_app-V2/users.php?favs&u=" + uid, function (data) {
+    $.get(rootURL + "/hosted_app-V2/users.php?favs&u=" + uid + "&_=" + new Date().getTime(), function (data) {
         var j = JSON.parse(data);
         try {
             document.getElementById("favsHome").innerHTML = "";
@@ -127,7 +129,7 @@ function loadHome() {
     });
 }
 function addFav(stopCode) {
-    $.get(rootURL + "/hosted_app-V2/users.php?addFav&s=" + stopCode + "&u=" + uid, function (data) {
+    $.get(rootURL + "/hosted_app-V2/users.php?addFav&s=" + stopCode + "&u=" + uid + "&_=" + new Date().getTime(), function (data) {
         var j = JSON.parse(data);
         document.getElementById("favsHome").innerHTML = "";
         for (var i = 0; i < j.length; i++) {
@@ -151,7 +153,7 @@ function addFav(stopCode) {
     });
 }
 function deleteFav(stopCode) {
-    $.get(rootURL + "/hosted_app-V2/users.php?deleteFav&s=" + stopCode + "&u=" + uid, function (data) {
+    $.get(rootURL + "/hosted_app-V2/users.php?deleteFav&s=" + stopCode + "&u=" + uid + "&_=" + new Date().getTime(), function (data) {
         var j = JSON.parse(data);
         document.getElementById("favsHome").innerHTML = "";
         for (var i = 0; i < j.length; i++) {
@@ -193,7 +195,7 @@ function loop() {
                 currentStop = qs.s;
             }
         }
-        $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop + "&_=" + new Date().getTime(), function (data) {
             setCookie("lastStop",currentStop, 18250);
             var j = JSON.parse(data);
             document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
@@ -228,7 +230,7 @@ function loop() {
             console.log(j);
         });
     } else if (pageName == "disruptions") {
-        $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions" + "&_=" + new Date().getTime(), function (data) {
             var j = JSON.parse(data);
             document.getElementById("disurptions").innerHTML = "";
             for (var i = 0; i < j.length; i++) {
@@ -247,7 +249,7 @@ function loop() {
             }
         });
     } else if (pageName == "home") {
-        $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions" + "&_=" + new Date().getTime(), function (data) {
             var j = JSON.parse(data);
             document.getElementById("disurptionsHome").innerHTML = "";
             for (var i = 0; i < j.length; i++) {
@@ -265,7 +267,7 @@ function loop() {
                     "                </li>";
             }
         });
-        $.get(rootURL + "/hosted_app-V2/users.php?favs&u=" + uid, function (data) {
+        $.get(rootURL + "/hosted_app-V2/users.php?favs&u=" + uid + "&_=" + new Date().getTime(), function (data) {
             var j = JSON.parse(data);
             document.getElementById("favsHome").innerHTML = "";
             for (var i = 0; i < j.length; i++) {
@@ -303,7 +305,7 @@ function loop() {
                 currentDeparture = qs.d;
             }
         }
-        $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
+        $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture + "&_=" + new Date().getTime(), function (data) {
             console.log(data);
             setCookie("lastDeparture", currentDeparture, 18250);
             document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
@@ -311,9 +313,11 @@ function loop() {
             // document.getElementById("depStopImg").src = data.streetViewImage;
             // document.getElementById("depStopMap").src = data.mapsImage;
             document.getElementById("depConnMap").src = data.platformImage;
-            document.getElementById("nav").style.color = "#" + data.textCol;
-            document.getElementById("nav").style.background = "#" + data.backCol;
-            document.getElementById("nav").style.background = "#" + data.backCol;
+			if (document.getElementById("nav") != null){
+				document.getElementById("nav").style.color = "#" + data.textCol;
+				document.getElementById("nav").style.background = "#" + data.backCol;
+				document.getElementById("nav").style.background = "#" + data.backCol;
+			}
             document.getElementById("title").innerHTML = data.lineCode + " &nbsp;&nbsp;<i style=\"position: relative; top: 4px;\" class=\"f7-icons\">arrow_right</i>&nbsp;&nbsp; " + data.destination;
             document.getElementById("vehicleNo").innerHTML = data.vehicle;
             document.getElementById("platformNo").innerHTML = data.platformNo;
@@ -329,62 +333,25 @@ function loop() {
                 ],
                 type: 'popup'
             });
-            var virtualList = app.virtualList.create({
-                // List Element
-                el: '.virtual-list-Steps',
-                // Pass array with items
-                items: data.steps,
-                // Custom search function for searchbar
-                searchAll: function (query, items) {
-                    var found = [];
-                    for (var i = 0; i < items.length; i++) {
-                        if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                    }
-                    return found; //return array with mathced indexes
-                },
-                // List item Template7 template
-                itemTemplate:
-                    '<li>' +
-                    '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
-                    '<div class="item-inner">' +
-                    '<div class="item-title-row">' +
-                    '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
-                    '<div class="item-after">{{arrivalTime}}</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</a>' +
-                    '</li>',
-                // Item height
-                height: app.theme === 'ios' ? 63 : 73,
+            $$('#depConnMap').on('click', function () {
+                PbDepConnMap.open();
             });
-            var virtualList2 = app.virtualList.create({
-                // List Element
-                el: '.virtual-list-Steps2',
-                // Pass array with items
-                items: data.steps,
-                // Custom search function for searchbar
-                searchAll: function (query, items) {
-                    var found = [];
-                    for (var i = 0; i < items.length; i++) {
-                        if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                    }
-                    return found; //return array with mathced indexes
-                },
-                // List item Template7 template
-                itemTemplate:
-                    '<li>' +
-                    '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
-                    '<div class="item-inner">' +
-                    '<div class="item-title-row">' +
-                    '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
-                    '<div class="item-after">{{time}}</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</a>' +
-                    '</li>',
-                // Item height
-                height: app.theme === 'ios' ? 63 : 73,
-            });
+            var template = $$('#depsList1').html();
+
+// compile it with Template7
+            var compiledTemplate = Template7.compile(template);
+
+// Now we may render our compiled template by passing required context
+            var html = compiledTemplate(data);
+            $$('#depsList1Container').html(html);
+            template = $$('#depsList2').html();
+
+// compile it with Template7
+            compiledTemplate = Template7.compile(template);
+
+// Now we may render our compiled template by passing required context
+            html = compiledTemplate(data);
+            $$('#depsList2Container').html(html);
         });
     }
     setTimeout(loop, 30000);

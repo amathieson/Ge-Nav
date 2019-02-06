@@ -17,7 +17,7 @@ routes = [
             if (uid == null) {
                 if (getCookie("uid") == "") {
                     app.dialog.progress();
-                    $.get(rootURL + "/hosted_app-V2/users.php?getUID", function (data) {
+                    $.get(rootURL + "/hosted_app-V2/users.php?getUID" + "&_=" + new Date().getTime(), function (data) {
                         setCookie("uid", JSON.parse(data).uid,36525);
                         uid = getCookie("uid");
                         app.dialog.close();
@@ -38,7 +38,7 @@ routes = [
     url: './pages/stops.html',
     on: {pageInit: function (e, page) {
             app.dialog.progress();
-            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops", function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops" + "&_=" + new Date().getTime(), function (data) {
                 var j = JSON.parse(data);
                 var virtualList = app.virtualList.create({
                     // List Element
@@ -49,7 +49,7 @@ routes = [
                     searchAll: function (query, items) {
                         var found = [];
                         for (var i = 0; i < items.length; i++) {
-                            if (items[i].stopName.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].stopCode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].linesT.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+                            if (items[i].stopName.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].stopCode.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].linesT.toLowerCase().indexOf(query.toLowerCase()) >= 0 || items[i].stopNameNoChars.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
                         }
                         if (query.toLowerCase() == "genavstaff") {
                             window.open("../staff/app/");
@@ -70,7 +70,7 @@ routes = [
                     '</a>' +
                     '</li>',
                     // Item height
-                    height: app.theme === 'ios' ? 63 : 73,
+                    height: app.theme === 'ios' ? 95 : 105,
                 });
                 app.dialog.close();
             });
@@ -84,7 +84,7 @@ routes = [
         pageInit: function (e, page) {
             app.dialog.progress();
             setTimeout(function () {
-                $.get(rootURL + "/hosted_app-V2/processODAPI.php?vehicleInfo&v=" + currentVehicle, function (data) {
+                $.get(rootURL + "/hosted_app-V2/processODAPI.php?vehicleInfo&v=" + currentVehicle + "&_=" + new Date().getTime(), function (data) {
                     console.log(data);
                     for (var i = 0; i < data.pictures.images.length; i++) {
                         $("#images").append("<div class=\"swiper-slide vinfo-slides\"><img style=\"display: block; margin: auto; width: 100%; max-width: 1080px; vertical-align: middle;\" src=\"" + data.pictures.images[i] + "\"/></div>");
@@ -199,7 +199,7 @@ routes = [
                 }
             });
             app.dialog.progress();
-            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops", function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops" + "&_=" + new Date().getTime(), function (data) {
                 var j = JSON.parse(data);
                 var list = "<option value=\"\" disabled selected>Please Select A Stop</option>";
                 for (var i = 0; i < j.length; i++) {
@@ -227,7 +227,7 @@ routes = [
             app.dialog.progress();
             // $.get(rootURL + "/hosted_app-V2/getDirections.php?Origin=CHLA&Destination=SGGA&time=8-11-2018%2020%3A04", function (data) {
             console.log(formData);
-            $.get(rootURL + "/hosted_app-V2/getDirections.php?" + $('#directionForm').serialize(), function (data) {
+            $.get(rootURL + "/hosted_app-V2/getDirections.php?" + $('#directionForm').serialize() + "&_=" + new Date().getTime(), function (data) {
                 var j = (data);
                 $("#directionsMap").attr("src", j.initMap);
                 for (var i = 0; i < j.routes.length; i++) {
@@ -284,7 +284,7 @@ routes = [
     on: {
         pageInit: function (e, page) {
             app.dialog.progress();
-            $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions", function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?disruptions" + "&_=" + new Date().getTime(), function (data) {
                 var j = JSON.parse(data);
                 document.getElementById("disurptions").innerHTML = "";
                 for (var i = 0; i < j.length; i++) {
@@ -328,15 +328,17 @@ routes = [
                 }
             }
             // $.get("http://cityrunner-server.genav.ga/TPG/?dc=" + currentDeparture, function (data) {
-            $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture, function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?dc=" + currentDeparture + "&_=" + new Date().getTime(), function (data) {
                 setCookie("lastDeparture", currentDeparture, 18250);
                 console.log(data);
                 document.getElementById("depVCImg")  .setAttribute("src", data.vehicleImage);
                 document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
                 document.getElementById("depConnMap").src = data.platformImage;
-                document.getElementById("nav").style.color = "#" + data.textCol;
-                document.getElementById("nav").style.background = "#" + data.backCol;
-                document.getElementById("nav").style.background = "#" + data.backCol;
+                if (document.getElementById("nav") != null) {
+                    document.getElementById("nav").style.color = "#" + data.textCol;
+                    document.getElementById("nav").style.background = "#" + data.backCol;
+                    document.getElementById("nav").style.background = "#" + data.backCol;
+                }
                 document.getElementById("title").innerHTML = data.lineCode + " &nbsp;&nbsp;<i style=\"position: relative; top: 4px;\" class=\"f7-icons\">arrow_right</i>&nbsp;&nbsp; " + data.destination;
                 document.getElementById("vehicleNo").innerHTML = data.vehicle;
                 document.getElementById("platformNo").innerHTML = data.platformNo;
@@ -356,63 +358,22 @@ routes = [
                 $$('#depConnMap').on('click', function () {
                     PbDepConnMap.open();
                 });
+                var template = $$('#depsList1').html();
 
-                var virtualList = app.virtualList.create({
-                    // List Element
-                    el: '.virtual-list-Steps',
-                    // Pass array with items
-                    items: data.steps,
-                    // Custom search function for searchbar
-                    searchAll: function (query, items) {
-                        var found = [];
-                        for (var i = 0; i < items.length; i++) {
-                            if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                        }
-                        return found; //return array with mathced indexes
-                    },
-                    // List item Template7 template
-                    itemTemplate:
-                        '<li>' +
-                        '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
-                        '<div class="item-inner">' +
-                        '<div class="item-title-row">' +
-                        '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
-                        '<div class="item-after">{{arrivalTime}}</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</a>' +
-                        '</li>',
-                    // Item height
-                    height: app.theme === 'ios' ? 63 : 73,
-                });
-                var virtualList2 = app.virtualList.create({
-                    // List Element
-                    el: '.virtual-list-Steps2',
-                    // Pass array with items
-                    items: data.steps,
-                    // Custom search function for searchbar
-                    searchAll: function (query, items) {
-                        var found = [];
-                        for (var i = 0; i < items.length; i++) {
-                            if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-                        }
-                        return found; //return array with mathced indexes
-                    },
-                    // List item Template7 template
-                    itemTemplate:
-                        '<li>' +
-                        '<a href="/stop/?s={{stopCode}}" onclick="currentStop = \'{{stopCode}}\'" class="item-link item-content {{disabled}}">' +
-                        '<div class="item-inner">' +
-                        '<div class="item-title-row">' +
-                        '<div class="item-title">{{stopName}} - {{stopCode}}</div>' +
-                        '<div class="item-after">{{time}}</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</a>' +
-                        '</li>',
-                    // Item height
-                    height: app.theme === 'ios' ? 63 : 73,
-                });
+// compile it with Template7
+                var compiledTemplate = Template7.compile(template);
+
+// Now we may render our compiled template by passing required context
+                var html = compiledTemplate(data);
+                $$('#depsList1Container').html(html);
+                template = $$('#depsList2').html();
+
+// compile it with Template7
+                compiledTemplate = Template7.compile(template);
+
+// Now we may render our compiled template by passing required context
+                html = compiledTemplate(data);
+                $$('#depsList2Container').html(html);
                 app.dialog.close();
             });
         }
@@ -424,7 +385,7 @@ routes = [
     on: {
         pageInit: function (e, page) {
             app.dialog.progress();
-            $.get(rootURL + "/hosted_app-V2/processODAPI.php?Fstops&u=" + uid, function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?Fstops&u=" + uid + "&_=" + new Date().getTime(), function (data) {
                 var j = JSON.parse(data);
                 var virtualList = app.virtualList.create({
                     // List Element
@@ -453,7 +414,7 @@ routes = [
                     '</a>' +
                     '</li>',
                     // Item height
-                    height: app.theme === 'ios' ? 63 : 73,
+                    height: app.theme === 'ios' ? 95 : 105,
                 });
                 app.dialog.close();
             });
@@ -482,7 +443,7 @@ routes = [
                 }
             }
             // var query = getQueryParams(document.location.search);
-            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop, function (data) {
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stop&s=" + currentStop + "&_=" + new Date().getTime(), function (data) {
                 setCookie("lastStop",currentStop, 18250);
                 var j = JSON.parse(data);
                 document.getElementById("stopTitle").innerHTML = j.stop.stopName + " - " + j.stop.stopCode;
@@ -517,7 +478,7 @@ routes = [
                 console.log(j);
                 app.dialog.close();
             });
-            $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&isFav&s=" + currentStop, function (data) {
+            $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&isFav&s=" + currentStop + "&_=" + new Date().getTime(), function (data) {
                if (data == "true") {
                    $("#favButton").click(function () {
                        $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&deleteFav&s=" + currentStop, function () {
