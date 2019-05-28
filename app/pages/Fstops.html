@@ -28,8 +28,8 @@
                 </a>
             </div>
         </div>
-    </div>
-        <div class="subnavbar">
+
+        <div class="subnavbar md-only">
             <form data-search-container=".virtual-list-Fstops" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
                 <div class="searchbar-inner">
                     <div class="searchbar-input-wrap">
@@ -42,9 +42,21 @@
             </form>
         </div>
     </div>
-  </div>
     <div class="searchbar-backdrop"></div>
   <div class="page-content">
+
+      <div class="subnavbar ios-only">
+          <form data-search-container=".virtual-list-Fstops" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
+              <div class="searchbar-inner">
+                  <div class="searchbar-input-wrap">
+                      <input type="search" placeholder="Search"/>
+                      <i class="searchbar-icon"></i>
+                      <span class="input-clear-button"></span>
+                  </div>
+                  <span class="searchbar-disable-button">Cancel</span>
+              </div>
+          </form>
+      </div>
       <div class="list simple-list searchbar-not-found">
           <ul>
               <li>Nothing found</li>

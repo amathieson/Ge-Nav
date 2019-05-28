@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <!--
@@ -31,6 +31,7 @@
   <meta name="theme-color" content="#f44336">
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="GéNav is the new app to travel around Geneva.">
   <title>G&eacute;Nav - Geneva</title>
 
   <link rel="stylesheet" href="framework7/css/framework7.min.css">
@@ -271,7 +272,7 @@
       <!-- Page, data-name contains page name which can be used in callbacks -->
       <div class="page" data-name="home">
         <!-- Top Navbar -->
-        <div class="navbar">
+        <nav class="navbar">
           <div class="navbar-inner">
             <div class="left">
               <a href="#" class="link icon-only panel-open md-only" data-panel="left">
@@ -296,9 +297,9 @@
               </a>
             </div>
           </div>
-        </div>
+        </nav>
         <!-- Scrollable page content-->
-        <div class="page-content">
+        <main class="page-content">
           <div class="block">
               <div class="row">
                     <img src="" id="iodt" class="col-100 tablet-45" style="margin: auto; max-height: 500px;" alt="Image of the day">
@@ -320,7 +321,7 @@
                 <ul id="favsHome">
                 </ul>
             </div>
-        </div>
+        </main>
       </div>
       <div class="popover popover-links">
         <div class="popover-inner">
@@ -328,8 +329,17 @@
             <ul>
               <!--<li><a class="list-button item-link" href="#">Link 1</a></li>-->
               <!--<li><a class="list-button item-link" href="#">Link 2</a></li>-->
-              <!--<li><a class="list-button item-link" href="#">Link 3</a></li>-->
-              <li><a class="item-link list-button disabled" style="color: inherit;" href="#">G&eacute;Nav V1.0.8b</a></li>
+              <li><label class="item-checkbox item-content">
+                <!-- Checkbox input -->
+                <input type="checkbox" onchange="$('#app').toggleClass('theme-dark');"/>
+                <!-- Checkbox icon -->
+                <i class="icon icon-checkbox"></i>
+                <div class="item-inner">
+                  <!-- Checkbox Title -->
+                  <div class="item-title">Dark Mode</div>
+                </div>
+              </label></li>
+              <li><a class="item-link list-button disabled" style="color: inherit;" href="#">G&eacute;Nav V1.1.1b</a></li>
             </ul>
           </div>
         </div>
@@ -351,5 +361,16 @@
 
   <!-- Your custom app scripts -->
   <script src="js/app.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114067400-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-114067400-1');
+  </script>
+
 </body>
 </html>

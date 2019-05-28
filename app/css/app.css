@@ -68,3 +68,18 @@
   width: 28px;
   position: sticky;
 }
+@keyframes slide {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -150%;
+  }
+}
+.scroller {
+  width: 100%;
+  height: 18px;
+  background-repeat: repeat;
+  background-size: auto;
+  animation: 10s linear infinite slide;
+}

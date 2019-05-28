@@ -7,7 +7,7 @@ var currentVehicle;
 var gkhead = new Image;
 var city = "Geneva";
 var rootURL = "https://cityrunner-server.genav.ch";
-// var rootURL = "..";
+//var rootURL = "..";
 routes = [
   {
     path: '/',
@@ -102,6 +102,10 @@ routes = [
                     $("#constroction")[0].innerHTML = data.Year_of_construction_if_found;
                     $("#comment")[0].innerHTML = data.Comment;
                     $("#vehicle")[0].innerHTML = currentVehicle;
+                    // for (var i = 0; i < data.pictures.images.length; i++) {
+                    //     $("#images").append("<div class=\"swiper-slide vinfo-slides\"><img style=\"display: block; margin: auto; width: 100%; max-width: 1080px; vertical-align: middle;\" src=\"" + data.pictures.images[i] + "\"/></div>");
+                    // }
+                    var swiper = app.swiper.create('.swiper-container', {});
                     var vinfoPB = app.photoBrowser.create({
                         photos : data.pictures.images,
                         type: 'popup'
@@ -120,7 +124,23 @@ routes = [
     url: './pages/directions.html',
     on: {
         pageInit: function (e, page) {
-            var today = new Date();
+            app.dialog.progress();
+            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops" + "&_=" + new Date().getTime(), function (data) {
+                var j = JSON.parse(data);
+                var list = "<option value=\"\" disabled selected>Please Select A Stop</option>";
+                for (var i = 0; i < j.length; i++) {
+                    list += "<option value=\"" + j[i].stopCode + "\">" + j[i].stopName + " - " + j[i].stopCode + "</option>\n";
+                }
+                document.getElementById("orrList").innerHTML = list;
+                document.getElementById("destList").innerHTML = list;
+                $$('form.form-ajax-submit').on('formajax:success', function (e) {
+                    var xhr = e.detail.xhr; // actual XHR object
+
+                    var data = e.detail.data; // Ajax response from action file
+                    // do something with response data
+                    alert ("done" + xhr);
+                });
+				var today = new Date();
             var pickerInline = app.picker.create({
                 inputEl: '#picker-date',
                 toolbar: true,
@@ -188,32 +208,8 @@ routes = [
                         })(),
                         width: 64
                     }
-                ],
-                on: {
-                    change: function (picker, values, displayValues) {
-                        var daysInMonth = new Date(picker.value[2], picker.value[0]*1 + 1, 0).getDate();
-                        if (values[1] > daysInMonth) {
-                            picker.cols[1].setValue(daysInMonth);
-                        }
-                    },
-                }
+                ]
             });
-            app.dialog.progress();
-            $.get(rootURL + "/hosted_app-V2/processODAPI.php?stops" + "&_=" + new Date().getTime(), function (data) {
-                var j = JSON.parse(data);
-                var list = "<option value=\"\" disabled selected>Please Select A Stop</option>";
-                for (var i = 0; i < j.length; i++) {
-                    list += "<option value=\"" + j[i].stopCode + "\">" + j[i].stopName + " - " + j[i].stopCode + "</option>\n";
-                }
-                document.getElementById("orrList").innerHTML = list;
-                document.getElementById("destList").innerHTML = list;
-                $$('form.form-ajax-submit').on('formajax:success', function (e) {
-                    var xhr = e.detail.xhr; // actual XHR object
-
-                    var data = e.detail.data; // Ajax response from action file
-                    // do something with response data
-                    alert ("done" + xhr);
-                });
                 app.dialog.close();
             });
         }
@@ -229,7 +225,7 @@ routes = [
             console.log(formData);
             $.get(rootURL + "/hosted_app-V2/getDirections.php?" + $('#directionForm').serialize() + "&_=" + new Date().getTime(), function (data) {
                 var j = (data);
-                $("#directionsMap").attr("src", j.initMap);
+                changeMap(j.initMap);
                 for (var i = 0; i < j.routes.length; i++) {
                     var steps = "";
                     for (var ii = 0; ii < j.routes[i].steps.length; ii++ ) {
@@ -259,7 +255,7 @@ routes = [
                         "                      </div>\n" +
                         "                  </li>";
                     }
-                    $("#directionsSteps").append("<li class=\"accordion-item\"><a onclick='$(\"#directionsMap\").attr(\"src\", \"" + j.routes[i].map + "\");' href=\"#\" class=\"item-content item-link\">\n" +
+                    $("#directionsSteps").append("<li class=\"accordion-item\"><a onclick='changeMap(\"" + j.routes[i].map + "\");' href=\"#\" class=\"item-content item-link\">\n" +
                     "                      <div class=\"item-inner\">\n" +
                     "                          <div class=\"item-title\">" + j.routes[i].stops + "</div>\n" +
                     "                          <div class='item-after'>" + j.routes[i].time + "</div>" +
@@ -274,6 +270,11 @@ routes = [
                     "                  </li>");
                     app.dialog.close();
                 }
+            }).fail(function() {
+                app.dialog.close();
+                app.dialog.alert("There was an error finding directions between those stops at the specified time, please try again. If this problem persists, contact support or try with different stops.","Directions", function () {
+                    app.router.navigate('/directions/');
+                });
             });
         }
     }
@@ -335,9 +336,17 @@ routes = [
                 document.getElementById("depVCImg")  .style.background = "url('" + data.vehicleImageT + "')";
                 document.getElementById("depConnMap").src = data.platformImage;
                 if (document.getElementById("nav") != null) {
+                    var backBtn = window.btoa("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z' fill='#" + data.textCol + "'/></svg>");
+                    document.getElementById("backNav").style.backgroundImage = "url('data:image/svg+xml;base64," + backBtn + "')";
                     document.getElementById("nav").style.color = "#" + data.textCol;
                     document.getElementById("nav").style.background = "#" + data.backCol;
                     document.getElementById("nav").style.background = "#" + data.backCol;
+                } else {
+                    document.getElementsByClassName("navbar-current")[0].style.background = "#" + data.backCol;
+                    document.getElementsByClassName("navbar-current")[0].style.color = "#" + data.textCol;
+                    document.getElementById("iosBack").style.color = "#" + data.textCol;
+                    document.getElementById("iosStops").style.color = "#" + data.textCol;
+                    document.getElementById("iosMenu").style.color = "#" + data.textCol;
                 }
                 document.getElementById("title").innerHTML = data.lineCode + " &nbsp;&nbsp;<i style=\"position: relative; top: 4px;\" class=\"f7-icons\">arrow_right</i>&nbsp;&nbsp; " + data.destination;
                 document.getElementById("vehicleNo").innerHTML = data.vehicle;
@@ -346,8 +355,6 @@ routes = [
                 document.getElementById("destinationName").innerHTML = data.destination;
                 document.getElementById("stopDATT").innerHTML = data.stopDATT;
                 document.getElementById("vcDATT").innerHTML = data.vcDATT;
-                var backBtn = window.btoa("<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z' fill='#" + data.textCol + "'/></svg>");
-                document.getElementById("backNav").style.backgroundImage = "url('data:image/svg+xml;base64," + backBtn + "')";
                 PbDepConnMap = app.photoBrowser.create({
                     photos : [
                         data.platformImage,
@@ -469,6 +476,7 @@ routes = [
                     '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}}">{{vehicle}}</span>&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
                     '<div class="item-after"style="color: #{{txtCol}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
                     '</div>' +
+                    '{{#unless disruption}}{{#if scroller}}<div class="item-subtitle tablet-only scroller" style="background-image: url(' + "'https://app.genav.ch/hosted_app-V2/scroller.php?t={{scroller}}&c={{txtCol}}" + "&_=" + new Date().getTime() + "'" + ');"></div>{{/if}}{{else}}<div class="item-subtitle scroller" style="background-image: url(' + "'https://app.genav.ch/hosted_app-V2/scroller.php?t={{disruption}}&c={{txtCol}}" + "&_=" + new Date().getTime() + "'" + ');"></div>{{/unless}}' +
                     '</div>' +
                     '</a>' +
                     '</li>',
@@ -479,20 +487,36 @@ routes = [
                 app.dialog.close();
             });
             $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&isFav&s=" + currentStop + "&_=" + new Date().getTime(), function (data) {
-               if (data == "true") {
+                function fav() {
+                    $("#favButton").click(function () {
+                        $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&deleteFav&s=" + currentStop, function () {
+                            notFav();
+                        });
+                    });
+                    $("#favButton").html("<i class=\"icon material-icons\">favorite</i>");
+                }
+                function notFav() {
+                    $("#favButton").click(function () {
+                        $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&addFav&s=" + currentStop, function () {
+                            fav();
+                        });
+                    });
+                    $("#favButton").html("<i class=\"icon material-icons\">favorite_border</i>");
+                }
+               if (data === "true") {
                    $("#favButton").click(function () {
                        $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&deleteFav&s=" + currentStop, function () {
-
+                           notFav();
                        });
                    });
-                   $("#favButton").innerHTML = "<i class=\"icon f7-icons\">heart_fill</i>";
+                   $("#favButton").html("<i class=\"icon material-icons\">favorite</i>");
                } else {
                    $("#favButton").click(function () {
                        $.get(rootURL + "/hosted_app-V2/users.php?u=" + uid + "&addFav&s=" + currentStop, function () {
-
+                           fav();
                        });
                    });
-                   $("#favButton").innerHTML = "<i class=\"icon f7-icons\">heart</i>";
+                   $("#favButton").html("<i class=\"icon material-icons\">favorite_border</i>");
                }
             });
         }

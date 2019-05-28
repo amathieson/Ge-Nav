@@ -221,6 +221,7 @@ function loop() {
                     '<div class="item-title">{{line}}&nbsp;&nbsp;<i style="position: relative; top: 4px;" class="f7-icons">arrow_right</i>&nbsp;&nbsp;{{destination}}&nbsp;<span onclick="event.preventDefault(); vehiclePopover({{vehicle}}, event); return false;" class="badge color-{{#if pink}}pink{{else}}red{{/if}}">{{vehicle}}</span>&nbsp;<i class="material-icons wifi">{{wifi}}</i>&nbsp;<i class="material-icons wifi">{{USB}}</i>{{DATTO}}{{DATTM}}</div>' +
                     '<div class="item-after"style="color: #{{txtCol}};">{{#if arrived}}<i class="material-icons blinker">directions_bus</i>{{else}}{{time}}{{/if}}</div>' +
                     '</div>' +
+                    '{{#unless disruption}}{{#if scroller}}<div class="item-subtitle tablet-only scroller" style="background-image: url(' + "'https://app.genav.ch/hosted_app-V2/scroller.php?t={{scroller}}&c={{txtCol}}" + "&_=" + new Date().getTime() + "'" + ');"></div>{{/if}}{{else}}<div class="item-subtitle scroller" style="background-image: url(' + "'https://app.genav.ch/hosted_app-V2/scroller.php?t={{disruption}}&c={{txtCol}}" + "&_=" + new Date().getTime() + "'" + ');"></div>{{/unless}}' +
                     '</div>' +
                     '</a>' +
                     '</li>',
@@ -543,4 +544,16 @@ function parse_query_string(query) {
         }
     }
     return query_string;
+}
+
+function changeMap(src) {
+    $("#images").html("<div class=\"swiper-slide vinfo-slides\"><img style=\"display: block; margin: auto; width: 100%; max-width: 1080px; vertical-align: middle;\" src=\"" + src + "\"/></div>");
+    // var swiper = app.swiper.create('.swiper-container', {});
+    var vinfoPB = app.photoBrowser.create({
+        photos: [src],
+        type: 'popup'
+    });
+    $$('.vinfo-slides').on('click', function () {
+        vinfoPB.open();
+    });
 }

@@ -77,8 +77,8 @@
                               <a href="/stop/?s={{stopCode}}" onclick="currentStop = '{{stopCode}}'" class="item-content {{disabled}}">
                                   <div class="item-inner">
                                       <div class="item-title-row" style="width: 100%;">
-                                          <div class="item-title">{{stopName}} - {{stopCode}}</div>
-                                          <div class="item-after">{{arrivalTime}}</div>
+                                          <div class="item-title" {{strike}}>{{stopName}} - {{stopCode}}</div>
+                                          <div class="item-after" {{strike}}>{{arrivalTime}}</div>
                                           </div>
                                       </div>
                                   </a>
@@ -100,8 +100,8 @@
                               <a href="/stop/?s={{stopCode}}" onclick="currentStop = '{{stopCode}}'" class="item-content {{disabled}}">
                                   <div class="item-inner">
                                       <div class="item-title-row" style="width: 100%;">
-                                          <div class="item-title">{{stopName}} - {{stopCode}}</div>
-                                          <div class="item-after">{{time}}</div>
+                                          <div class="item-title" {{strike}}>{{stopName}} - {{stopCode}}</div>
+                                          <div class="item-after" {{strike}}>{{time}}</div>
                                       </div>
                                   </div>
                               </a>
